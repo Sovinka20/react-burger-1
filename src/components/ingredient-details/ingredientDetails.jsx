@@ -1,7 +1,8 @@
-import PropTypes from "prop-types";
+import { ingridientPropType } from "../../data/propType";
 import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ data }) => {
+  console.log(data);
   return (
     <div className={styles.container}>
       <h3 className="text text_type_main-large mt-10 mb-4">
@@ -48,7 +49,32 @@ const IngredientDetails = ({ data }) => {
 };
 
 IngredientDetails.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: ingridientPropType,
 };
+/*
+PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["bun", "sauce", "main"]).isRequired,
+  proteins: PropTypes.number.isRequired,
+  fat: PropTypes.number.isRequired,
+  carbohydrates: PropTypes.number.isRequired,
+  calories: PropTypes.number.isRequired,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  image_mobile: PropTypes.string.isRequired,
+  image_large: PropTypes.string.isRequired,
+}).isRequired;
+
+https://ru.react.js.org/docs/typechecking-with-proptypes.html
+
+Объект с определённой структорой
+
+optionalObjectWithShape: PropTypes.shape({
+    color: PropTypes.string,
+    fontSize: PropTypes.number
+  }),
+
+*/
 
 export default IngredientDetails;
