@@ -1,24 +1,57 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import AppHeader from "./components/app-header/appHeader.jsx";
+import AppHeader from "./components/app-header/appHeader";
 import BurgerConstructor from "./components/burger-constructor/burgerConstructor";
-import BurgerIngredients from "./components/burger-ingredient/burgerIngredient";
+import BurgerIngredients from "./components/burger-ingredients/burgerIngredients";
+import Modal from "./components/modal/modal";
 import api from "./data/api";
 
 function App() {
+  const [isOpenPopupIngredients, setIsOpenPopupIngredients] = useState(false);
+  const [isOpenPopupOrder, setIsOpenPopupOrder] = useState(false);
+
+  const [isOpenPopupError, setIsOpenPopupError] = useState(false);
+  // Состояние оповещения об ошибке при получении данных с сервера
+  const [errorMessageApi, setErrorMessageApi] = useState(
+    "В процессе получения данных произошла ошибка."
+  );
+  // Данные с Api
+  const [ingredientData, setIngredientData] = useState({});
   const [apiData, setApiData] = useState([]);
 
   useEffect(() => {
     api
       .getData()
-      .then((result) => {
-        setApiData(result.data);
+      .then((res) => {
+        setApiData(res.data);
       })
-      .catch((error) => {
-        console.log("В процессе получения данных произошла ошибка.");
+      .catch((err) => {
+        setErrorMessageApi("В процессе получения данных произошла ошибка.");
+        setIsOpenPopupError(true);
       });
   }, []);
 
+  function handlerModelClose(e) {
+    e.stopPropagation();
+    if (
+      e.target.dataset.overlay === "overlay" ||
+      e.currentTarget.type === "button" ||
+      e.key === "Escape"
+    ) {
+      setIsOpenPopupIngredients(false);
+      setIsOpenPopupOrder(false);
+      setIsOpenPopupError(false);
+    }
+  }
+
+  const handlerModelOpen = (model, data) => {
+    if (model === "ingridients") {
+      setIngredientData(data);
+      setIsOpenPopupIngredients(true);
+    } else {
+      setIsOpenPopupOrder(true);
+    }
+  };
   return (
     <div className="App">
       <header className="header">
@@ -26,10 +59,28 @@ function App() {
       </header>
       <div className="wrapper">
         <main className="main">
-          <BurgerIngredients ingredients={apiData} />
-          <BurgerConstructor ingredients={apiData} />
+          <BurgerIngredients
+            ingredients={apiData}
+            handlerModelOpen={handlerModelOpen}
+            isOpenPopupIngredients={isOpenPopupIngredients}
+            handlerModelClose={handlerModelClose}
+            ingredientData={ingredientData}
+          />
+          <BurgerConstructor
+            ingredients={apiData}
+            handlerModelOpen={handlerModelOpen}
+            isOpenPopupOrder={isOpenPopupOrder}
+            handlerModelClose={handlerModelClose}
+          />
         </main>
       </div>
+      {isOpenPopupError && (
+        <Modal handlerModelClose={handlerModelClose}>
+          <p className="messageErrorText text_type_main-large">
+            {errorMessageApi}
+          </p>
+        </Modal>
+      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 const URL = "https://norma.nomoreparties.space/api/ingredients";
+
 class Api {
   constructor(urlApi) {
     this.urlApi = urlApi;

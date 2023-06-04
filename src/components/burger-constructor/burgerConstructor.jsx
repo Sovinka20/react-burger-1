@@ -1,13 +1,22 @@
+import PropTypes from "prop-types";
+import { ingridientPropType } from "../../data/propType";
+import image from "../../images/price.svg";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/orderDetails";
+import styles from "./burger-constructor.module.css";
+
 import {
   Button,
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import image from "../../images/price.svg";
-import styles from "./burger-constructor.module.css";
 
-const BurgerConstructor = ({ ingredients }) => {
+const BurgerConstructor = ({
+  ingredients,
+  handlerModelOpen,
+  isOpenPopupOrder,
+  handlerModelClose,
+}) => {
   return (
     <section className={`${styles.section}`}>
       <div
@@ -27,9 +36,9 @@ const BurgerConstructor = ({ ingredients }) => {
         />
 
         <ul className={`${styles.list} custom-scroll`}>
-          {ingredients.map((item, index) => {
+          {ingredients.map((item) => {
             return (
-              <li className={`${styles.listItem}`} key={index}>
+              <li className={`${styles.listItem}`} key={item._id}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   text={item.name}
@@ -56,15 +65,26 @@ const BurgerConstructor = ({ ingredients }) => {
           </span>
           <img src={image} alt="" />
         </div>
-        <Button htmlType="button" type="primary" size="large">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          onClick={handlerModelOpen}
+        >
           Оформить заказ
         </Button>
       </div>
+      {isOpenPopupOrder && (
+        <Modal handlerModelClose={handlerModelClose}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.array,
+  ingredients: PropTypes.arrayOf(ingridientPropType).isRequired,
+  handlerModelOpen: PropTypes.func.isRequired,
 };
 export default BurgerConstructor;
