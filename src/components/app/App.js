@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import api from "../../data/api";
+import AppHeader from "../app-header/appHeader";
+import BurgerConstructor from "../burger-constructor/burgerConstructor";
+import BurgerIngredients from "../burger-ingredients/burgerIngredients";
+import Modal from "../modal/modal";
 import "./App.css";
-import AppHeader from "./components/app-header/appHeader";
-import BurgerConstructor from "./components/burger-constructor/burgerConstructor";
-import BurgerIngredients from "./components/burger-ingredients/burgerIngredients";
-import Modal from "./components/modal/modal";
-import api from "./data/api";
 
 function App() {
   const [isOpenPopupIngredients, setIsOpenPopupIngredients] = useState(false);

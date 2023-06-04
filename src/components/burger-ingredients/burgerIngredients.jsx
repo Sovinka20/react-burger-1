@@ -66,7 +66,10 @@ const BurgerIngredients = ({
       <h1 className={`mt-10 mb-10 text text_type_main-large`}>
         Соберите бургер
       </h1>
-      <div style={{ display: "flex" }} className="mb-10">
+      <div
+        //</section>style={{ display: "flex" }}
+        className={`mb-10 ${styles.div}`}
+      >
         <Tab value="bun" active={current === "bun"} onClick={onTabClick}>
           Булки
         </Tab>

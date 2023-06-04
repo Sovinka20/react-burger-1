@@ -15,22 +15,25 @@ const Modal = ({ children, handlerModelClose }) => {
     return () => {
       document.removeEventListener("keydown", closePopup);
     };
-  });
+  }, [handlerModelClose]);
+  // Дополнить useEffect
 
   return (
-    <ModalOverlay handlerModelClose={handlerModelClose}>
-      <div className={styles.modal}>
-        <button
-          data-close="close"
-          type="button"
-          className={styles.icon}
-          onClick={handlerModelClose}
-        >
-          <CloseIcon type="primary" />
-        </button>
-        {children}
-      </div>
-    </ModalOverlay>
+    <>
+      <ModalOverlay handlerModelClose={handlerModelClose}>
+        <div className={styles.modal}>
+          <button
+            data-close="close"
+            type="button"
+            className={styles.icon}
+            onClick={handlerModelClose}
+          >
+            <CloseIcon type="primary" />
+          </button>
+          {children}
+        </div>
+      </ModalOverlay>
+    </>
   );
 };
 

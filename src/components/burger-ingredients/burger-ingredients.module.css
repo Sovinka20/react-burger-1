@@ -14,3 +14,7 @@
   overflow-y: scroll;
   height: 530px;
 }
+
+.div {
+  display: flex;
+}

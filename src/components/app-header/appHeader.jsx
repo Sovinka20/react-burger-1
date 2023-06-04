@@ -15,8 +15,8 @@ const AppHeader = () => {
             <a href="/" className={styles.menuLink}>
               <BurgerIcon type="primery" />
               <span
-                style={{ color: "white" }}
-                className={`text text_type_main-default pl-2`}
+                //style={{ color: "white" }}
+                className={`text text_type_main-default pl-2 ${styles.span}`}
               >
                 Конструктор
               </span>

@@ -20,12 +20,13 @@ const BurgerConstructor = ({
   return (
     <section className={`${styles.section}`}>
       <div
-        style={{
+        /* style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "end",
           gap: "16px",
-        }}
+        }}*/
+        className={`${styles.div}`}
       >
         <ConstructorElement
           type="top"
