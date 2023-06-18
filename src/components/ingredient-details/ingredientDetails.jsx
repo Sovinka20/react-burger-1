@@ -1,8 +1,9 @@
+import { useSelector } from "react-redux";
 import { ingridientPropType } from "../../data/propType";
 import styles from "./ingredient-details.module.css";
 
-const IngredientDetails = ({ data }) => {
-  console.log(data);
+const IngredientDetails = () => {
+  const data = useSelector((state) => state.IngredientDetails.ingredient);
   return (
     <div className={styles.container}>
       <h3 className="text text_type_main-large mt-10 mb-4">

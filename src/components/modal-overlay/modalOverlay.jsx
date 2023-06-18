@@ -5,7 +5,7 @@ const modalRoot = document.body;
 //document.getElementById("modal-portal");
 
 /*
-    В документации приведё следующий пример:
+    В документации приведён следующий пример:
 
     https://react.dev/reference/react-dom/createPortal
 
@@ -32,5 +32,6 @@ const ModalOverlay = ({ children, handlerModelClose }) => {
 
 ModalOverlay.propTypes = {
   children: PropTypes.element,
+  handlerModelClose: PropTypes.func.isRequired,
 };
 export default ModalOverlay;

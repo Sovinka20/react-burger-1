@@ -1,4 +1,4 @@
-const URL = "https://norma.nomoreparties.space/api/ingredients";
+export const BASE_URL = "https://norma.nomoreparties.space/api";
 
 class Api {
   constructor(urlApi) {
@@ -22,6 +22,8 @@ class Api {
   }
 }
 
-const api = new Api(URL);
+export const api = new Api(BASE_URL);
 
-export default api;
+export const checkResponse = (res) => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};

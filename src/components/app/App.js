@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../../data/api";
+import { api } from "../../data/api";
 import AppHeader from "../app-header/appHeader";
 import BurgerConstructor from "../burger-constructor/burgerConstructor";
 import BurgerIngredients from "../burger-ingredients/burgerIngredients";
