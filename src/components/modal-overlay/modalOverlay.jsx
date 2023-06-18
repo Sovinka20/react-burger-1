@@ -2,20 +2,6 @@ import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import styles from "./modal-overlay.module.css";
 const modalRoot = document.body;
-//document.getElementById("modal-portal");
-
-/*
-    В документации приведён следующий пример:
-
-    https://react.dev/reference/react-dom/createPortal
-
-    createPortal(children, domNode, key?)
-
-    <div>
-  <SomeComponent />
-  {createPortal(children, domNode, key?)}
-</div>
-*/
 
 const ModalOverlay = ({ children, handlerModelClose }) => {
   return createPortal(

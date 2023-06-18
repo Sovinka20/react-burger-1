@@ -12,9 +12,7 @@ import {
 } from "../../../services/actions/burgerConstructorReducer";
 
 const DragCard = ({ styles, item, id, index }) => {
-  const cards = useSelector(
-    (state) => state.BurgerConstructorReducer.ingredients
-  );
+  const cards = useSelector((state) => state.burgerConstructor.ingredients);
   const dispatch = useDispatch();
 
   const moveCard = (dragIndex, hoverIndex) => {

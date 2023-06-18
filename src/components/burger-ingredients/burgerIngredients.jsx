@@ -1,10 +1,8 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useEffect } from "react";
-import styles from "./burger-ingredients.module.css";
-//import PropTypes from "prop-types";
-//import { ingridientPropType } from "../../utils/propType";
 import { useInView } from "react-intersection-observer";
 import { useSelector } from "react-redux";
+import styles from "./burger-ingredients.module.css";
 
 import { useDispatch } from "react-redux";
 import { clearIngredient } from "../../services/actions/ingredientDetails";
@@ -27,11 +25,11 @@ const BurgerIngredients = () => {
   );
 
   const BurgerConstructorList = useSelector(
-    (state) => state.BurgerConstructorReducer.ingredients
+    (state) => state.burgerConstructor.ingredients
   );
 
   const BurgerConstructorBun = useSelector(
-    (state) => state.BurgerConstructorReducer.bun
+    (state) => state.burgerConstructor.bun
   );
 
   const [bunsRef, inViewBuns, bunElement] = useInView({
@@ -147,7 +145,7 @@ const BurgerIngredients = () => {
       <h1 className={`mt-10 mb-10 text text_type_main-large`}>
         Соберите бургер
       </h1>
-      <div style={{ display: "flex" }} className="mb-10">
+      <div className={`${styles.div} mb-10`}>
         <Tab value="bun" active={current === "bun"} onClick={onTabClick}>
           Булки
         </Tab>
@@ -201,14 +199,4 @@ const BurgerIngredients = () => {
   );
 };
 
-// BurgerIngredients.propTypes = {
-//   ingredients: PropTypes.arrayOf(ingridientPropType).isRequired,
-//   handlerModelOpen: PropTypes.func.isRequired,
-// };
-
 export default BurgerIngredients;
-
-// BurgerIngredients.propTypes = {
-//   ingredients: PropTypes.arrayOf(ingridientPropType).isRequired,
-//   handlerModelOpen: PropTypes.func.isRequired,
-// };

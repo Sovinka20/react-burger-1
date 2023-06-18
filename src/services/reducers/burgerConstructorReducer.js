@@ -11,7 +11,7 @@ const initialState = {
   isDrag: false,
 };
 
-export const BurgerConstructorReducer = (state = initialState, action) => {
+export const burgerConstructor = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
       return { ...state, ingredients: [...state.ingredients, action.peyload] };

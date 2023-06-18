@@ -16,7 +16,6 @@ const Modal = ({ children, handlerModelClose }) => {
       document.removeEventListener("keydown", closePopup);
     };
   }, [handlerModelClose]);
-  // Дополнить useEffect
 
   return (
     <>

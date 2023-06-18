@@ -29,25 +29,23 @@ const BurgerConstructor = () => {
     (state) => state.popupOrderReducer.isOpenCloseOrder
   );
   const BurgerConstructorList = useSelector(
-    (state) => state.BurgerConstructorReducer.ingredients
+    (state) => state.burgerConstructor.ingredients
   );
-  const BurgerConsructorBun = useSelector(
-    (state) => state.BurgerConstructorReducer.bun
+  const BurgerConstructorBun = useSelector(
+    (state) => state.burgerConstructor.bun
   );
-  const elementDrag = useSelector(
-    (state) => state.BurgerConstructorReducer.isDrag
-  );
+  const elementDrag = useSelector((state) => state.burgerConstructor.isDrag);
   const borderColor = elementDrag ? "#4c4cff" : "#000";
 
   const dispatch = useDispatch();
 
   const handelPost = () => {
     let ingredientsIdList = BurgerConstructorList.map((item) => item._id);
-    if (BurgerConsructorBun) {
+    if (BurgerConstructorBun) {
       ingredientsIdList = [
-        BurgerConsructorBun._id,
+        BurgerConstructorBun._id,
         ...ingredientsIdList,
-        BurgerConsructorBun._id,
+        BurgerConstructorBun._id,
       ];
     } else {
       ingredientsIdList = [...ingredientsIdList];
@@ -92,29 +90,21 @@ const BurgerConstructor = () => {
 
   const price = React.useMemo(() => {
     return (
-      (BurgerConsructorBun ? BurgerConsructorBun.price * 2 : 0) +
+      (BurgerConstructorBun ? BurgerConstructorBun.price * 2 : 0) +
       BurgerConstructorList.reduce((sum, value) => sum + value.price, 0)
     );
-  }, [BurgerConsructorBun, BurgerConstructorList]);
+  }, [BurgerConstructorBun, BurgerConstructorList]);
 
   return (
     <section className={`${styles.section}`}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "end",
-          gap: "16px",
-        }}
-        ref={dropRef}
-      >
-        {BurgerConsructorBun ? (
+      <div className={`${styles.sectionDiv}`} ref={dropRef}>
+        {BurgerConstructorBun ? (
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={BurgerConsructorBun && `${BurgerConsructorBun.name} (верх)`}
-            price={BurgerConsructorBun && BurgerConsructorBun.price}
-            thumbnail={BurgerConsructorBun && BurgerConsructorBun.image}
+            text={BurgerConstructorBun && `${BurgerConstructorBun.name} (верх)`}
+            price={BurgerConstructorBun && BurgerConstructorBun.price}
+            thumbnail={BurgerConstructorBun && BurgerConstructorBun.image}
           />
         ) : (
           <BurgerConstructorPlaceholder
@@ -145,13 +135,13 @@ const BurgerConstructor = () => {
             />
           )}
         </ul>
-        {BurgerConsructorBun ? (
+        {BurgerConstructorBun ? (
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={BurgerConsructorBun && `${BurgerConsructorBun.name} (низ)`}
-            price={BurgerConsructorBun && BurgerConsructorBun.price}
-            thumbnail={BurgerConsructorBun && BurgerConsructorBun.image}
+            text={BurgerConstructorBun && `${BurgerConstructorBun.name} (низ)`}
+            price={BurgerConstructorBun && BurgerConstructorBun.price}
+            thumbnail={BurgerConstructorBun && BurgerConstructorBun.image}
           />
         ) : (
           <BurgerConstructorPlaceholder
@@ -174,7 +164,7 @@ const BurgerConstructor = () => {
           size="large"
           onClick={handlerModelOpen}
           disabled={
-            BurgerConstructorList.length !== 0 && BurgerConsructorBun !== null
+            BurgerConstructorList.length !== 0 && BurgerConstructorBun !== null
               ? false
               : true
           }

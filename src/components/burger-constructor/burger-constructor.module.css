@@ -8,6 +8,12 @@
   justify-items: center;
   justify-self: end;
 }
+.sectionDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 16px;
+}
 .list {
   padding: 0;
   margin: 0 -20px 0px 0;
