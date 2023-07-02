@@ -24,7 +24,7 @@ import Modal from "../modal/modal";
 import ForgotPassword from "../pages/forgot-password/forgotPassword";
 import Home from "../pages/home/home";
 import Login from "../pages/login/login";
-import Orders from "../pages/orders/orders";
+import { NotFound404 } from "../pages/not-found-page/not-found";
 import Profile from "../pages/profile/profile";
 import Register from "../pages/register/register";
 import ResetPassword from "../pages/reset-password/resetPassword";
@@ -108,17 +108,31 @@ function App() {
             }
           >
             <Route index element={<ProfileForm />} />
-            <Route path="orders" element={<Orders />} />
+            <Route
+              path="orders"
+              element={
+                <NotFound404 />
+                //<Orders />
+              }
+            />
           </Route>
           <Route
             path="order"
-            element={<ProtectedRouteElement element={<Orders />} />}
+            element={
+              <ProtectedRouteElement
+                element={
+                  // <Orders />
+                  <NotFound404 />
+                }
+              />
+            }
           />
           <Route
             path="/ingredients/:ingredientId"
             element={<IngredientDetails ingredientsData={ingredientsData} />}
           />
         </Route>
+        <Route key="page404" path="*" element={<NotFound404 />} />;
       </Routes>
 
       {background && (

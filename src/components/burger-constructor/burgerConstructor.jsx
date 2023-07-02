@@ -10,6 +10,7 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { useNavigate } from "react-router-dom";
 import { fetchOrderPost } from "../../services/store/asyncActions";
 import { userData } from "../../services/store/authReducer/selectors";
 import {
@@ -34,6 +35,8 @@ import OrderDetails from "../order-details/orderDetails";
 import DragCard from "./drag-card/dragCard";
 
 const BurgerConstructor = () => {
+  const navigate = useNavigate();
+
   const isOpenCloseOrderPopup = useSelector(getIsOpenCloseOrderPopup);
   const isUserAuth = useSelector(userData);
   const BurgerConstructorList = useSelector(getBurgerConstructorList);
@@ -59,8 +62,12 @@ const BurgerConstructor = () => {
   };
 
   const handlerModelOpen = () => {
-    handelPost();
-    dispatch(openOrderPopup());
+    if (!isUserAuth) {
+      navigate("/login");
+    } else {
+      handelPost();
+      dispatch(openOrderPopup());
+    }
   };
 
   function handlerModelClose(e) {
@@ -177,9 +184,8 @@ const BurgerConstructor = () => {
           size="large"
           onClick={handlerModelOpen}
           disabled={
-            isUserAuth &&
-            BurgerConstructorList.length !== 0 &&
-            BurgerConsructorBun !== null
+            // isUserAuth &&
+            BurgerConstructorList.length !== 0 && BurgerConsructorBun !== null
               ? false
               : true
           }
