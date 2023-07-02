@@ -12,7 +12,7 @@ const BurgerConstructorPlaceholder = ({ title, borderColor, type }) => {
   }
   return (
     <div
-      className={`${styles.fakeConntainer} ${styleType}  text text_type_main-small`}
+      className={`${styles.fakeConntainer} ${styleType}   text text_type_main-small`}
       style={{ border: `1px solid ${borderColor}` }}
     >
       {title}

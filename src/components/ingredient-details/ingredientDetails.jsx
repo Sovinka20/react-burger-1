@@ -1,9 +1,16 @@
-import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 import { ingridientPropType } from "../../data/propType";
+//import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
+const IngredientDetails = ({ ingredientsData }) => {
+  const params = useParams();
 
-const IngredientDetails = () => {
-  const data = useSelector((state) => state.IngredientDetails.ingredient);
+  const data = ingredientsData.find((item) => item._id === params.ingredientId);
+
+  if (!data) {
+    return "Загрузка...";
+  }
+
   return (
     <div className={styles.container}>
       <h3 className="text text_type_main-large mt-10 mb-4">
@@ -49,9 +56,7 @@ const IngredientDetails = () => {
   );
 };
 
-IngredientDetails.propTypes = {
-  data: ingridientPropType,
-};
+IngredientDetails.propTypes = ingridientPropType;
 /*
 PropTypes.shape({
   _id: PropTypes.string.isRequired,

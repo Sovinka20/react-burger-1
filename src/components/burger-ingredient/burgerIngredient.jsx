@@ -9,17 +9,21 @@ import { useDispatch } from "react-redux";
 import {
   draggingOff,
   draggingOn,
-} from "../../services/actions/burgerConstructorReducer";
-import { setIngredient } from "../../services/actions/ingredientDetails";
-import { openIngredientPopup } from "../../services/actions/popupIngredientsReducer";
+} from "../../services/store/burgerConstructorReducer/actions";
+
+import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
+import { setIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import styles from "./burger-ingredient.module.css";
 
 const BurgerIngredient = ({ item, count }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const ingredientId = item["_id"];
 
   const handlerModelOpen = (item) => {
     dispatch(setIngredient(item));
-    dispatch(openIngredientPopup());
   };
 
   const [{ isDrag }, dragRef] = useDrag({
@@ -39,23 +43,29 @@ const BurgerIngredient = ({ item, count }) => {
   }, [isDrag, dispatch]);
 
   return (
-    <div
-      className={styles.container}
-      ref={dragRef}
-      onClick={() => handlerModelOpen(item)}
+    <Link
+      to={`/ingredients/${ingredientId}`}
+      state={{ background: location }}
+      className={styles.link}
     >
-      <img src={item.image} alt={item.name} className={styles.img} />
-      <div className={styles.priceContainer}>
-        <span className={`${styles.span} text text_type_digits-default`}>
-          {item.price}
-        </span>
-        <CurrencyIcon type="primary" />
+      <div
+        className={styles.container}
+        ref={dragRef}
+        onClick={() => handlerModelOpen(item)}
+      >
+        <img src={item.image} alt={item.name} className={styles.img} />
+        <div className={styles.priceContainer}>
+          <span className={`${styles.span} text text_type_digits-default`}>
+            {item.price}
+          </span>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p className={`${styles.text} text text_type_main-default`}>
+          {item.name}
+        </p>
+        <Counter count={count} />
       </div>
-      <p className={`${styles.text} text text_type_main-default`}>
-        {item.name}
-      </p>
-      <Counter count={count} />
-    </div>
+    </Link>
   );
 };
 
@@ -63,12 +73,5 @@ BurgerIngredient.propTypes = {
   item: PropTypes.object.isRequired,
   count: PropTypes.number.isRequired,
 };
-
-/*BurgerIngredient.propTypes = {
-  ingredients: PropTypes.arrayOf(ingridientPropType).isRequired,
-  title: PropTypes.string.isRequired,
-  titleId: PropTypes.string.isRequired,
-  handlerModelOpen: PropTypes.func.isRequired,
-};*/
 
 export default BurgerIngredient;

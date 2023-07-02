@@ -4,9 +4,6 @@
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(2, minmax(max-content, min-content));
 }
-.sectionDev {
-  display: flex;
-}
 
 .container {
   display: grid;
@@ -16,6 +13,12 @@
   overflow: hidden;
   overflow-y: scroll;
   height: 530px;
+}
+
+.title {
+  grid-column: 1/-1;
+  justify-self: self-start;
+  margin-bottom: 24px;
 }
 
 .div {
