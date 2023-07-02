@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
+import { ingridientPropType } from "../../data/propType";
+//import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
-
 const IngredientDetails = ({ ingredientsData }) => {
   const params = useParams();
 
@@ -55,9 +56,7 @@ const IngredientDetails = ({ ingredientsData }) => {
   );
 };
 
-//IngredientDetails.propTypes = {
-//  data: ingridientPropType,
-//};
+IngredientDetails.propTypes = ingridientPropType;
 /*
 PropTypes.shape({
   _id: PropTypes.string.isRequired,
