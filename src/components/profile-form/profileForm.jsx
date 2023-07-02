@@ -2,6 +2,7 @@ import {
   Button,
   EmailInput,
   Input,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,7 +67,7 @@ export const ProfileForm = () => {
       />
 
       <EmailInput
-        placeholder={"Логон"}
+        placeholder={"Логин"}
         icon={"EditIcon"}
         extraClass="mb-6"
         name="email"
@@ -74,7 +75,7 @@ export const ProfileForm = () => {
         onChange={handlerChange}
       />
 
-      <Input
+      <PasswordInput
         placeholder="Пароль"
         icon={"EditIcon"}
         extraClass="mb-6"
@@ -83,6 +84,7 @@ export const ProfileForm = () => {
         name="password"
         onChange={handlerChange}
       />
+
       <div className={styles.linkFormContainer}>
         <Button
           htmlType="button"

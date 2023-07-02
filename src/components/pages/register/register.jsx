@@ -1,14 +1,14 @@
-import React from "react";
-import styles from "./register.module.css";
-import { Link } from "react-router-dom";
 import {
+  Button,
   EmailInput,
   Input,
-  Button,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { registerUser } from "../../../services/store/asyncActions";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { registerUser } from "../../../services/store/asyncActions";
+import styles from "./register.module.css";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -47,14 +47,12 @@ const Register = () => {
         value={value.email}
         onChange={handlerChange}
       />
-      <Input
-        placeholder="Пароль"
-        icon={"ShowIcon"}
+
+      <PasswordInput
         extraClass="mb-6"
-        value={value.password}
-        type="password"
-        name="password"
         onChange={handlerChange}
+        value={value.password}
+        name={"password"}
       />
       <Button htmlType="submit" extraClass={styles.button}>
         Зарегистрироваться

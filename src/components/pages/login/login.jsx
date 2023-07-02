@@ -1,16 +1,13 @@
-import React from "react";
-import styles from "./login.module.css";
 import {
-  EmailInput,
-  Input,
   Button,
+  EmailInput,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
 import { useState } from "react";
-import {
-  authorizationUser,
-} from "../../../services/store/asyncActions";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { authorizationUser } from "../../../services/store/asyncActions";
+import styles from "./login.module.css";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -41,14 +38,11 @@ const Login = () => {
           value={value.email}
           onChange={handlerChange}
         />
-        <Input
-          placeholder="Пароль"
-          icon={"ShowIcon"}
+        <PasswordInput
           extraClass="mb-6"
-          value={value.password}
-          name="password"
-          type="password"
           onChange={handlerChange}
+          value={value.password}
+          name={"password"}
         />
         <Button htmlType="submit" extraClass={styles.button}>
           Войти
