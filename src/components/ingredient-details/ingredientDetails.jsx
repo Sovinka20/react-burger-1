@@ -1,9 +1,15 @@
-import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 import { ingridientPropType } from "../../data/propType";
 import styles from "./ingredient-details.module.css";
 
-const IngredientDetails = () => {
-  const data = useSelector((state) => state.IngredientDetails.ingredient);
+const IngredientDetails = ({ ingredientsData }) => {
+  const params = useParams();
+  const data = ingredientsData.find((item) => item._id === params.ingredientId);
+
+  if (!data) {
+    return "Загрузка...";
+  }
+
   return (
     <div className={styles.container}>
       <h3 className="text text_type_main-large mt-10 mb-4">

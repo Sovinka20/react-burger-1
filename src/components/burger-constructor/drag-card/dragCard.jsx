@@ -10,9 +10,10 @@ import {
   changeIngredient,
   deleteIngredient,
 } from "../../../services/store/burgerConstructorReducer/actions";
+import { getBurgerConstructorList } from "../../../services/store/burgerConstructorReducer/selectors";
 
 const DragCard = ({ styles, item, id, index }) => {
-  const cards = useSelector((state) => state.burgerConstructor.ingredients);
+  const cards = useSelector(getBurgerConstructorList);
   const dispatch = useDispatch();
 
   const moveCard = (dragIndex, hoverIndex) => {

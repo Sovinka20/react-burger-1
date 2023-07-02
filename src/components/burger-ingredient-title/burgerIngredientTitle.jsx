@@ -1,6 +1,5 @@
-import React from "react";
+import PropTypes from "prop-types";
 import styles from "./burgerIngredientTitle.module.css";
-import PropTypes from 'prop-types';
 
 const BurgerIngredientTitle = ({ name, id, refs }) => {
   return (
@@ -18,5 +17,5 @@ BurgerIngredientTitle.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   refs: PropTypes.func.isRequired,
-}
+};
 export default BurgerIngredientTitle;

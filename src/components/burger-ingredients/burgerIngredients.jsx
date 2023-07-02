@@ -4,33 +4,19 @@ import { useInView } from "react-intersection-observer";
 import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 
-import { useDispatch } from "react-redux";
-import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
-import { closeIngredientPopup } from "../../services/store/popupIngredientsReducer/actions";
-import { closeOrderPopup } from "../../services/store/popupOrderRecucer/actions";
+import {
+  getBurgerConsructorBun,
+  getBurgerConstructorList,
+} from "../../services/store/burgerConstructorReducer/selectors";
+import { getIngridients } from "../../services/store/burgerIngredientsReducer/selectors";
 import BurgerIngredientTitle from "../burger-ingredient-title/burgerIngredientTitle";
 import BurgerIngredient from "../burger-ingredient/burgerIngredient";
-import IngredientDetails from "../ingredient-details/ingredientDetails";
-import Modal from "../modal/modal";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("bun");
-  const dispatch = useDispatch();
-
-  const isOpenClosePopupIngredients = useSelector(
-    (state) => state.popupIngredientsReducer.isOpenCloseIngredient
-  );
-  const ingredients = useSelector(
-    (state) => state.BurgerIngredientsReducer.ingredients
-  );
-
-  const BurgerConstructorList = useSelector(
-    (state) => state.burgerConstructor.ingredients
-  );
-
-  const BurgerConstructorBun = useSelector(
-    (state) => state.burgerConstructor.bun
-  );
+  const ingredients = useSelector(getIngridients);
+  const BurgerConstructorList = useSelector(getBurgerConstructorList);
+  const BurgerConstructorBun = useSelector(getBurgerConsructorBun);
 
   const [bunsRef, inViewBuns, bunElement] = useInView({
     threshold: 0,
@@ -59,19 +45,6 @@ const BurgerIngredients = () => {
     mainRef: mainsRef,
     sauceRef: saucesRef,
   };
-
-  function handlerModelClose(e) {
-    e.stopPropagation();
-    if (
-      e.target.dataset.overlay === "overlay" ||
-      e.currentTarget.type === "button" ||
-      e.key === "Escape"
-    ) {
-      dispatch(closeIngredientPopup());
-      dispatch(closeOrderPopup());
-      dispatch(clearIngredient());
-    }
-  }
 
   const onTabClick = (tab) => {
     if (tab === "bun") {
@@ -145,7 +118,7 @@ const BurgerIngredients = () => {
       <h1 className={`mt-10 mb-10 text text_type_main-large`}>
         Соберите бургер
       </h1>
-      <div className={`${styles.div} mb-10`}>
+      <div style={{ display: "flex" }} className="mb-10">
         <Tab value="bun" active={current === "bun"} onClick={onTabClick}>
           Булки
         </Tab>
@@ -190,13 +163,13 @@ const BurgerIngredients = () => {
           );
         })}
       </div>
-      {isOpenClosePopupIngredients && (
-        <Modal handlerModelClose={handlerModelClose}>
-          <IngredientDetails />
-        </Modal>
-      )}
     </section>
   );
 };
+
+// BurgerIngredients.propTypes = {
+//   ingredients: PropTypes.arrayOf(ingridientPropType).isRequired,
+//   handlerModelOpen: PropTypes.func.isRequired,
+// };
 
 export default BurgerIngredients;

@@ -15,6 +15,12 @@
   height: 530px;
 }
 
+.title {
+  grid-column: 1/-1;
+  justify-self: self-start;
+  margin-bottom: 24px;
+}
+
 .div {
   display: flex;
 }
