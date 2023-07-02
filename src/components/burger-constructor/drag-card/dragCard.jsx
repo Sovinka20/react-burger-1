@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeIngredient,
   deleteIngredient,
-} from "../../../services/actions/burgerConstructorReducer";
+} from "../../../services/store/burgerConstructorReducer/actions";
 
 const DragCard = ({ styles, item, id, index }) => {
   const cards = useSelector((state) => state.burgerConstructor.ingredients);

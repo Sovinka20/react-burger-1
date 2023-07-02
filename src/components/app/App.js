@@ -1,33 +1,139 @@
-import React from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch } from "react-redux";
-import { fetchIngredients } from "../../services/actions/asyncActions";
-import AppHeader from "../app-header/appHeader";
-import BurgerConstructor from "../burger-constructor/burgerConstructor";
-import BurgerIngredients from "../burger-ingredients/burgerIngredients";
-import styles from "./app.module.css";
+import { useEffect } from "react";
+//import { DndProvider } from "react-dnd";
+//import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDispatch, useSelector } from "react-redux";
+//import BurgerConstructor from "../burger-constructor/burgerConstructor";
+//import BurgerIngredients from "../burger-ingredients/burgerIngredients";
+//import AppHeader from "../header/appHeader";
+//import styles from "./app.module.css";
+
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { BASE_URL, fetchWithRefresh, GET_HEADERS } from "../../data/api";
+import { fetchIngredients } from "../../services/store/asyncActions";
+import { isUserChecked } from "../../services/store/authReducer/actions";
+import { USER_LOGIN_AUTHORIZATION } from "../../services/store/authReducer/reducer";
+import {
+  getIngredientsError,
+  getIngridients,
+  getIsLoading,
+} from "../../services/store/burgerIngredientsReducer/selectors";
+import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
+import IngredientDetails from "../ingredient-details/ingredientDetails";
+import Layout from "../layout/layout";
+import Modal from "../modal/modal";
+import ForgotPassword from "../pages/forgot-password/forgotPassword";
+import Home from "../pages/home/home";
+import Login from "../pages/login/login";
+import Orders from "../pages/orders/orders";
+import Profile from "../pages/profile/profile";
+import Register from "../pages/register/register";
+import ResetPassword from "../pages/reset-password/resetPassword";
+import { ProfileForm } from "../profile-form/profileForm";
+import ProtectedRouteElement from "../protected-route-element/protectedRouteElement";
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const error = useSelector(getIngredientsError);
+  const isLoading = useSelector(getIsLoading);
+  const ingredientsData = useSelector(getIngridients);
+
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      dispatch(isUserChecked(true));
+      fetchWithRefresh(`${BASE_URL}/auth/user`, GET_HEADERS)
+        .then((res) => {
+          dispatch({
+            type: USER_LOGIN_AUTHORIZATION,
+            payload: res.user,
+          });
+        })
+        .catch((res) => console.log(res));
+    } else {
+      dispatch(isUserChecked(false));
+    }
     dispatch(fetchIngredients());
   }, [dispatch]);
 
-  return (
-    <div className="App">
-      <AppHeader />
+  const background = location.state && location.state.background;
+  const handlerModelClose = (e) => {
+    e.stopPropagation();
+    if (
+      e.target.dataset.overlay === "overlay" ||
+      e.currentTarget.type === "button" ||
+      e.key === "Escape"
+    ) {
+      navigate("/");
+      dispatch(clearIngredient());
+    }
+  };
+  if (isLoading) {
+    return <h1>Загрузка...</h1>;
+  }
 
-      <div className={styles.wrapper}>
-        <main className={styles.main}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </main>
-      </div>
-    </div>
+  if (!isLoading && error) {
+    return <h1>{error}</h1>;
+  }
+
+  return (
+    <>
+      <Routes location={background || location}>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<ProtectedRouteElement element={<Home />} />} />
+          <Route
+            path="login"
+            element={<ProtectedRouteElement element={<Login />} />}
+          />
+          <Route
+            path="register"
+            element={<ProtectedRouteElement element={<Register />} />}
+          />
+          <Route
+            path="forgot-password"
+            element={<ProtectedRouteElement element={<ForgotPassword />} />}
+          />
+          <Route
+            path="reset-password"
+            element={<ProtectedRouteElement element={<ResetPassword />} />}
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRouteElement
+                onlyAuthorizedUsers={false}
+                element={<Profile />}
+              />
+            }
+          >
+            <Route index element={<ProfileForm />} />
+            <Route path="orders" element={<Orders />} />
+          </Route>
+          <Route
+            path="order"
+            element={<ProtectedRouteElement element={<Orders />} />}
+          />
+          <Route
+            path="/ingredients/:ingredientId"
+            element={<IngredientDetails ingredientsData={ingredientsData} />}
+          />
+        </Route>
+      </Routes>
+
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredients/:ingredientId"
+            element={
+              <Modal handlerModelClose={handlerModelClose}>
+                <IngredientDetails ingredientsData={ingredientsData} />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+    </>
   );
 }
 

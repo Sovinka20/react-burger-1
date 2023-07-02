@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 
 import { useDispatch } from "react-redux";
-import { clearIngredient } from "../../services/actions/ingredientDetails";
-import { closeIngredientPopup } from "../../services/actions/popupIngredientsReducer";
-import { closeOrderPopup } from "../../services/actions/popupOrderRecucer";
+import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
+import { closeIngredientPopup } from "../../services/store/popupIngredientsReducer/actions";
+import { closeOrderPopup } from "../../services/store/popupOrderRecucer/actions";
 import BurgerIngredientTitle from "../burger-ingredient-title/burgerIngredientTitle";
 import BurgerIngredient from "../burger-ingredient/burgerIngredient";
 import IngredientDetails from "../ingredient-details/ingredientDetails";

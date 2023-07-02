@@ -9,9 +9,10 @@ import { useDispatch } from "react-redux";
 import {
   draggingOff,
   draggingOn,
-} from "../../services/actions/burgerConstructorReducer";
-import { setIngredient } from "../../services/actions/ingredientDetails";
-import { openIngredientPopup } from "../../services/actions/popupIngredientsReducer";
+} from "../../services/store/burgerConstructorReducer/actions";
+
+import { setIngredient } from "../../services/store/ingredientDetailsReducer/actions";
+import { openIngredientPopup } from "../../services/store/popupIngredientsReducer/actions";
 import styles from "./burger-ingredient.module.css";
 
 const BurgerIngredient = ({ item, count }) => {

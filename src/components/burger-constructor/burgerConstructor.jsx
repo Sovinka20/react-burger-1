@@ -2,23 +2,25 @@ import React from "react";
 import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import image from "../../images/price.svg";
-import { fetchOrderPost } from "../../services/actions/asyncActions";
-import { closeIngredientPopup } from "../../services/actions/popupIngredientsReducer";
-import {
-  closeOrderPopup,
-  openOrderPopup,
-} from "../../services/actions/popupOrderRecucer";
+
 import styles from "./burger-constructor.module.css";
 
 import {
   Button,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import { fetchOrderPost } from "../../services/store/asyncActions";
 import {
   addBunIngredientConstuctor,
   addIngredientConstuctor,
-} from "../../services/actions/burgerConstructorReducer";
-import { clearIngredient } from "../../services/actions/ingredientDetails";
+} from "../../services/store/burgerConstructorReducer/actions";
+import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
+import { closeIngredientPopup } from "../../services/store/popupIngredientsReducer/actions";
+import {
+  closeOrderPopup,
+  openOrderPopup,
+} from "../../services/store/popupOrderRecucer/actions";
 import BurgerConstructorPlaceholder from "../burger-constructor-placeholder/burgerConstructorPlaceholder";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/orderDetails";

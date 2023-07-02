@@ -4,9 +4,6 @@
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(2, minmax(max-content, min-content));
 }
-.sectionDev {
-  display: flex;
-}
 
 .container {
   display: grid;
