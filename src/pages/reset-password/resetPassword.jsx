@@ -5,8 +5,8 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { resetPassword } from "../../../data/api";
-import { changeResetPassword } from "../../../services/store/authReducer/actions";
+import { resetPassword } from "../../data/api";
+import { changeResetPassword } from "../../services/store/authReducer/actions";
 import styles from "./reset-password.module.css";
 
 const ResetPassword = () => {

@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
-import { ingridientPropType } from "../../data/propType";
 import styles from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ ingredientsData }) => {
   const params = useParams();
+
   const data = ingredientsData.find((item) => item._id === params.ingredientId);
 
   if (!data) {
@@ -55,9 +55,9 @@ const IngredientDetails = ({ ingredientsData }) => {
   );
 };
 
-IngredientDetails.propTypes = {
-  data: ingridientPropType,
-};
+//IngredientDetails.propTypes = {
+//  data: ingridientPropType,
+//};
 /*
 PropTypes.shape({
   _id: PropTypes.string.isRequired,

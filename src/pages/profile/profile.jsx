@@ -1,19 +1,17 @@
-import React from "react";
-import styles from "./profile.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import { logoutUser } from "../../../services/store/asyncActions";
 import { useDispatch } from "react-redux";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { logoutUser } from "../../services/store/asyncActions";
+import styles from "./profile.module.css";
 
 const Profile = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const activeClass = `text text_type_main-medium text_color_inactive ${styles.link} ${styles.activeLink}`;
   const unActiveClass = `text text_type_main-medium text_color_inactive ${styles.link}`;
   const logout = () => {
     dispatch(logoutUser());
-    navigate("/login")
-  }
+    navigate("/login");
+  };
 
   return (
     <main className={styles.profileContainer}>

@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { authorizationUser } from "../../../services/store/asyncActions";
+import { authorizationUser } from "../../services/store/asyncActions";
 import styles from "./login.module.css";
 
 const Login = () => {

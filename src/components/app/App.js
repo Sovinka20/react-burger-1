@@ -9,6 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL, fetchWithRefresh, GET_HEADERS } from "../../data/api";
+import ForgotPassword from "../../pages/forgot-password/forgotPassword";
+import Home from "../../pages/home/home";
+import Login from "../../pages/login/login";
+import { NotFound404 } from "../../pages/not-found-page/not-found";
+import Profile from "../../pages/profile/profile";
+import Register from "../../pages/register/register";
+import ResetPassword from "../../pages/reset-password/resetPassword";
 import { fetchIngredients } from "../../services/store/asyncActions";
 import { isUserChecked } from "../../services/store/authReducer/actions";
 import { USER_LOGIN_AUTHORIZATION } from "../../services/store/authReducer/reducer";
@@ -21,13 +28,6 @@ import { clearIngredient } from "../../services/store/ingredientDetailsReducer/a
 import IngredientDetails from "../ingredient-details/ingredientDetails";
 import Layout from "../layout/layout";
 import Modal from "../modal/modal";
-import ForgotPassword from "../pages/forgot-password/forgotPassword";
-import Home from "../pages/home/home";
-import Login from "../pages/login/login";
-import { NotFound404 } from "../pages/not-found-page/not-found";
-import Profile from "../pages/profile/profile";
-import Register from "../pages/register/register";
-import ResetPassword from "../pages/reset-password/resetPassword";
 import { ProfileForm } from "../profile-form/profileForm";
 import ProtectedRouteElement from "../protected-route-element/protectedRouteElement";
 

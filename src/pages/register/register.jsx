@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { registerUser } from "../../../services/store/asyncActions";
+import { registerUser } from "../../services/store/asyncActions";
 import styles from "./register.module.css";
 
 const Register = () => {

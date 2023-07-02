@@ -5,8 +5,8 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { forgotPassword } from "../../../data/api";
-import { changeResetPassword } from "../../../services/store/authReducer/actions";
+import { forgotPassword } from "../../data/api";
+import { changeResetPassword } from "../../services/store/authReducer/actions";
 import styles from "./forgot-password.module.css";
 
 const ForgotPassword = () => {
