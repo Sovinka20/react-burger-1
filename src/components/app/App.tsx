@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React from "react";
 //import { DndProvider } from "react-dnd";
 //import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import {
   getIsLoading,
 } from "../../services/store/burgerIngredientsReducer/selectors";
 import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
+//import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import IngredientDetails from "../ingredient-details/ingredientDetails";
 import Layout from "../layout/layout";
 import Modal from "../modal/modal";
@@ -41,7 +42,18 @@ function App() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  //   React.useEffect(() => {
+
+  // const  ws = new WebSocket(`wss://norma.nomoreparties.space/orders/all`);
+  // ws.onopen = (event) => {
+  //     console.log("Соединение установлено")
+  // }
+  // ws.onmessage = (event: MessageEvent) => {
+  //   console.log(JSON.parse(event.data))
+  // }
+  //   },[])
+
+  React.useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       dispatch(isUserChecked(true));
       fetchWithRefresh(`${BASE_URL}/auth/user`, GET_HEADERS)
@@ -59,12 +71,12 @@ function App() {
   }, [dispatch]);
 
   const background = location.state && location.state.background;
+
   const handlerModelClose = (e: THandlerModelClose) => {
     e.stopPropagation();
     if (
       e.target.dataset.overlay === "overlay" ||
       e.currentTarget.type === "button"
-      //||       e.key === "Escape"
     ) {
       navigate("/");
       dispatch(clearIngredient());

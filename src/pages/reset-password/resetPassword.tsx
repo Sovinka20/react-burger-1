@@ -1,29 +1,29 @@
 import {
   Button,
-  EmailInput,
+  Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { forgotPassword } from "../../data/api";
+import { Link } from "react-router-dom";
+import { resetPassword } from "../../data/api";
 import { changeResetPassword } from "../../services/store/authReducer/actions";
-import styles from "./forgot-password.module.css";
+import styles from "./reset-password.module.css";
 
-const ForgotPassword = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+const ResetPassword = () => {
   const [value, setValue] = useState({
-    email: "",
+    password: "",
+    token: "",
   });
-  const handlerChange = (e) => {
+  const dispatch = useDispatch();
+  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
-  const handlerSubmit = (e) => {
+  const handlerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    forgotPassword(value)
+    resetPassword(value)
       .then((result) => {
-        navigate("/reset-password");
-        dispatch(changeResetPassword(true));
+        console.log(result);
+        dispatch(changeResetPassword(false));
       })
       .catch((err) => {
         console.log(err);
@@ -38,17 +38,27 @@ const ForgotPassword = () => {
       onSubmit={handlerSubmit}
     >
       <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
-      <EmailInput
-        placeholder="Укажите e-mail"
+      <Input
+        placeholder="Введите новый пароль"
+        icon={"ShowIcon"}
         extraClass="mb-6"
-        name="email"
-        value={value.email}
+        value={value.password}
+        type="text"
+        name="password"
         onChange={handlerChange}
-        required
+      />
+
+      <Input
+        placeholder="Введите код из письма"
+        extraClass="mb-6"
+        value={value.token}
+        type="text"
+        name="token"
+        onChange={handlerChange}
       />
 
       <Button htmlType="submit" extraClass={styles.button}>
-        Восстановить
+        Сохранить
       </Button>
       <span className="text text_type_main-default text_color_inactive">
         Вспомнили пароль?{" "}
@@ -60,4 +70,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;
