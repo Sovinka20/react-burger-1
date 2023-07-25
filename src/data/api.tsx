@@ -1,5 +1,5 @@
 export const BASE_URL = "https://norma.nomoreparties.space/api";
-
+/*
 class Api {
   constructor(urlApi) {
     this.urlApi = urlApi;
@@ -21,10 +21,26 @@ class Api {
     }).then((res) => this.validationJson(res));
   }
 }
+*/
+type TPATCH_HEADERS = {
+  method: string;
+  headers: {
+    "Content-Type": string;
+    authorization: string;
+  };
+  body: string;
+};
 
-export const api = new Api(BASE_URL);
+type TGET_HEADERS = {
+  method: string;
+  headers: {
+    "Content-Type": string;
+    authorization: string;
+  };
+};
+//export const api = new Api(BASE_URL);
 
-export const checkResponse = (res) => {
+export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
@@ -51,7 +67,8 @@ export const PATCH_HEADERS = {
 /**
  * Восстановление пароля
  */
-export const forgotPassword = (emailData) => {
+
+export const forgotPassword = (emailData: { email: string }) => {
   console.log(JSON.stringify(emailData));
   return fetch(`${BASE_URL}/password-reset`, {
     method: "POST",
@@ -64,7 +81,10 @@ export const forgotPassword = (emailData) => {
 /**
  * Сброс пароля
  */
-export const resetPassword = (resetPsswordData) => {
+export const resetPassword = (resetPsswordData: {
+  password: string;
+  token: string;
+}) => {
   return fetch(`${BASE_URL}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -91,12 +111,15 @@ export const requestRefreshToken = () => {
 /**
  * Получить/изменить данные о пользователе.
  */
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (
+  url: string,
+  options: TPATCH_HEADERS | TGET_HEADERS
+) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
   } catch (err) {
-    if (err.message === "jwt expired") {
+    if (err instanceof Error && err.message === "jwt expired") {
       const refreshData = await requestRefreshToken();
 
       if (!refreshData.success) {

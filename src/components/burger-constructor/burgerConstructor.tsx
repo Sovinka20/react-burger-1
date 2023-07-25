@@ -11,6 +11,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { useNavigate } from "react-router-dom";
+import { IIngridients, THandlerModelClose } from "../../data/typesScripts";
 import { fetchOrderPost } from "../../services/store/asyncActions";
 import { userData } from "../../services/store/authReducer/selectors";
 import {
@@ -48,7 +49,9 @@ const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const handelPost = () => {
-    let ingredientsIdList = BurgerConstructorList.map((item) => item._id);
+    let ingredientsIdList = BurgerConstructorList.map(
+      (item: IIngridients) => item._id
+    );
     if (BurgerConsructorBun) {
       ingredientsIdList = [
         BurgerConsructorBun._id,
@@ -58,7 +61,7 @@ const BurgerConstructor = () => {
     } else {
       ingredientsIdList = [...ingredientsIdList];
     }
-    dispatch(fetchOrderPost(ingredientsIdList));
+    dispatch(fetchOrderPost(ingredientsIdList) as unknown as any);
   };
 
   const handlerModelOpen = () => {
@@ -70,12 +73,12 @@ const BurgerConstructor = () => {
     }
   };
 
-  function handlerModelClose(e) {
+  function handlerModelClose(e: THandlerModelClose) {
     e.stopPropagation();
     if (
       e.target.dataset.overlay === "overlay" ||
-      e.currentTarget.type === "button" ||
-      e.key === "Escape"
+      e.currentTarget.type === "button"
+      //||       e.key === "Escape"
     ) {
       dispatch(closeIngredientPopup());
       dispatch(closeOrderPopup());
@@ -83,7 +86,7 @@ const BurgerConstructor = () => {
     }
   }
 
-  const onDropHandler = (item) => {
+  const onDropHandler = (item: IIngridients) => {
     if (item.type === "bun") {
       return dispatch(addBunIngredientConstuctor(item));
     }
@@ -92,7 +95,7 @@ const BurgerConstructor = () => {
 
   const [, dropRef] = useDrop({
     accept: "ingridient",
-    drop(item) {
+    drop(item: IIngridients) {
       onDropHandler(item);
     },
     collect: (monitor) => ({
@@ -103,7 +106,10 @@ const BurgerConstructor = () => {
   const price = React.useMemo(() => {
     return (
       (BurgerConsructorBun ? BurgerConsructorBun.price * 2 : 0) +
-      BurgerConstructorList.reduce((sum, value) => sum + value.price, 0)
+      BurgerConstructorList.reduce(
+        (sum: number, value: IIngridients) => sum + value.price,
+        0
+      )
     );
   }, [BurgerConsructorBun, BurgerConstructorList]);
 
@@ -136,7 +142,7 @@ const BurgerConstructor = () => {
 
         <ul className={`${styles.list} custom-scroll`}>
           {BurgerConstructorList.length !== 0 ? (
-            BurgerConstructorList.map((item, index) => {
+            BurgerConstructorList.map((item: IIngridients, index: number) => {
               return (
                 <DragCard
                   styles={styles.listItem}

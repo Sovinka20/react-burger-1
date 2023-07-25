@@ -13,16 +13,25 @@ import {
 
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import { IIngridients } from "../../data/typesScripts";
 import { setIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import styles from "./burger-ingredient.module.css";
 
-const BurgerIngredient = ({ item, count }) => {
+type TBurgerIngredientProps = {
+  item: IIngridients;
+  count: number;
+};
+
+const BurgerIngredient: React.FC<TBurgerIngredientProps> = ({
+  item,
+  count,
+}) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
   const ingredientId = item["_id"];
 
-  const handlerModelOpen = (item) => {
+  const handlerModelOpen = (item: IIngridients) => {
     dispatch(setIngredient(item));
   };
 
@@ -70,7 +79,7 @@ const BurgerIngredient = ({ item, count }) => {
 };
 
 BurgerIngredient.propTypes = {
-  item: PropTypes.object.isRequired,
+  // item: PropTypes.object.isRequired,
   count: PropTypes.number.isRequired,
 };
 

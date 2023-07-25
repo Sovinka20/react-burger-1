@@ -1,7 +1,17 @@
 import PropTypes from "prop-types";
 import styles from "./burgerIngredientTitle.module.css";
 
-const BurgerIngredientTitle = ({ name, id, refs }) => {
+type TBurgerIngredientTitleProps = {
+  name: string;
+  id: string;
+  refs: () => void;
+};
+
+const BurgerIngredientTitle: React.FC<TBurgerIngredientTitleProps> = ({
+  name,
+  id,
+  refs,
+}) => {
   return (
     <h2
       className={`${styles.title} text text_type_main-medium`}

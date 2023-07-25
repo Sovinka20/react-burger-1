@@ -6,17 +6,29 @@ import PropTypes from "prop-types";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
+import { IIngridients } from "../../../data/typesScripts";
 import {
   changeIngredient,
   deleteIngredient,
 } from "../../../services/store/burgerConstructorReducer/actions";
 import { getBurgerConstructorList } from "../../../services/store/burgerConstructorReducer/selectors";
 
-const DragCard = ({ styles, item, id, index }) => {
+type IDragCard = {
+  item: IIngridients;
+  id: string;
+  index: number;
+  styles: string;
+};
+
+type TUseDropProps = {
+  index: number;
+} & IIngridients;
+
+const DragCard: React.FC<IDragCard> = ({ styles, item, id, index }) => {
   const cards = useSelector(getBurgerConstructorList);
   const dispatch = useDispatch();
 
-  const moveCard = (dragIndex, hoverIndex) => {
+  const moveCard = (dragIndex: number, hoverIndex: number) => {
     const dragCard = cards[dragIndex];
     const newCards = [...cards];
     newCards.splice(dragIndex, 1);
@@ -24,13 +36,14 @@ const DragCard = ({ styles, item, id, index }) => {
     dispatch(changeIngredient(newCards));
   };
 
-  const ref = React.useRef(null);
+  const ref = React.useRef<HTMLLIElement>(null);
   const [, refDrop] = useDrop({
     accept: "card",
-    hover: (item, monitor) => {
+    hover: (item: TUseDropProps, monitor) => {
       if (!ref.current) {
         return;
       }
+
       const dragIndex = item.index;
       const hoverIndex = index;
 
@@ -41,7 +54,7 @@ const DragCard = ({ styles, item, id, index }) => {
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -67,8 +80,10 @@ const DragCard = ({ styles, item, id, index }) => {
   const opacity = isDragging ? 0 : 1;
   refDrag(refDrop(ref));
 
-  const handleClose = (item) => {
-    let cardsList = cards.filter((ingredient) => ingredient.key !== item.key);
+  const handleClose = (item: IIngridients) => {
+    let cardsList = cards.filter(
+      (ingredient: IIngridients) => ingredient.key !== item.key
+    );
     dispatch(deleteIngredient(cardsList));
   };
 
@@ -90,7 +105,7 @@ DragCard.propTypes = {
   styles: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  item: PropTypes.object.isRequired,
+  // item: PropTypes.object.isRequired,
 };
 
 export default DragCard;

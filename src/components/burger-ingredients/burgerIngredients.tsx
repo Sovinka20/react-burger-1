@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 
+import { IIngridients } from "../../data/typesScripts";
 import {
   getBurgerConsructorBun,
   getBurgerConstructorList,
@@ -46,19 +47,19 @@ const BurgerIngredients = () => {
     sauceRef: saucesRef,
   };
 
-  const onTabClick = (tab) => {
+  const onTabClick = (tab: string) => {
     if (tab === "bun") {
-      bunElement.target.scrollIntoView({
+      bunElement?.target.scrollIntoView({
         block: "start",
         behavior: "smooth",
       });
     } else if (tab === "sauce") {
-      sauceElement.target.scrollIntoView({
+      sauceElement?.target.scrollIntoView({
         block: "start",
         behavior: "smooth",
       });
     } else if (tab === "main") {
-      mainElement.target.scrollIntoView({
+      mainElement?.target.scrollIntoView({
         block: "start",
         behavior: "smooth",
       });
@@ -67,17 +68,24 @@ const BurgerIngredients = () => {
   };
 
   const bun = React.useMemo(
-    () => ingredients.filter((item) => item.type === "bun").map((item) => item),
+    () =>
+      ingredients
+        .filter((item: IIngridients) => item.type === "bun")
+        .map((item: IIngridients) => item),
     [ingredients]
   );
   const main = React.useMemo(
     () =>
-      ingredients.filter((item) => item.type === "main").map((item) => item),
+      ingredients
+        .filter((item: IIngridients) => item.type === "main")
+        .map((item: IIngridients) => item),
     [ingredients]
   );
   const sauce = React.useMemo(
     () =>
-      ingredients.filter((item) => item.type === "sauce").map((item) => item),
+      ingredients
+        .filter((item: IIngridients) => item.type === "sauce")
+        .map((item: IIngridients) => item),
     [ingredients]
   );
 
@@ -86,11 +94,16 @@ const BurgerIngredients = () => {
       return {};
     }
     let res = {};
-    const items = BurgerConstructorList.filter((el) => el.type === "main");
-    return items.reduce((acc, e) => {
-      acc[e._id] = (acc[e._id] || 0) + 1;
-      return acc;
-    }, res);
+    const items = BurgerConstructorList.filter(
+      (el: IIngridients) => el.type === "main"
+    );
+    return items.reduce(
+      (acc: { [index: string]: number }, e: { [index: string]: string }) => {
+        acc[e._id] = (acc[e._id] || 0) + 1;
+        return acc;
+      },
+      res
+    );
   }, [main, BurgerConstructorList]);
 
   const sauceStatistics = React.useMemo(() => {
@@ -98,11 +111,16 @@ const BurgerIngredients = () => {
       return {};
     }
     let res = {};
-    const items = BurgerConstructorList.filter((el) => el.type === "sauce");
-    return items.reduce((acc, e) => {
-      acc[e._id] = (acc[e._id] || 0) + 1;
-      return acc;
-    }, res);
+    const items = BurgerConstructorList.filter(
+      (el: IIngridients) => el.type === "sauce"
+    );
+    return items.reduce(
+      (acc: { [index: string]: number }, e: { [index: string]: string }) => {
+        acc[e._id] = (acc[e._id] || 0) + 1;
+        return acc;
+      },
+      res
+    );
   }, [sauce, BurgerConstructorList]);
 
   const countBun = React.useMemo(() => {
@@ -131,7 +149,7 @@ const BurgerIngredients = () => {
       </div>
       <div className={`${styles.container} custom-scroll`}>
         <BurgerIngredientTitle id="bun" name="Булки" refs={refs.bunRef} />
-        {bun.map((item) => {
+        {bun.map((item: IIngridients) => {
           return (
             <BurgerIngredient
               key={item._id}
@@ -142,7 +160,7 @@ const BurgerIngredients = () => {
         })}
 
         <BurgerIngredientTitle id="sauce" name="Соус" refs={refs.sauceRef} />
-        {sauce.map((item) => {
+        {sauce.map((item: IIngridients) => {
           return (
             <BurgerIngredient
               key={item._id}
@@ -153,7 +171,7 @@ const BurgerIngredients = () => {
         })}
 
         <BurgerIngredientTitle id="main" name="Начинка" refs={refs.mainRef} />
-        {main.map((item) => {
+        {main.map((item: IIngridients) => {
           return (
             <BurgerIngredient
               key={item._id}
@@ -166,10 +184,5 @@ const BurgerIngredients = () => {
     </section>
   );
 };
-
-// BurgerIngredients.propTypes = {
-//   ingredients: PropTypes.arrayOf(ingridientPropType).isRequired,
-//   handlerModelOpen: PropTypes.func.isRequired,
-// };
 
 export default BurgerIngredients;

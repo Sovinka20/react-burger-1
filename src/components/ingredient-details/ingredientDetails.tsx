@@ -1,14 +1,20 @@
 import { useParams } from "react-router";
-import { ingridientPropType } from "../../data/propType";
+import { IIngridients } from "../../data/typesScripts";
 //import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
-const IngredientDetails = ({ ingredientsData }) => {
-  const params = useParams();
 
+type TIngredientDetails = {
+  ingredientsData: IIngridients[];
+};
+
+const IngredientDetails: React.FC<TIngredientDetails> = ({
+  ingredientsData,
+}) => {
+  const params = useParams();
   const data = ingredientsData.find((item) => item._id === params.ingredientId);
 
   if (!data) {
-    return "Загрузка...";
+    return <h1>Загрузка...</h1>;
   }
 
   return (
@@ -56,7 +62,7 @@ const IngredientDetails = ({ ingredientsData }) => {
   );
 };
 
-IngredientDetails.propTypes = ingridientPropType;
+//IngredientDetails.propTypes = ingridientPropType;
 /*
 PropTypes.shape({
   _id: PropTypes.string.isRequired,

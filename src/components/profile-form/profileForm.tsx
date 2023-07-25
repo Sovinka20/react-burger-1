@@ -4,7 +4,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL, fetchWithRefresh, PATCH_HEADERS } from "../../data/api";
 import { CHANGE_USER_DATA } from "../../services/store/authReducer/reducer";
@@ -19,13 +19,13 @@ export const ProfileForm = () => {
     email: userDataAuth.email,
     password: "",
   });
-  const handlerChange = (e) => {
+  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
   /**
    * Изменяет данные пользователя.
    */
-  const handlerSubmit = (e) => {
+  const handlerSubmit = (e: FormEvent) => {
     e.preventDefault();
     fetchWithRefresh(`${BASE_URL}/auth/user`, {
       ...PATCH_HEADERS,
@@ -68,7 +68,7 @@ export const ProfileForm = () => {
 
       <EmailInput
         placeholder={"Логин"}
-        icon={"EditIcon"}
+        //icon={"EditIcon"}
         extraClass="mb-6"
         name="email"
         value={value.email}
@@ -80,7 +80,7 @@ export const ProfileForm = () => {
         icon={"EditIcon"}
         extraClass="mb-6"
         value={value.password}
-        type="password"
+        // type="password"
         name="password"
         onChange={handlerChange}
       />

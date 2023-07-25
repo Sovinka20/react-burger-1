@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL, fetchWithRefresh, GET_HEADERS } from "../../data/api";
+import { THandlerModelClose } from "../../data/typesScripts";
 import ForgotPassword from "../../pages/forgot-password/forgotPassword";
 import Home from "../../pages/home/home";
 import Login from "../../pages/login/login";
@@ -54,16 +55,16 @@ function App() {
     } else {
       dispatch(isUserChecked(false));
     }
-    dispatch(fetchIngredients());
+    dispatch(fetchIngredients() as unknown as any);
   }, [dispatch]);
 
   const background = location.state && location.state.background;
-  const handlerModelClose = (e) => {
+  const handlerModelClose = (e: THandlerModelClose) => {
     e.stopPropagation();
     if (
       e.target.dataset.overlay === "overlay" ||
-      e.currentTarget.type === "button" ||
-      e.key === "Escape"
+      e.currentTarget.type === "button"
+      //||       e.key === "Escape"
     ) {
       navigate("/");
       dispatch(clearIngredient());
@@ -102,7 +103,7 @@ function App() {
             path="/profile"
             element={
               <ProtectedRouteElement
-                onlyAuthorizedUsers={false}
+                //  onlyAuthorizedUsers={false}
                 element={<Profile />}
               />
             }

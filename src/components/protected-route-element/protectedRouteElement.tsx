@@ -1,19 +1,23 @@
-import React from "react";
-import { useLocation, Navigate } from "react-router-dom";
-import {
-  userData,
-  isResetPassword,
-} from "../../services/store/authReducer/selectors";
-import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-export const LOGIN = "/login"
-export const REGISTER = "/register"
-export const FORGOT_PASSWORD = "/forgot-password"
-export const RESET_PASSWORD = "/reset-password"
-export const PROFILE = "/profile"
-export const PROFILE_ORDERS = "/profile/orders"
+import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
+import {
+  isResetPassword,
+  userData,
+} from "../../services/store/authReducer/selectors";
+export const LOGIN = "/login";
+export const REGISTER = "/register";
+export const FORGOT_PASSWORD = "/forgot-password";
+export const RESET_PASSWORD = "/reset-password";
+export const PROFILE = "/profile";
+export const PROFILE_ORDERS = "/profile/orders";
 
-const ProtectedRouteElement = ({ element }) => {
+const ProtectedRouteElement = ({
+  element,
+}: {
+  element: React.ReactElement;
+}) => {
   const user = useSelector(userData);
   const isResetPass = useSelector(isResetPassword);
   const location = useLocation();
@@ -44,6 +48,6 @@ const ProtectedRouteElement = ({ element }) => {
 
 ProtectedRouteElement.propTypes = {
   element: PropTypes.element,
-}
+};
 
 export default ProtectedRouteElement;
