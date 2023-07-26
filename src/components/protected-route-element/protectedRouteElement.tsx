@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
@@ -44,10 +43,6 @@ const ProtectedRouteElement = ({
   }
 
   return element;
-};
-
-ProtectedRouteElement.propTypes = {
-  element: PropTypes.element,
 };
 
 export default ProtectedRouteElement;

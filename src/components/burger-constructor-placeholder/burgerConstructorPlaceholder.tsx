@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import styles from "../burger-constructor-placeholder/burgerConstructorPlaceholder.module.css";
 
 type TBurgerConstructorPlaceholderProps = {
@@ -28,9 +27,4 @@ const BurgerConstructorPlaceholder: React.FC<
   );
 };
 
-BurgerConstructorPlaceholder.propTypes = {
-  title: PropTypes.string.isRequired,
-  borderColor: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-};
 export default BurgerConstructorPlaceholder;

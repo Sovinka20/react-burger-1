@@ -2,7 +2,6 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import React from "react";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
@@ -76,11 +75,6 @@ const BurgerIngredient: React.FC<TBurgerIngredientProps> = ({
       </div>
     </Link>
   );
-};
-
-BurgerIngredient.propTypes = {
-  // item: PropTypes.object.isRequired,
-  count: PropTypes.number.isRequired,
 };
 
 export default BurgerIngredient;

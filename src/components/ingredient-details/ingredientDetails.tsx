@@ -1,6 +1,5 @@
 import { useParams } from "react-router";
 import { IIngridients } from "../../data/typesScripts";
-//import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
 
 type TIngredientDetails = {
@@ -61,32 +60,5 @@ const IngredientDetails: React.FC<TIngredientDetails> = ({
     </div>
   );
 };
-
-//IngredientDetails.propTypes = ingridientPropType;
-/*
-PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(["bun", "sauce", "main"]).isRequired,
-  proteins: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-  calories: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  image_mobile: PropTypes.string.isRequired,
-  image_large: PropTypes.string.isRequired,
-}).isRequired;
-
-https://ru.react.js.org/docs/typechecking-with-proptypes.html
-
-Объект с определённой структорой
-
-optionalObjectWithShape: PropTypes.shape({
-    color: PropTypes.string,
-    fontSize: PropTypes.number
-  }),
-
-*/
 
 export default IngredientDetails;

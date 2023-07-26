@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 import { THandlerModelClose } from "../../data/typesScripts";
 import styles from "./modal-overlay.module.css";
@@ -26,8 +25,4 @@ const ModalOverlay: React.FC<TModalOverlay> = ({
   );
 };
 
-ModalOverlay.propTypes = {
-  children: PropTypes.element,
-  handlerModelClose: PropTypes.func.isRequired,
-};
 export default ModalOverlay;

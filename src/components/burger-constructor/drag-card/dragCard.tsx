@@ -2,7 +2,6 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
@@ -99,13 +98,6 @@ const DragCard: React.FC<IDragCard> = ({ styles, item, id, index }) => {
       />
     </li>
   );
-};
-
-DragCard.propTypes = {
-  styles: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  // item: PropTypes.object.isRequired,
 };
 
 export default DragCard;

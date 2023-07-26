@@ -1,10 +1,8 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import React, { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { THandlerModelClose } from "../../data/typesScripts";
-import { closeOrderPopup } from "../../services/store/popupOrderRecucer/actions";
 import ModalOverlay from "../modal-overlay/modalOverlay";
 import styles from "./modal.module.css";
 
@@ -19,8 +17,8 @@ const Modal: React.FC<TModalProps> = ({ children, handlerModelClose }) => {
   React.useEffect(() => {
     const closePopup = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        navigate("/");
-        dispatch(closeOrderPopup());
+        // navigate("/");
+        //  dispatch(closeOrderPopup());
       }
     };
     document.addEventListener("keydown", closePopup);
@@ -47,8 +45,3 @@ const Modal: React.FC<TModalProps> = ({ children, handlerModelClose }) => {
 };
 
 export default Modal;
-
-Modal.propTypes = {
-  handlerModelClose: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-};

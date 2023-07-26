@@ -19,21 +19,21 @@ const Feed = () => {
               <ul className={`text text_type_digits-default ${styles.readu}`}>
                 <li className="text text_type_main-medium mb-4">Готовы:</li>
                 <li className={styles.readuLI}>034538</li>
-                <li className={styles.readuLI}>034538</li>
-                <li className={styles.readuLI}>034538</li>
-                <li className={styles.readuLI}>034538</li>
-                <li className={styles.readuLI}>034538</li>
-                <li className={styles.readuLI}>034538</li>
-                <li className={styles.readuLI}>034538</li>
-                <li className={styles.readuLI}>034538</li>
+                <li className={styles.readuLI}>034539</li>
+                <li className={styles.readuLI}>034537</li>
+                <li className={styles.readuLI}>034536</li>
+                <li className={styles.readuLI}>034535</li>
+                <li className={styles.readuLI}>034534</li>
+                <li className={styles.readuLI}>034533</li>
+                <li className={styles.readuLI}>034532</li>
               </ul>
               <ul className={`text text_type_digits-default ${styles.toWork}`}>
                 <li className="text text_type_main-medium mb-4">В работе:</li>
-                <li>034533</li>
-                <li>034533</li>
-                <li>034533</li>
-                <li>034533</li>
-                <li>034533</li>
+                <li>034540</li>
+                <li>034541</li>
+                <li>034542</li>
+                <li>034543</li>
+                <li>034544</li>
               </ul>
             </div>
 
@@ -49,7 +49,7 @@ const Feed = () => {
               Выполнено за сегодня:
             </h3>
             <span className={`text text_type_digits-large ${styles.bigDigits}`}>
-              138
+              140
             </span>
           </div>
         </section>

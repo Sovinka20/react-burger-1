@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import styles from "./burgerIngredientTitle.module.css";
 
 type TBurgerIngredientTitleProps = {
@@ -23,9 +22,4 @@ const BurgerIngredientTitle: React.FC<TBurgerIngredientTitleProps> = ({
   );
 };
 
-BurgerIngredientTitle.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  refs: PropTypes.func.isRequired,
-};
 export default BurgerIngredientTitle;
