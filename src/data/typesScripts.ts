@@ -33,4 +33,5 @@ export type THandlerModelClose =
   | React.MouseEvent<HTMLButtonElement>
   | KeyboardEvent
   | React.MouseEvent<HTMLDivElement>
+  | React.KeyboardEvent<HTMLDivElement>
   | MouseEvent;

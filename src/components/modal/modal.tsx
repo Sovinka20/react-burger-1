@@ -3,12 +3,15 @@ import React, { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { THandlerModelClose } from "../../data/typesScripts";
+import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
+import { closeOrderPopup } from "../../services/store/popupOrderRecucer/actions";
+//import { THandlerModelClose } from "../../data/typesScripts";
 import ModalOverlay from "../modal-overlay/modalOverlay";
 import styles from "./modal.module.css";
 
 type TModalProps = {
   children: ReactNode;
-  handlerModelClose: (e: THandlerModelClose) => void;
+  handlerModelClose: () => void;
 };
 
 const Modal: React.FC<TModalProps> = ({ children, handlerModelClose }) => {
@@ -17,24 +20,39 @@ const Modal: React.FC<TModalProps> = ({ children, handlerModelClose }) => {
   React.useEffect(() => {
     const closePopup = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        // navigate("/");
-        //  dispatch(closeOrderPopup());
+        handlerModelClose();
+        //navigate("/");
       }
+      // navigate("/");
+      //  dispatch(closeOrderPopup());
+      // }
     };
+
     document.addEventListener("keydown", closePopup);
     return () => {
       document.removeEventListener("keydown", closePopup);
     };
-  });
+  }, []);
+
+  function handlerModelOverlayClose(e: THandlerModelClose) {
+    e.stopPropagation();
+    if (e.target.dataset.overlay === "overlay") {
+      dispatch(clearIngredient());
+      dispatch(closeOrderPopup());
+
+      //    navigate("/");
+      handlerModelClose();
+    }
+  }
 
   return (
-    <ModalOverlay handlerModelClose={handlerModelClose}>
+    <ModalOverlay handlerModelClose={handlerModelOverlayClose}>
       <div className={styles.modal}>
         <button
           data-close="close"
           type="button"
           className={styles.icon}
-          onClick={handlerModelClose}
+          onClick={handlerModelOverlayClose}
         >
           <CloseIcon type="primary" />
         </button>

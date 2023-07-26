@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL, fetchWithRefresh, GET_HEADERS } from "../../data/api";
-import { THandlerModelClose } from "../../data/typesScripts";
 import ForgotPassword from "../../pages/forgot-password/forgotPassword";
 import Home from "../../pages/home/home";
 import Login from "../../pages/login/login";
@@ -72,15 +71,9 @@ function App() {
 
   const background = location.state && location.state.background;
 
-  const handlerModelClose = (e: THandlerModelClose) => {
-    e.stopPropagation();
-    if (
-      e.target.dataset.overlay === "overlay" ||
-      e.currentTarget.type === "button"
-    ) {
-      navigate("/");
-      dispatch(clearIngredient());
-    }
+  const handlerModelClose = () => {
+    navigate("/");
+    dispatch(clearIngredient());
   };
   if (isLoading) {
     return <h1>Загрузка...</h1>;

@@ -11,7 +11,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { useNavigate } from "react-router-dom";
-import { IIngridients, THandlerModelClose } from "../../data/typesScripts";
+import { IIngridients } from "../../data/typesScripts";
 import { fetchOrderPost } from "../../services/store/asyncActions";
 import { userData } from "../../services/store/authReducer/selectors";
 import {
@@ -23,8 +23,6 @@ import {
   getBurgerConsructorBun,
   getBurgerConstructorList,
 } from "../../services/store/burgerConstructorReducer/selectors";
-import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
-import { closeIngredientPopup } from "../../services/store/popupIngredientsReducer/actions";
 import {
   closeOrderPopup,
   openOrderPopup,
@@ -73,17 +71,10 @@ const BurgerConstructor = () => {
     }
   };
 
-  function handlerModelClose(e: THandlerModelClose) {
-    e.stopPropagation();
-    if (
-      e.target.dataset.overlay === "overlay" ||
-      e.currentTarget.type === "button"
-      //||       e.key === "Escape"
-    ) {
-      dispatch(closeIngredientPopup());
-      dispatch(closeOrderPopup());
-      dispatch(clearIngredient());
-    }
+  function handlerModelClose() {
+    //dispatch(closeIngredientPopup());
+    dispatch(closeOrderPopup());
+    // dispatch(clearIngredient());
   }
 
   const onDropHandler = (item: IIngridients) => {
