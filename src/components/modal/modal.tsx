@@ -18,11 +18,7 @@ const Modal: React.FC<TModalProps> = ({ children, handlerModelClose }) => {
     const closePopup = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         handlerModelClose();
-        //navigate("/");
       }
-      // navigate("/");
-      //  dispatch(closeOrderPopup());
-      // }
     };
 
     document.addEventListener("keydown", closePopup);
