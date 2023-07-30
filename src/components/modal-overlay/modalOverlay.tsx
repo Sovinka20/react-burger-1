@@ -13,11 +13,19 @@ const ModalOverlay: React.FC<TModalOverlay> = ({
   children,
   handlerModelClose,
 }) => {
+  const handleOverlay: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    if (e.target === e.currentTarget) {
+      // вот так оверлей проверяется универсально
+      handlerModelClose(e);
+    }
+  };
+
   return createPortal(
     <div
       data-overlay="overlay"
       className={`${styles.overlay}`}
-      onClick={(e) => handlerModelClose(e)}
+      //onClick={(e) => handlerModelClose(e)}
+      onClick={handleOverlay}
     >
       {children}
     </div>,
