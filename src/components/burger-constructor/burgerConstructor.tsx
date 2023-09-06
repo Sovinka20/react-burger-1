@@ -17,13 +17,13 @@ import { userData } from "../../services/store/authReducer/selectors";
 import {
   addBunIngredientConstuctor,
   addIngredientConstuctor,
+  resetIngredients,
 } from "../../services/store/burgerConstructorReducer/actions";
 import {
   elementIsDrag,
   getBurgerConsructorBun,
   getBurgerConstructorList,
 } from "../../services/store/burgerConstructorReducer/selectors";
-import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import {
   closeOrderPopup,
   openOrderPopup,
@@ -69,7 +69,7 @@ const BurgerConstructor = () => {
     } else {
       handelPost();
       dispatch(openOrderPopup());
-      return dispatch(clearIngredient());
+      dispatch(resetIngredients());
     }
   };
 
