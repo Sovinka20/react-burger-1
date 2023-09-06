@@ -9,16 +9,19 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL, fetchWithRefresh, GET_HEADERS } from "../../data/api";
+import { Feed } from "../../pages/feed/feed";
 import ForgotPassword from "../../pages/forgot-password/forgotPassword";
 import Home from "../../pages/home/home";
 import Login from "../../pages/login/login";
-import { NotFound404 } from "../../pages/not-found-page/not-found";
+import { Orders } from "../../pages/orders/orders";
 import Profile from "../../pages/profile/profile";
 import Register from "../../pages/register/register";
 import ResetPassword from "../../pages/reset-password/resetPassword";
 import { fetchIngredients } from "../../services/store/asyncActions";
 import { isUserChecked } from "../../services/store/authReducer/actions";
 import { USER_LOGIN_AUTHORIZATION } from "../../services/store/authReducer/reducer";
+import { userData } from "../../services/store/authReducer/selectors";
+import { resetIngredients } from "../../services/store/burgerConstructorReducer/actions";
 import {
   getIngredientsError,
   getIngridients,
@@ -26,11 +29,14 @@ import {
 } from "../../services/store/burgerIngredientsReducer/selectors";
 import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 //import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
+//import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import IngredientDetails from "../ingredient-details/ingredientDetails";
 import Layout from "../layout/layout";
 import Modal from "../modal/modal";
+import { OrderDetailsPopup } from "../order-details-popup/orderDetailsPopup";
 import { ProfileForm } from "../profile-form/profileForm";
 import ProtectedRouteElement from "../protected-route-element/protectedRouteElement";
+import styles from "./app.module.css";
 
 function App() {
   const location = useLocation();
@@ -38,19 +44,14 @@ function App() {
   const error = useSelector(getIngredientsError);
   const isLoading = useSelector(getIsLoading);
   const ingredientsData = useSelector(getIngridients);
+  const isUserAuth = useSelector(userData);
+
+  // const feedOrderData = useSelector(getFeedOrderData);
+  // console.log(feedOrderData);
+
+  // console.log(feedOrderData);
 
   const dispatch = useDispatch();
-
-  //   React.useEffect(() => {
-
-  // const  ws = new WebSocket(`wss://norma.nomoreparties.space/orders/all`);
-  // ws.onopen = (event) => {
-  //     console.log("Соединение установлено")
-  // }
-  // ws.onmessage = (event: MessageEvent) => {
-  //   console.log(JSON.parse(event.data))
-  // }
-  //   },[])
 
   React.useEffect(() => {
     if (localStorage.getItem("accessToken")) {
@@ -70,10 +71,12 @@ function App() {
   }, [dispatch]);
 
   const background = location.state && location.state.background;
+  const feedOrderData = location.state && location.state.order;
 
   const handlerModelClose = () => {
     navigate("/");
     dispatch(clearIngredient());
+    dispatch(resetIngredients());
   };
   if (isLoading) {
     return <h1>Загрузка...</h1>;
@@ -83,8 +86,13 @@ function App() {
     return <h1>{error}</h1>;
   }
 
+  const handlerModelClose1 = (path: string) => {
+    navigate(`${path}`);
+    dispatch(resetIngredients());
+  };
+  console.log(isUserAuth);
   return (
-    <>
+    <div className={styles.root}>
       <Routes location={background || location}>
         <Route path="/" element={<Layout />}>
           <Route index element={<ProtectedRouteElement element={<Home />} />} />
@@ -106,39 +114,19 @@ function App() {
           />
           <Route
             path="/profile"
-            element={
-              <ProtectedRouteElement
-                //  onlyAuthorizedUsers={false}
-                element={<Profile />}
-              />
-            }
+            element={<ProtectedRouteElement element={<Profile />} />}
           >
             <Route index element={<ProfileForm />} />
             <Route
               path="orders"
-              element={
-                <NotFound404 />
-                //<Orders />
-              }
+              element={<ProtectedRouteElement element={<Orders />} />}
             />
           </Route>
           <Route
-            path="order"
-            element={
-              <ProtectedRouteElement
-                element={
-                  // <Orders />
-                  <NotFound404 />
-                }
-              />
-            }
-          />
-          <Route
-            path="/ingredients/:ingredientId"
-            element={<IngredientDetails ingredientsData={ingredientsData} />}
+            path="feed"
+            element={<ProtectedRouteElement element={<Feed />} />}
           />
         </Route>
-        <Route key="page404" path="*" element={<NotFound404 />} />;
       </Routes>
 
       {background && (
@@ -151,9 +139,27 @@ function App() {
               </Modal>
             }
           />
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal handlerModelClose={() => handlerModelClose1("/feed")}>
+                <OrderDetailsPopup feedOrderData={feedOrderData} />
+              </Modal>
+            }
+          />
+          <Route
+            path="profile/orders/:id"
+            element={
+              <Modal
+                handlerModelClose={() => handlerModelClose1("/profile/orders")}
+              >
+                <OrderDetailsPopup feedOrderData={feedOrderData} />
+              </Modal>
+            }
+          />
         </Routes>
       )}
-    </>
+    </div>
   );
 }
 

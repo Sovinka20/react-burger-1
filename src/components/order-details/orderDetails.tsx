@@ -11,7 +11,7 @@ const OrderDetails = () => {
         {orderNumber || 0}
       </h3>
       <span className="text text_type_main-medium mb-15">
-        идентификатор заказа
+        Идентификатор заказа
       </span>
       <img className="mb-15" src={popupIcon} alt="" />
       <span className="text text_type_main-default mb-2">

@@ -23,6 +23,7 @@ import {
   getBurgerConsructorBun,
   getBurgerConstructorList,
 } from "../../services/store/burgerConstructorReducer/selectors";
+import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import {
   closeOrderPopup,
   openOrderPopup,
@@ -68,13 +69,14 @@ const BurgerConstructor = () => {
     } else {
       handelPost();
       dispatch(openOrderPopup());
+      return dispatch(clearIngredient());
     }
   };
 
   function handlerModelClose() {
-    //dispatch(closeIngredientPopup());
+    //
     dispatch(closeOrderPopup());
-    // dispatch(clearIngredient());
+    //
   }
 
   const onDropHandler = (item: IIngridients) => {

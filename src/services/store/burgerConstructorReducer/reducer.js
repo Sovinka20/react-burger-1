@@ -4,6 +4,7 @@ export const DRAG_ON = "DRAG_ON";
 export const DRAG_OFF = "DRAG_OFF";
 export const CHANGE_INGEDIENT = "CHANGE_INGEDIENT";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
+export const RESET_INGREDIENTS = "RESET_INGREDIENT";
 
 const initialState = {
   bun: null,
@@ -12,6 +13,7 @@ const initialState = {
 };
 
 export const BurgerConstructorReducer = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case ADD_INGREDIENT:
       return { ...state, ingredients: [...state.ingredients, action.peyload] };
@@ -24,7 +26,8 @@ export const BurgerConstructorReducer = (state = initialState, action) => {
 
     case DELETE_INGREDIENT:
       return { ...state, ingredients: [...action.peyload] };
-
+    case RESET_INGREDIENTS:
+      return { ...state, ingredients: [], bun: null };
     case DRAG_ON:
       return { ...state, isDrag: true };
 

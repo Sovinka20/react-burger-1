@@ -7,6 +7,7 @@ const initialState = {
 };
 
 export const IngredientDetailsReducer = (state = initialState, action) => {
+  console.log(action, state);
   switch (action.type) {
     case GET_INGREDIENT:
       return { ...state, ingredient: { ...state.ingredient } };

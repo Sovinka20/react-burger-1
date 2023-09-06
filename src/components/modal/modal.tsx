@@ -9,6 +9,7 @@ import styles from "./modal.module.css";
 type TModalProps = {
   children: ReactNode;
   handlerModelClose: () => void;
+  render?: () => void;
 };
 
 const Modal: React.FC<TModalProps> = ({ children, handlerModelClose }) => {
@@ -18,6 +19,7 @@ const Modal: React.FC<TModalProps> = ({ children, handlerModelClose }) => {
     const closePopup = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         handlerModelClose();
+        console.log("esc");
       }
     };
 

@@ -18,9 +18,8 @@
 }
 .profileContainer {
   display: flex;
-  justify-content: space-between;
-  max-width: 860px;
-  margin: 180px auto 0 auto;
+  gap: 60px;
+  margin-top: 120px;
 }
 .text {
   color: #8585ad;

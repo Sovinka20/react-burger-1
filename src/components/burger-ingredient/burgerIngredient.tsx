@@ -31,6 +31,7 @@ const BurgerIngredient: React.FC<TBurgerIngredientProps> = ({
   const ingredientId = item["_id"];
 
   const handlerModelOpen = (item: IIngridients) => {
+    console.log(item);
     dispatch(setIngredient(item));
   };
 

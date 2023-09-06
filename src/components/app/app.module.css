@@ -11,6 +11,11 @@
 }
 .messageErrorText {
   max-width: 520px;
-  margin:  160px auto 0 auto;
+  margin: 160px auto 0 auto;
   text-align: center;
+}
+.root {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1240px;
 }

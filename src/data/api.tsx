@@ -135,3 +135,7 @@ export const fetchWithRefresh = async (
     }
   }
 };
+
+export const fetchOrderApi = (number: number) => {
+  return fetch(`${BASE_URL}/orders/${number}`).then(checkResponse);
+};

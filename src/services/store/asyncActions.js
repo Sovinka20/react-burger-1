@@ -11,13 +11,15 @@ import {
 export const fetchOrderPost = (ingredientsList) => (dispatch) => {
   fetch(`${BASE_URL}/orders/`, {
     method: "POST",
-    body: JSON.stringify({ ingredients: ingredientsList }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
+      Authorization: localStorage.getItem("accessToken"),
     },
+    body: JSON.stringify({ ingredients: ingredientsList }),
   })
     .then(checkResponse)
     .then((res) => {
+      console.log(res);
       dispatch(setOrderData(res));
     })
     .catch((err) => {
@@ -61,7 +63,6 @@ export const authorizationUser = (loginUserData) => (dispatch) => {
   })
     .then(checkResponse)
     .then((res) => {
-      console.log(res);
       localStorage.setItem(
         "accessToken",
         // res.accessToken.replace("Bearer ", "")
