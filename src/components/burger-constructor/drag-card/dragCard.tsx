@@ -80,9 +80,7 @@ const DragCard: React.FC<IDragCard> = ({ styles, item, id, index }) => {
   refDrag(refDrop(ref));
 
   const handleClose = (item: IIngridients) => {
-    let cardsList = cards.filter(
-      (ingredient: IIngridients) => ingredient.key !== item.key
-    );
+    let cardsList = cards.filter((ingredient) => ingredient.key !== item.key);
     dispatch(deleteIngredient(cardsList));
   };
 

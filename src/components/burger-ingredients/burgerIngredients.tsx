@@ -15,9 +15,13 @@ import BurgerIngredient from "../burger-ingredient/burgerIngredient";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("bun");
-  const ingredients = useSelector(getIngridients);
-  const BurgerConstructorList = useSelector(getBurgerConstructorList);
-  const BurgerConstructorBun = useSelector(getBurgerConsructorBun);
+  const ingredients: IIngridients[] = useSelector(getIngridients);
+  const BurgerConstructorList: IIngridients[] = useSelector(
+    getBurgerConstructorList
+  );
+  const BurgerConstructorBun: IIngridients = useSelector(
+    getBurgerConsructorBun
+  );
 
   const [bunsRef, inViewBuns, bunElement] = useInView({
     threshold: 0,
@@ -68,45 +72,34 @@ const BurgerIngredients = () => {
   };
 
   const bun = React.useMemo(
-    () =>
-      ingredients
-        .filter((item: IIngridients) => item.type === "bun")
-        .map((item: IIngridients) => item),
+    () => ingredients.filter((item) => item.type === "bun").map((item) => item),
     [ingredients]
   );
   const main = React.useMemo(
     () =>
-      ingredients
-        .filter((item: IIngridients) => item.type === "main")
-        .map((item: IIngridients) => item),
+      ingredients.filter((item) => item.type === "main").map((item) => item),
     [ingredients]
   );
   const sauce = React.useMemo(
     () =>
-      ingredients
-        .filter((item: IIngridients) => item.type === "sauce")
-        .map((item: IIngridients) => item),
+      ingredients.filter((item) => item.type === "sauce").map((item) => item),
     [ingredients]
   );
 
-  const mainStatistics = React.useMemo(() => {
+  const mainStatistics: any = React.useMemo(() => {
     if (main.length === 0) {
-      return {};
+      return { acc: { index: 0 }, e: { index: "string" } };
     }
     let res = {};
-    const items = BurgerConstructorList.filter(
-      (el: IIngridients) => el.type === "main"
-    );
-    return items.reduce(
-      (acc: { [index: string]: number }, e: { [index: string]: string }) => {
-        acc[e._id] = (acc[e._id] || 0) + 1;
-        return acc;
-      },
-      res
-    );
+    const items = BurgerConstructorList.filter((el) => el.type === "main");
+    return items.reduce((acc: any, e: any) => {
+      //(acc: { [index: string]: number }, e: { [index: string]: string }) => {
+      acc[e._id] = (acc[e._id] || 0) + 1;
+      return acc;
+    }, res);
   }, [main, BurgerConstructorList]);
 
-  const sauceStatistics = React.useMemo(() => {
+  const sauceStatistics: any = React.useMemo(() => {
     if (sauce.length === 0) {
       return {};
     }
@@ -114,13 +107,12 @@ const BurgerIngredients = () => {
     const items = BurgerConstructorList.filter(
       (el: IIngridients) => el.type === "sauce"
     );
-    return items.reduce(
-      (acc: { [index: string]: number }, e: { [index: string]: string }) => {
-        acc[e._id] = (acc[e._id] || 0) + 1;
-        return acc;
-      },
-      res
-    );
+    return items.reduce((acc: any, e: any) => {
+      //      (acc: { [index: string]: number }, e: { [index: string]: string }) => {
+
+      acc[e._id] = (acc[e._id] || 0) + 1;
+      return acc;
+    }, res);
   }, [sauce, BurgerConstructorList]);
 
   const countBun = React.useMemo(() => {

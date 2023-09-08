@@ -40,16 +40,16 @@ const BurgerConstructor = () => {
   const isOpenCloseOrderPopup = useSelector(getIsOpenCloseOrderPopup);
   const isUserAuth = useSelector(userData);
   const BurgerConstructorList = useSelector(getBurgerConstructorList);
-  const BurgerConsructorBun = useSelector(getBurgerConsructorBun);
-  const elementDrag = useSelector(elementIsDrag);
+  const BurgerConsructorBun: IIngridients = useSelector(getBurgerConsructorBun);
+  const elementDrag: boolean = useSelector(elementIsDrag);
 
   const borderColor = elementDrag ? "#4c4cff" : "#000";
 
   const dispatch = useDispatch();
 
   const handelPost = () => {
-    let ingredientsIdList = BurgerConstructorList.map(
-      (item: IIngridients) => item._id
+    let ingredientsIdList: Array<string> = BurgerConstructorList.map(
+      (item) => item._id
     );
     if (BurgerConsructorBun) {
       ingredientsIdList = [

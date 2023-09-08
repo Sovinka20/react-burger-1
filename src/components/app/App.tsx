@@ -27,7 +27,6 @@ import {
   getIngridients,
   getIsLoading,
 } from "../../services/store/burgerIngredientsReducer/selectors";
-import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 //import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 //import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import IngredientDetails from "../ingredient-details/ingredientDetails";
@@ -73,11 +72,6 @@ function App() {
   const background = location.state && location.state.background;
   const feedOrderData = location.state && location.state.order;
 
-  const handlerModelClose = () => {
-    navigate("/");
-    dispatch(clearIngredient());
-    dispatch(resetIngredients());
-  };
   if (isLoading) {
     return <h1>Загрузка...</h1>;
   }
@@ -86,11 +80,10 @@ function App() {
     return <h1>{error}</h1>;
   }
 
-  const handlerModelClose1 = (path: string) => {
+  const handlerModelClose = (path: string) => {
     navigate(`${path}`);
     dispatch(resetIngredients());
   };
-  console.log(isUserAuth);
   return (
     <div className={styles.root}>
       <Routes location={background || location}>
@@ -134,7 +127,7 @@ function App() {
           <Route
             path="/ingredients/:ingredientId"
             element={
-              <Modal handlerModelClose={handlerModelClose}>
+              <Modal handlerModelClose={() => handlerModelClose("/")}>
                 <IngredientDetails ingredientsData={ingredientsData} />
               </Modal>
             }
@@ -142,7 +135,7 @@ function App() {
           <Route
             path="/feed/:id"
             element={
-              <Modal handlerModelClose={() => handlerModelClose1("/feed")}>
+              <Modal handlerModelClose={() => handlerModelClose("/feed")}>
                 <OrderDetailsPopup feedOrderData={feedOrderData} />
               </Modal>
             }
@@ -151,7 +144,7 @@ function App() {
             path="profile/orders/:id"
             element={
               <Modal
-                handlerModelClose={() => handlerModelClose1("/profile/orders")}
+                handlerModelClose={() => handlerModelClose("/profile/orders")}
               >
                 <OrderDetailsPopup feedOrderData={feedOrderData} />
               </Modal>

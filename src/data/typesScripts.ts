@@ -28,6 +28,22 @@ export interface IIngridients {
   price: number;
   key?: string;
 }
+export interface IIngridientsOrder {
+  _id: string;
+  type: string;
+  image_large: string;
+  image_mobile: string;
+  image_mobail: string;
+  image: string;
+  name: string;
+  calories: number;
+  proteins: number;
+  fat: number;
+  carbohydrates: number;
+  price: number;
+  numberOfComponents: number;
+}
+
 export type THandlerModelClose =
   | React.BaseSyntheticEvent<HTMLElement>
   | React.MouseEvent<HTMLButtonElement>

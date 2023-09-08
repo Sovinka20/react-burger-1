@@ -1,1 +1,0 @@
-export const getFeedOrderData = (state) => state.popupFeedOrderReducer.feedOrderData;
