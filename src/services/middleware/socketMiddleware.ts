@@ -1,6 +1,6 @@
 import { Middleware } from "redux";
 
-const wsOrdersAllMiddleware = (): Middleware => {
+const socketMiddleware = (): Middleware => {
   return (store) => {
     console.log(store);
     return (next) => (action) => {
@@ -53,4 +53,4 @@ const wsOrdersAllMiddleware = (): Middleware => {
   };
 };
 
-export { wsOrdersAllMiddleware };
+export { socketMiddleware };

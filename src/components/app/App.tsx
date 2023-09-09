@@ -120,6 +120,32 @@ function App() {
             element={<ProtectedRouteElement element={<Feed />} />}
           />
         </Route>
+        <Route
+          path="/ingredients/:ingredientId"
+          element={
+            <Modal handlerModelClose={() => handlerModelClose("/")}>
+              <IngredientDetails ingredientsData={ingredientsData} />
+            </Modal>
+          }
+        />
+        <Route
+          path="/feed/:id"
+          element={
+            <Modal handlerModelClose={() => handlerModelClose("/feed")}>
+              <OrderDetailsPopup feedOrderData={feedOrderData} />
+            </Modal>
+          }
+        />
+        <Route
+          path="profile/orders/:id"
+          element={
+            <Modal
+              handlerModelClose={() => handlerModelClose("/profile/orders")}
+            >
+              <OrderDetailsPopup feedOrderData={feedOrderData} />
+            </Modal>
+          }
+        />
       </Routes>
 
       {background && (
