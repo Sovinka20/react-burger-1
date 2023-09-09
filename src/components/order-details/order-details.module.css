@@ -3,3 +3,7 @@
   flex-direction: column;
   align-items: center;
 }
+
+.sendUser {
+  padding-top: 40%;
+}
