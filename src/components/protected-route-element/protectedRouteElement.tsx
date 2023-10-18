@@ -20,8 +20,6 @@ const ProtectedRouteElement = ({
   const user = useSelector(userData);
   const isResetPass = useSelector(isResetPassword);
   const location = useLocation();
-  console.log(location.pathname === PROFILE_ORDERS);
-  console.log(location.pathname === PROFILE);
   if (!user && location.pathname === "/reset-password" && !isResetPass) {
     return <Navigate to="/" state={{ from: location }} />;
   }

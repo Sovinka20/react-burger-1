@@ -25,7 +25,6 @@ export const BurgerConstructorReducer = (
   state = initialState,
   action: { type: string; peyload: IIngridients[] }
 ) => {
-  console.log(action);
   switch (action.type) {
     case ADD_INGREDIENT:
       return { ...state, ingredients: [...state.ingredients, action.peyload] };

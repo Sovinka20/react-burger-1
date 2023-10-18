@@ -7,7 +7,7 @@ const OrderDetails = () => {
   const orderNumber = useSelector(getOrderNumbers);
   return (
     <div className={styles.container}>
-      {orderNumber ? (
+      {orderNumber !== 0 ? (
         <>
           <h3 className="text text_type_digits-large mb-8 mt-30">
             {orderNumber}

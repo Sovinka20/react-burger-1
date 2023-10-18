@@ -25,7 +25,7 @@ type TOrderProps = {
 
 const Order: React.FC<TOrderProps> = ({ data, path }) => {
   const location = useLocation();
-  const ingredients: [IIngridientsOrder] = useSelector(getIngridients);
+  const ingredients: IIngridientsOrder[] = useSelector(getIngridients);
   const dispatch = useDispatch();
   let a: { [key: string]: number } = {};
   let imageArr: Array<IIngridientsOrder> = [];
@@ -73,9 +73,9 @@ const Order: React.FC<TOrderProps> = ({ data, path }) => {
     ingredientsData: imageArr,
   };
   const handlerModalOpen = (item: IIngredientDetails) => {
+    console.log(item);
     dispatch(addFeedOrder(item));
   };
-
   return (
     <Link
       to={`/${path}/${data._id}`}

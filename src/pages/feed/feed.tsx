@@ -1,186 +1,123 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Order } from "../../components/order/order";
+import PreloaderComponent from "../../components/preloaderComponent/PreloaderComponent";
+import { TOrder } from "../../data/typesScripts";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 
-import { websocketConnect } from "../../services/store/wsOrdersAll/actions2";
-import { WEBSOCKET_CLOSE } from "../../services/store/wsOrdersAll/reducer2";
-import { getWsAllIngridients } from "../../services/store/wsOrdersAll/selectors";
+import {
+  WEBSOCKET_CLOSE,
+  WEBSOCKET_OPEN,
+} from "../../services/store/wsOrdersAll/actionsFeed";
 import styles from "./feed.module.css";
 
 const Feed = () => {
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(websocketConnect("wss://norma.nomoreparties.space/orders/all"));
+  const dispatch = useAppDispatch();
+  const { data } = useAppSelector((store) => store.wsOrdersAllReducer);
+  console.log(data);
+  useEffect(() => {
+    dispatch({ type: WEBSOCKET_OPEN });
     return () => {
       dispatch({ type: WEBSOCKET_CLOSE });
     };
-  }, [dispatch]);
+  }, []);
 
-  const getIngredients: [
-    {
-      createdAt: string;
-      ingredients: Array<string>;
-      name: string;
-      number: number;
-      status: string;
-      updatedAt: string;
-      _id: string;
-    }
-  ] = useSelector(getWsAllIngridients);
+  console.log(data);
 
-  const done = getIngredients.filter((item) => {
-    return item.status === "done";
-  });
-  const notDone = getIngredients.filter((item) => {
-    return item.status !== "done";
-  });
+  const getOrderNumbers = (orders: TOrder[]) => {
+    const completedOrders: number[] = [];
+    const ordersInProgress: number[] = [];
+    orders.forEach((o) => {
+      o.status === "done"
+        ? completedOrders.push(o.number)
+        : ordersInProgress.push(o.number);
+    });
+
+    return { completedOrders, ordersInProgress };
+  };
+  console.log(getOrderNumbers);
+
   return (
     <div className={styles.wrapper}>
       <main className={styles.feedMain}>
         <h1 className={`text text_type_main-large mt-10 mb-5 ${styles.title}`}>
           Лента заказов
         </h1>
-        <section className={`custom-scroll ${styles.feedInfoSectionLeft}`}>
-          {getIngredients.slice(0, 10).map((item) => {
-            return <Order key={item._id} data={item} path={"feed"} />;
-          })}
-        </section>
-        <section className={styles.feedInfoSectionRight}>
-          <div className={styles.ulContainer}>
-            <h3
-              className={`text text_type_main-medium mb-4 ${styles.ulToWorkTitle}`}
-            >
-              В работе:
-            </h3>
 
-            <div className={styles.leftDiv}>
-              <ul className={`text text_type_digits-default ${styles.readu}`}>
-                {done.map((item, index) => {
-                  return (
-                    index < 10 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-              <ul className={`text text_type_digits-default ${styles.readu}`}>
-                {done.map((item, index) => {
-                  return (
-                    index > 9 &&
-                    index < 20 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-              <ul className={`text text_type_digits-default ${styles.readu}`}>
-                {done.map((item, index) => {
-                  return (
-                    index > 19 &&
-                    index < 30 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-              <ul className={`text text_type_digits-default ${styles.readu}`}>
-                {done.map((item, index) => {
-                  return (
-                    index > 29 &&
-                    index < 40 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-              <ul className={`text text_type_digits-default ${styles.readu}`}>
-                {done.map((item, index) => {
-                  return (
-                    index > 39 &&
-                    index < 50 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
+        {data.success ? (
+          <>
+            {/* <div className={styles.content}> */}
+            {/* <div className={`${styles.ordersContainer} pr-2 custom-scroll`}> */}
+            <section className={`custom-scroll ${styles.feedInfoSectionLeft}`}>
+              {data.orders.map((order, index) => (
+                <Order key={index} data={order} path={"feed"} />
+              ))}
+              {/* </div> */}
+            </section>
+
+            <div className={styles.orderNumbersContainer}>
+              <div className={styles.orderNumbers}>
+                <div className={styles.orderNumbersCompleted}>
+                  <p className="text text_type_main-medium mb-6">Готовы:</p>
+                  <ul className={styles.ordersTable}>
+                    {getOrderNumbers(data.orders)
+                      .completedOrders.slice(0, 21)
+                      .map((n, i) => (
+                        <li
+                          className={`${styles.orderNumber} text text_type_digits-default text_color_success`}
+                          key={i}
+                        >
+                          {n}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+
+                <div className={styles.orderNumbersInProgress}>
+                  <p className="text text_type_main-medium mb-6">В работе:</p>
+                  <ul className={styles.ordersTable}>
+                    {getOrderNumbers(data.orders).ordersInProgress.length > 0
+                      ? getOrderNumbers(data.orders)
+                          .ordersInProgress.slice(0, 21)
+                          .map((n, i) => (
+                            <li
+                              className={`${styles.orderNumber} text text_type_digits-default`}
+                              key={i}
+                            >
+                              {n}
+                            </li>
+                          ))
+                      : null}
+                  </ul>
+                </div>
+              </div>
+
+              <div className={styles.ordersTotal}>
+                <p className="text text_type_main-medium">
+                  Выполнено за все время:
+                </p>
+                <p
+                  className={`${styles.ordersCounter} text text_type_digits-large`}
+                >
+                  {data.total}
+                </p>
+              </div>
+
+              <div className={styles.ordersTotalToday}>
+                <p className="text text_type_main-medium">
+                  Выполнено за сегодня:
+                </p>
+                <p
+                  className={`${styles.ordersCounter} text text_type_digits-large`}
+                >
+                  {data.totalToday}
+                </p>
+              </div>
             </div>
-
-            <h3
-              className={`text text_type_main-medium mb-4 ${styles.ulReaduTitle}`}
-            >
-              Готовы:
-            </h3>
-            <div className={styles.rightDiv}>
-              <ul className={`text text_type_digits-default ${styles.toWork}`}>
-                {notDone.map((item, index) => {
-                  return (
-                    index < 10 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-              <ul className={`text text_type_digits-default ${styles.toWork}`}>
-                {notDone.map((item, index) => {
-                  return (
-                    index < 10 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-              <ul className={`text text_type_digits-default ${styles.toWork}`}>
-                {notDone.map((item, index) => {
-                  return (
-                    index < 10 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-              <ul className={`text text_type_digits-default ${styles.toWork}`}>
-                {notDone.map((item, index) => {
-                  return (
-                    index < 10 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-              <ul className={`text text_type_digits-default ${styles.toWork}`}>
-                {notDone.map((item, index) => {
-                  return (
-                    index < 10 && (
-                      <li className={styles.readuLI} key={item._id}>
-                        {item.number}
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-
-          {/* </div> */}
-        </section>
+            {/* </div> */}
+          </>
+        ) : (
+          <PreloaderComponent />
+        )}
       </main>
     </div>
   );

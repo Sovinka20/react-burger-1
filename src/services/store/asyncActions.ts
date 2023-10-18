@@ -1,6 +1,8 @@
 import { BASE_URL, checkResponse } from "../../data/api";
+import { IIngridients } from "../../data/typesScripts";
 import { isUserChecked } from "./authReducer/actions";
 import { LOGOUT_USER, USER_LOGIN_AUTHORIZATION } from "./authReducer/reducer";
+import { resetIngredients } from "./burgerConstructorReducer/actions";
 import {
   GET_INGRIDIENTS_ERRORE,
   GET_INGRIDIENTS_REQUEST,
@@ -9,9 +11,14 @@ import {
 import { setOrderData } from "./orderDetailsReducer/actions";
 
 export const fetchOrderPost =
-  (ingredientsList: any) =>
-  (dispatch: (arg0: { type: string; payload: any }) => void) => {
-    const token: any = localStorage.getItem("accessToken");
+  (ingredientsList: Array<string>) =>
+  (
+    dispatch: (arg0: {
+      type: string;
+      payload: { email: string; user: string } | string;
+    }) => void
+  ) => {
+    const token: string = localStorage.getItem("accessToken") || "";
     fetch(`${BASE_URL}/orders/`, {
       method: "POST",
       headers: {
@@ -24,6 +31,7 @@ export const fetchOrderPost =
       .then((res) => {
         console.log(res);
         dispatch(setOrderData(res));
+        dispatch(resetIngredients(""));
       })
       .catch((err) => {
         console.log(err);
@@ -31,7 +39,13 @@ export const fetchOrderPost =
   };
 
 export const fetchIngredients =
-  () => (dispatch: (arg0: { type: string; payload: any }) => void) => {
+  () =>
+  (
+    dispatch: (arg0: {
+      type: string;
+      payload: { data: IIngridients } | string | boolean;
+    }) => void
+  ) => {
     dispatch({
       type: GET_INGRIDIENTS_REQUEST,
       payload: true,
@@ -59,7 +73,7 @@ export const fetchIngredients =
  */
 export const authorizationUser =
   (loginUserData: { email: string; password: string }) =>
-  (dispatch: (arg0: { type: string; payload: any }) => void) => {
+  (dispatch: (arg0: { type: string; payload: string | boolean }) => void) => {
     return fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
       headers: {
@@ -91,7 +105,7 @@ export const authorizationUser =
  */
 export const registerUser =
   (registerUserData: { email: string; password: string; name: string }) =>
-  (dispatch: (arg0: { type: string; payload: any }) => void) => {
+  (dispatch: (arg0: { type: string; payload: string | boolean }) => void) => {
     return fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
       headers: {

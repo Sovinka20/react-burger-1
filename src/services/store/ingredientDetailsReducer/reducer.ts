@@ -13,9 +13,8 @@ const initialState: TStateIngredientDetailsReducer = {
 
 export const IngredientDetailsReducer = (
   state = initialState,
-  action: { type: string; peyload: any }
+  action: { type: string; peyload: IIngridients }
 ) => {
-  console.log(action, state);
   switch (action.type) {
     case GET_INGREDIENT:
       return { ...state, ingredient: { ...state.ingredient } };

@@ -13,6 +13,8 @@ import { Feed } from "../../pages/feed/feed";
 import ForgotPassword from "../../pages/forgot-password/forgotPassword";
 import Home from "../../pages/home/home";
 import Login from "../../pages/login/login";
+import { PageFeedDetailsPopup } from "../../pages/order-details-popup/pageOrderDetailsPopup";
+import { PageOrderDetailsPopup } from "../../pages/order-details-popup/pageOrderDetailsPopupOrder";
 import { Orders } from "../../pages/orders/orders";
 import Profile from "../../pages/profile/profile";
 import Register from "../../pages/register/register";
@@ -20,13 +22,13 @@ import ResetPassword from "../../pages/reset-password/resetPassword";
 import { fetchIngredients } from "../../services/store/asyncActions";
 import { isUserChecked } from "../../services/store/authReducer/actions";
 import { USER_LOGIN_AUTHORIZATION } from "../../services/store/authReducer/reducer";
-import { userData } from "../../services/store/authReducer/selectors";
-import { resetIngredients } from "../../services/store/burgerConstructorReducer/actions";
 import {
   getIngredientsError,
   getIngridients,
   getIsLoading,
 } from "../../services/store/burgerIngredientsReducer/selectors";
+import { ADD_FEED_ORDER_DATA } from "../../services/store/popupFeedOrderReducer/reducer";
+import { getWsAllIngridients } from "../../services/store/wsOrdersAll/selectors";
 //import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 //import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import IngredientDetails from "../ingredient-details/ingredientDetails";
@@ -43,12 +45,11 @@ function App() {
   const error = useSelector(getIngredientsError);
   const isLoading = useSelector(getIsLoading);
   const ingredientsData = useSelector(getIngridients);
-  const isUserAuth = useSelector(userData);
+
+  const errorOrder = useSelector(getIngredientsError);
+  const isLoadingOrder = useSelector(getIsLoading);
 
   // const feedOrderData = useSelector(getFeedOrderData);
-  // console.log(feedOrderData);
-
-  // console.log(feedOrderData);
 
   const dispatch = useDispatch();
 
@@ -67,22 +68,27 @@ function App() {
       dispatch(isUserChecked(false));
     }
     dispatch(fetchIngredients() as unknown as any);
+    if (isLoadingOrder)
+      dispatch({
+        type: ADD_FEED_ORDER_DATA,
+        payload: feedOrderData,
+      });
   }, [dispatch]);
 
   const background = location.state && location.state.background;
   const feedOrderData = location.state && location.state.order;
-
+  console.log(feedOrderData);
+  const getIngredients = useSelector(getWsAllIngridients);
   if (isLoading) {
     return <h1>Загрузка...</h1>;
   }
 
-  if (!isLoading && error) {
+  if ((!isLoading && error) || (!isLoadingOrder && errorOrder)) {
     return <h1>{error}</h1>;
   }
 
   const handlerModelClose = (path: string) => {
     navigate(`${path}`);
-    dispatch(resetIngredients());
   };
   return (
     <div className={styles.root}>
@@ -130,22 +136,10 @@ function App() {
         />
         <Route
           path="/feed/:id"
-          element={
-            <Modal handlerModelClose={() => handlerModelClose("/feed")}>
-              <OrderDetailsPopup feedOrderData={feedOrderData} />
-            </Modal>
-          }
+          element={<PageFeedDetailsPopup />}
+          // <OrderDetailsPopup feedOrderData={feedOrderData} />}
         />
-        <Route
-          path="profile/orders/:id"
-          element={
-            <Modal
-              handlerModelClose={() => handlerModelClose("/profile/orders")}
-            >
-              <OrderDetailsPopup feedOrderData={feedOrderData} />
-            </Modal>
-          }
-        />
+        <Route path="profile/orders/:id" element={<PageOrderDetailsPopup />} />
       </Routes>
 
       {background && (

@@ -1,3 +1,3 @@
 export const getIsOpenCloseOrderPopup = (state: {
-  popupOrderReducer: { isOpenCloseOrder: any };
+  popupOrderReducer: { isOpenCloseOrder: boolean };
 }) => state.popupOrderReducer.isOpenCloseOrder;

@@ -11,19 +11,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { useNavigate } from "react-router-dom";
+import { AnyAction } from "redux";
 import { IIngridients } from "../../data/typesScripts";
 import { fetchOrderPost } from "../../services/store/asyncActions";
 import { userData } from "../../services/store/authReducer/selectors";
 import {
   addBunIngredientConstuctor,
   addIngredientConstuctor,
-  resetIngredients,
 } from "../../services/store/burgerConstructorReducer/actions";
 import {
   elementIsDrag,
   getBurgerConsructorBun,
   getBurgerConstructorList,
 } from "../../services/store/burgerConstructorReducer/selectors";
+import { resetOrderData } from "../../services/store/orderDetailsReducer/actions";
 import {
   closeOrderPopup,
   openOrderPopup,
@@ -60,7 +61,7 @@ const BurgerConstructor = () => {
     } else {
       ingredientsIdList = [...ingredientsIdList];
     }
-    dispatch(fetchOrderPost(ingredientsIdList) as unknown as any);
+    dispatch(fetchOrderPost(ingredientsIdList) as unknown as AnyAction);
   };
 
   const handlerModelOpen = () => {
@@ -68,8 +69,8 @@ const BurgerConstructor = () => {
       navigate("/login");
     } else {
       handelPost();
+      dispatch(resetOrderData());
       dispatch(openOrderPopup());
-      dispatch(resetIngredients());
     }
   };
 

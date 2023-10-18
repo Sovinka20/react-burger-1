@@ -1,56 +1,61 @@
-import { Middleware } from "redux";
+import { Middleware, MiddlewareAPI } from "redux";
+import { TStore } from "../../data/typesScripts";
+import { store } from "../store";
 
-const socketMiddleware = (): Middleware => {
-  return (store) => {
-    console.log(store);
-    return (next) => (action) => {
-      let socket;
+type AppDispatch = typeof store.dispatch;
+
+export type WSActions = {
+  wsInit: string;
+  disconnect: string;
+  onError: string;
+  onMessage: string;
+};
+
+type TWSAction = {
+  type: string;
+  payload?: string;
+};
+
+export const webSocketMiddleware = (
+  url: string,
+  actions: WSActions,
+  withToken: boolean
+): Middleware => {
+  const tokenLocalStorage: string = localStorage.getItem("accessToken") || "";
+  const token: string =
+    tokenLocalStorage !== ""
+      ? tokenLocalStorage.substring(tokenLocalStorage.length - 171)
+      : //.split("Bearer ")[1]
+        tokenLocalStorage;
+  return ((store: MiddlewareAPI<AppDispatch, TStore>) => {
+    let socket: WebSocket | null = null;
+    return (next) => (action: TWSAction) => {
       const { dispatch } = store;
-      const { type, payload } = action; // тут мы деструктуризируем наш экшн, чтобы проще было получать данные
+      const { wsInit, disconnect, onError, onMessage } = actions;
 
-      if (type === "WEBSOCKET_CONNECT") {
-        // тут мы проверяем пролученный экшен и если у него тип WEBSOCKET_CONNECT то проваливаемся в иф и дальше создаем сокет соединение
-        socket = new WebSocket(payload); // в пейлоаде нам приходит урл для подключения, который мы передали выше в диспатч dispatch(websocketConnect(url))
+      if (action.type === wsInit && socket === null) {
+        socket = withToken
+          ? (socket = new WebSocket(`${url}?token=${token}`))
+          : new WebSocket(url);
 
-        // Далее вешаем обработчики на наше сокет соединение
-        socket.onopen = (event) => {
-          // обработчик, который вызывается при открытии соединения и диспатчит экшен об этом
+        if (socket) {
+          socket.onerror = (event) => {
+            dispatch({ type: onError });
+          };
 
-          dispatch({ type: "WEBSOCKET_OPEN" });
-        };
+          socket.onmessage = (event) => {
+            dispatch({ type: onMessage, payload: JSON.parse(event.data) });
+          };
 
-        socket.onerror = (event) => {
-          // обработчик ошибки, тоже с диспатчем
-          console.log(event);
-          dispatch({ type: "WEBSOCKET_ERROR", payload: event });
-        };
-
-        // тут мы вешаем обработчик, который вызывается при получении сообщения по вебсокет соединению
-        // то есть каждый раз когда мы получаем сообщение по вебсокету, будет вызываться эта функция, которая диспатчит это сообщение к нам в редьюсер
-        socket.onmessage = (event) => {
-          const { data } = event; // в эвенте как раз хранятся данные, которые приходят нам по вебсокету
-
-          const parsedData = JSON.parse(data); // на всякий случай парсим полученные данные в js объект
-          dispatch({
-            type: "WEBSOCKET_MESSAGE",
-            payload: {
-              data: parsedData,
-            },
-          });
-        };
-
-        socket.onclose = (event) => {
-          dispatch({ type: "WEBSOCKET_CLOSE" });
-        };
-      }
-
-      if (type === "WEBSOCKET_CLOSE" && socket) {
+          socket.onclose = (event) => {
+            socket = null;
+          };
+        }
+      } else if (action.type === disconnect && socket != null) {
         socket.close();
       }
 
       next(action);
     };
-  };
+  }) as Middleware;
 };
-
-export { socketMiddleware };

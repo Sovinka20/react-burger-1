@@ -15,7 +15,7 @@ const initialState = {
 
 export const popupOrderReducer = (
   state = initialState,
-  action: { type: any }
+  action: { type: string }
 ) => {
   switch (action.type) {
     case OPEN_ORDER_POPUP:

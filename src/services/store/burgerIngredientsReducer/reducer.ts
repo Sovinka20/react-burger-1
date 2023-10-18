@@ -18,7 +18,25 @@ const initialState: TStateBurgerIngredientsReducer = {
 
 export const BurgerIngredientsReducer = (
   state = initialState,
-  action: { type: string; payload: any }
+  action: {
+    type: string;
+    payload: {
+      data: {
+        orders: [
+          createdAt: string,
+          ingredients: Array<string>,
+          name: string,
+          number: number,
+          status: string,
+          updatedAt: string,
+          _id: string
+        ];
+        success: boolean;
+        total: number;
+        totalToday: number;
+      };
+    };
+  }
 ) => {
   switch (action.type) {
     case GET_INGRIDIENTS_REQUEST:

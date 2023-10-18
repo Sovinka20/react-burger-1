@@ -27,4 +27,7 @@ export const deleteIngredient = (peyload: IIngridients[]) => ({
   type: DELETE_INGREDIENT,
   peyload,
 });
-export const resetIngredients = () => ({ type: RESET_INGREDIENTS });
+export const resetIngredients = (payload: string) => ({
+  type: RESET_INGREDIENTS,
+  payload,
+});

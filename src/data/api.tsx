@@ -1,4 +1,10 @@
 export const BASE_URL = "https://norma.nomoreparties.space/api";
+export const WS_ORDERS_URL = "wss://norma.nomoreparties.space/orders/all";
+export const WS_USER_ORDERS_URL = "wss://norma.nomoreparties.space/orders";
+export const WS_URL_ORDERS_ALL = "wss://norma.nomoreparties.space/orders/all";
+export const WS_URL_ORDERS_USER_HISTORY =
+  "wss://norma.nomoreparties.space/orders";
+
 /*
 class Api {
   constructor(urlApi) {
@@ -69,7 +75,6 @@ export const PATCH_HEADERS = {
  */
 
 export const forgotPassword = (emailData: { email: string }) => {
-  console.log(JSON.stringify(emailData));
   return fetch(`${BASE_URL}/password-reset`, {
     method: "POST",
     headers: {

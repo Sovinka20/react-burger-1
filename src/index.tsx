@@ -1,18 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "./components/app/App";
 import "./index.css";
-import { socketMiddleware } from "./services/middleware/socketMiddleware";
-import { rootReducer } from "./services/store/reducers";
+import { store } from "./services/store";
 
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(socketMiddleware()),
-});
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
 root.render(

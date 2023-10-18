@@ -86,20 +86,21 @@ const BurgerIngredients = () => {
     [ingredients]
   );
 
-  const mainStatistics: any = React.useMemo(() => {
+  const mainStatistics: { [index: string]: number } = React.useMemo(() => {
     if (main.length === 0) {
       return { acc: { index: 0 }, e: { index: "string" } };
     }
     let res = {};
     const items = BurgerConstructorList.filter((el) => el.type === "main");
-    return items.reduce((acc: any, e: any) => {
+    return items.reduce((acc: { [index: string]: number }, e: IIngridients) => {
+      console.log(acc, e);
       //(acc: { [index: string]: number }, e: { [index: string]: string }) => {
       acc[e._id] = (acc[e._id] || 0) + 1;
       return acc;
     }, res);
   }, [main, BurgerConstructorList]);
 
-  const sauceStatistics: any = React.useMemo(() => {
+  const sauceStatistics: { [index: string]: number } = React.useMemo(() => {
     if (sauce.length === 0) {
       return {};
     }
@@ -107,7 +108,7 @@ const BurgerIngredients = () => {
     const items = BurgerConstructorList.filter(
       (el: IIngridients) => el.type === "sauce"
     );
-    return items.reduce((acc: any, e: any) => {
+    return items.reduce((acc: { [index: string]: number }, e: IIngridients) => {
       //      (acc: { [index: string]: number }, e: { [index: string]: string }) => {
 
       acc[e._id] = (acc[e._id] || 0) + 1;

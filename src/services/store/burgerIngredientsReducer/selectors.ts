@@ -1,9 +1,11 @@
+import { IIngridientsOrder } from "../../../data/typesScripts";
+
 export const getIngridients = (state: {
-  BurgerIngredientsReducer: { ingredients: any };
+  BurgerIngredientsReducer: { ingredients: IIngridientsOrder[] };
 }) => state.BurgerIngredientsReducer.ingredients;
 export const getIsLoading = (state: {
-  BurgerIngredientsReducer: { isLoading: any };
+  BurgerIngredientsReducer: { isLoading: boolean };
 }) => state.BurgerIngredientsReducer.isLoading;
 export const getIngredientsError = (state: {
-  BurgerIngredientsReducer: { error: any };
+  BurgerIngredientsReducer: { error: boolean };
 }) => state.BurgerIngredientsReducer.error;

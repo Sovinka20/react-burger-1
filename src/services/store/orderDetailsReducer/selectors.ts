@@ -1,3 +1,3 @@
 export const getOrderNumbers = (state: {
-  OrderDetailsReducer: { order: any };
+  OrderDetailsReducer: { order: number };
 }) => state.OrderDetailsReducer.order;
