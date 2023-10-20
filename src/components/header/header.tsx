@@ -3,8 +3,8 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../services/store";
 import { userData } from "../../services/store/authReducer/selectors";
 import styles from "./header.module.css";
 
@@ -12,7 +12,7 @@ const activeClass = `${styles.menuLink} ${styles.menuLinkActive} text text_type_
 const unActiveClass = `${styles.menuLink} text text_type_main-default text_color_inactive`;
 
 const Header = () => {
-  const isUserAuth = useSelector(userData);
+  const isUserAuth = useAppSelector(userData);
 
   return (
     <header className={styles.header}>

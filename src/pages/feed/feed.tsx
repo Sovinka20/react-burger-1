@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Order } from "../../components/order/order";
-import PreloaderComponent from "../../components/preloaderComponent/PreloaderComponent";
+import PreloaderComponent from "../../components/preloaderComponent/preloaderComp";
 import { TOrder } from "../../data/typesScripts";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 
@@ -13,15 +13,12 @@ import styles from "./feed.module.css";
 const Feed = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((store) => store.wsOrdersAllReducer);
-  console.log(data);
   useEffect(() => {
     dispatch({ type: WEBSOCKET_OPEN });
     return () => {
       dispatch({ type: WEBSOCKET_CLOSE });
     };
   }, []);
-
-  console.log(data);
 
   const getOrderNumbers = (orders: TOrder[]) => {
     const completedOrders: number[] = [];
@@ -34,7 +31,6 @@ const Feed = () => {
 
     return { completedOrders, ordersInProgress };
   };
-  console.log(getOrderNumbers);
 
   return (
     <div className={styles.wrapper}>
@@ -45,13 +41,10 @@ const Feed = () => {
 
         {data.success ? (
           <>
-            {/* <div className={styles.content}> */}
-            {/* <div className={`${styles.ordersContainer} pr-2 custom-scroll`}> */}
             <section className={`custom-scroll ${styles.feedInfoSectionLeft}`}>
               {data.orders.map((order, index) => (
                 <Order key={index} data={order} path={"feed"} />
               ))}
-              {/* </div> */}
             </section>
 
             <div className={styles.orderNumbersContainer}>

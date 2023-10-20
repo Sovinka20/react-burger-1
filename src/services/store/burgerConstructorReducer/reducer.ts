@@ -1,12 +1,13 @@
 import { IIngridients } from "../../../data/typesScripts";
-
-export const ADD_INGREDIENT = "ADD_INGREDIENT";
-export const ADD_BUN_INGREDIENT_BUN = "ADD_BUN_INGREDIENT_BUN";
-export const DRAG_ON = "DRAG_ON";
-export const DRAG_OFF = "DRAG_OFF";
-export const CHANGE_INGEDIENT = "CHANGE_INGEDIENT";
-export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
-export const RESET_INGREDIENTS = "RESET_INGREDIENT";
+import {
+  ADD_BUN_INGREDIENT_BUN,
+  ADD_INGREDIENT,
+  CHANGE_INGEDIENT,
+  DELETE_INGREDIENT,
+  DRAG_OFF,
+  DRAG_ON,
+  RESET_INGREDIENTS,
+} from "./actions";
 
 export type TStateAuthReducer = {
   success: boolean;

@@ -1,6 +1,5 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import image from "../../images/price.svg";
 
 import styles from "./burger-constructor.module.css";
@@ -13,6 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { AnyAction } from "redux";
 import { IIngridients } from "../../data/typesScripts";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { fetchOrderPost } from "../../services/store/asyncActions";
 import { userData } from "../../services/store/authReducer/selectors";
 import {
@@ -38,15 +38,18 @@ import DragCard from "./drag-card/dragCard";
 const BurgerConstructor = () => {
   const navigate = useNavigate();
 
-  const isOpenCloseOrderPopup = useSelector(getIsOpenCloseOrderPopup);
-  const isUserAuth = useSelector(userData);
-  const BurgerConstructorList = useSelector(getBurgerConstructorList);
-  const BurgerConsructorBun: IIngridients = useSelector(getBurgerConsructorBun);
-  const elementDrag: boolean = useSelector(elementIsDrag);
+  const isOpenCloseOrderPopup = useAppSelector(getIsOpenCloseOrderPopup);
+  const isUserAuth = useAppSelector(userData);
+
+  const BurgerConstructorList = useAppSelector(getBurgerConstructorList);
+  const BurgerConsructorBun: IIngridients = useAppSelector(
+    getBurgerConsructorBun
+  );
+  const elementDrag: boolean = useAppSelector(elementIsDrag);
 
   const borderColor = elementDrag ? "#4c4cff" : "#000";
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handelPost = () => {
     let ingredientsIdList: Array<string> = BurgerConstructorList.map(

@@ -4,13 +4,13 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../services/store";
 import { authorizationUser } from "../../services/store/asyncActions";
 import styles from "./login.module.css";
 
 const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState({
     email: "",
     password: "",

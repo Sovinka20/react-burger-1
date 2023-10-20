@@ -4,8 +4,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import { IIngridients } from "../../../data/typesScripts";
+import { useAppDispatch, useAppSelector } from "../../../services/store";
 import {
   changeIngredient,
   deleteIngredient,
@@ -24,8 +24,8 @@ type TUseDropProps = {
 } & IIngridients;
 
 const DragCard: React.FC<IDragCard> = ({ styles, item, id, index }) => {
-  const cards = useSelector(getBurgerConstructorList);
-  const dispatch = useDispatch();
+  const cards = useAppSelector(getBurgerConstructorList);
+  const dispatch = useAppDispatch();
 
   const moveCard = (dragIndex: number, hoverIndex: number) => {
     const dragCard = cards[dragIndex];

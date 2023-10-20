@@ -5,15 +5,15 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL, fetchWithRefresh, PATCH_HEADERS } from "../../data/api";
-import { CHANGE_USER_DATA } from "../../services/store/authReducer/reducer";
+import { useAppDispatch, useAppSelector } from "../../services/store";
+import { CHANGE_USER_DATA } from "../../services/store/authReducer/actions";
 import { userData } from "../../services/store/authReducer/selectors";
 import styles from "./profile-form.module.css";
 
 export const ProfileForm = () => {
-  const dispatch = useDispatch();
-  const userDataAuth = useSelector(userData);
+  const dispatch = useAppDispatch();
+  const userDataAuth = useAppSelector(userData);
   const [value, setValue] = useState({
     name: userDataAuth.name,
     email: userDataAuth.email,

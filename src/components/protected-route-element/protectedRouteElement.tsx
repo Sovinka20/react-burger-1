@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import { useAppSelector } from "../../services/store";
 import {
   isResetPassword,
   userData,
@@ -17,8 +17,8 @@ const ProtectedRouteElement = ({
 }: {
   element: React.ReactElement;
 }) => {
-  const user = useSelector(userData);
-  const isResetPass = useSelector(isResetPassword);
+  const user = useAppSelector(userData);
+  const isResetPass = useAppSelector(isResetPassword);
   const location = useLocation();
   if (!user && location.pathname === "/reset-password" && !isResetPass) {
     return <Navigate to="/" state={{ from: location }} />;

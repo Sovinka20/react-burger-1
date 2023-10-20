@@ -1,8 +1,9 @@
 import { IIngridients } from "../../../data/typesScripts";
-
-export const GET_INGRIDIENTS_REQUEST = "GET_INGRIDIENTS_REQUEST";
-export const GET_INGRIDIENTS_ERRORE = "GET_INGRIDIENTS_ERRORE";
-export const GET_INGRIDIENTS_SUCCESS = "GET_INGRIDIENTS_SUCCESS";
+import {
+  GET_INGRIDIENTS_ERRORE,
+  GET_INGRIDIENTS_REQUEST,
+  GET_INGRIDIENTS_SUCCESS,
+} from "./actions";
 
 type TStateBurgerIngredientsReducer = {
   ingredients: IIngridients[];

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Order } from "../../components/order/order";
-import PreloaderComponent from "../../components/preloaderComponent/PreloaderComponent";
+import PreloaderComponent from "../../components/preloaderComponent/preloaderComp";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import {
   WS_CONNECTION_CLOSED,
@@ -9,12 +9,6 @@ import {
 import styles from "./orders.module.css";
 
 const Orders = () => {
-  // const dispatch = useDispatch();
-  // const tokenLocalStorage: string = localStorage.getItem("accessToken") || "";
-  // const token: string =
-  //   tokenLocalStorage !== ""
-  //     ? tokenLocalStorage.substring(tokenLocalStorage.length - 171)
-  //     : tokenLocalStorage;
   const dispatch = useAppDispatch();
   const { data } = useAppSelector((store) => store.wsOrdersAllReducer);
   useEffect(() => {
@@ -24,17 +18,14 @@ const Orders = () => {
     };
   }, [dispatch]);
 
-  // const getIngredients = useSelector(getWsAllIngridients);
-
   return (
     <div className={`custom-scroll ${styles.wrapper}`}>
       <main className={styles.feedMain}>
         {data.success ? (
           <section className={`custom-scroll ${styles.feedInfoSectionLeft}`}>
-            {data.orders.map((order, index) => (
+            {data.orders.reverse().map((order, index) => (
               <Order key={index} data={order} path={"profile/orders"} />
             ))}
-            {/* </div> */}
           </section>
         ) : (
           <PreloaderComponent />

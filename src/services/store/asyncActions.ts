@@ -1,13 +1,17 @@
 import { BASE_URL, checkResponse } from "../../data/api";
 import { IIngridients } from "../../data/typesScripts";
-import { isUserChecked } from "./authReducer/actions";
-import { LOGOUT_USER, USER_LOGIN_AUTHORIZATION } from "./authReducer/reducer";
+import {
+  isUserChecked,
+  LOGOUT_USER,
+  USER_LOGIN_AUTHORIZATION,
+} from "./authReducer/actions";
 import { resetIngredients } from "./burgerConstructorReducer/actions";
 import {
   GET_INGRIDIENTS_ERRORE,
   GET_INGRIDIENTS_REQUEST,
   GET_INGRIDIENTS_SUCCESS,
-} from "./burgerIngredientsReducer/reducer";
+} from "./burgerIngredientsReducer/actions";
+
 import { setOrderData } from "./orderDetailsReducer/actions";
 
 export const fetchOrderPost =
@@ -29,7 +33,6 @@ export const fetchOrderPost =
     })
       .then(checkResponse)
       .then((res) => {
-        console.log(res);
         dispatch(setOrderData(res));
         dispatch(resetIngredients(""));
       })
@@ -126,7 +129,6 @@ export const registerUser =
           payload: res.user,
         });
         dispatch(isUserChecked(true));
-        console.log(res);
       })
       .catch((err) => {
         dispatch(isUserChecked(false));

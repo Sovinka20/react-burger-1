@@ -1,4 +1,11 @@
 import { store } from "../services/store";
+import { TUserActions } from "../services/store/authReducer/actions";
+import { TBurgerConstructorActions } from "../services/store/burgerConstructorReducer/actions";
+import { TBurgerIngredientsActions } from "../services/store/burgerIngredientsReducer/actions";
+import { TIngredient } from "../services/store/ingredientDetailsReducer/actions";
+import { TOrderDataActions } from "../services/store/orderDetailsReducer/actions";
+import { TPopupIngredientsActions } from "../services/store/popupIngredientsReducer/actions";
+import { TPopupReducerActions } from "../services/store/popupOrderRecucer/actions";
 import { TWSOrdersActions } from "../services/store/wsOrdersAll/actionsFeed";
 import { TWSUserHistoryActions } from "../services/store/wsOrdersAll/actionsProfile";
 
@@ -122,14 +129,12 @@ export type TUser = {
 };
 
 export type TApplicationActions =
-  // | TForgotPassActions
-  // // | TIngredientsActions
-  // | TLoginActions
-  // // | TOrderActions
-  // | TPreloaderActions
-  // | TRefreshTokenActions
-  // | TRegisterActions
-  // | TRequestInformationActions
-  // | TRestorePasswordActions
-  // TUserActions
-  TWSOrdersActions | TWSUserHistoryActions;
+  | TUserActions
+  | TOrderDataActions
+  | TPopupIngredientsActions
+  | TIngredient
+  | TBurgerIngredientsActions
+  | TPopupReducerActions
+  | TBurgerConstructorActions
+  | TWSOrdersActions
+  | TWSUserHistoryActions;

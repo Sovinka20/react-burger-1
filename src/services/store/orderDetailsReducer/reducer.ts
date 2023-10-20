@@ -1,12 +1,4 @@
-import { IIngridients } from "../../../data/typesScripts";
-
-export const GET_ORDER_DATA = "GET_ORDER_DATA";
-export const SET_ORDER_DATA = "SET_ORDER_DATA";
-export const RESET_ORDER_DATA = "RESET_ORDER_DATA";
-
-type TStateIngredientDetailsReducer = {
-  ingredient: IIngridients[];
-};
+import { RESET_ORDER_DATA, SET_ORDER_DATA } from "./actions";
 
 const initialState = {
   order: 0,

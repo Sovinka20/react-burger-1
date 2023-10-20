@@ -1,41 +1,23 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { OrderDetailsPopup } from "../../components/order-details-popup/orderDetailsPopup";
-import { IIngridientsOrder } from "../../data/typesScripts";
-import { useAppDispatch } from "../../services/store";
+import { IIngridientsOrder, TOrder } from "../../data/typesScripts";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { getIngridients } from "../../services/store/burgerIngredientsReducer/selectors";
 import {
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_SUCCESS,
 } from "../../services/store/wsOrdersAll/actionsProfile";
 // import { websocketConnectProfile } from "../../services/store/wsOrdersAll/actionsProfile";
-import { getWsAllIngridients } from "../../services/store/wsOrdersAll/selectors";
 
 export const PageOrderDetailsPopup = () => {
   const location = useLocation();
 
   const idFeed = location.pathname.substring(location.pathname.length - 24);
-  // const dispatch = useDispatch();
-
-  // const tokenLocalStorage: string = localStorage.getItem("accessToken") || "";
-  // const token: string =
-  //   tokenLocalStorage !== ""
-  //     ? tokenLocalStorage.substring(tokenLocalStorage.length - 171)
-  //     : tokenLocalStorage;
-  // React.useEffect(() => {
-  //   dispatch(
-  //     websocketConnectProfile(
-  //       `wss://norma.nomoreparties.space/orders?token=${token}`
-  //     )
-  //   );
-  //   return () => {
-  //     dispatch({ type: WEBSOCKET_CLOSE });
-  //   };
-  // }, [dispatch]);
 
   const dispatch = useAppDispatch();
-  // const { data } = useAppSelector((store) => store.userOrders);
+  const { data } = useAppSelector((store) => store.wsOrdersAllReducer);
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_SUCCESS });
     return () => {
@@ -43,41 +25,22 @@ export const PageOrderDetailsPopup = () => {
     };
   }, [dispatch]);
 
-  const ingredients: IIngridientsOrder[] = useSelector(getIngridients);
-  const getFeeds: {
-    createdAt: string;
-    ingredients: Array<string>;
-    name: string;
-    number: number;
-    status: string;
-    updatedAt: string;
-    _id: string;
-  }[] = useSelector(getWsAllIngridients);
+  const ingredients: IIngridientsOrder[] = useAppSelector(getIngridients);
 
   let loading = false;
-  let data: {
-    createdAt: string;
-    ingredients: Array<string>;
-    name: string;
-    number: number;
-    status: string;
-    updatedAt: string;
-    _id: string;
-  } = {
-    createdAt: "",
+  const getFeeds = data.orders;
+  let data1: TOrder = {
     ingredients: [],
-    name: "",
-    number: 0,
-    status: "",
-    updatedAt: "",
     _id: "",
+    name: "",
+    createdAt: "",
+    updatedAt: "",
+    number: 0,
   };
   if (!loading) {
-    console.log(data);
     for (let i = 0; i < getFeeds.length; i++) {
       if (getFeeds[i]._id === idFeed) {
-        data = getFeeds[i];
-        console.log(getFeeds[i]);
+        data1 = getFeeds[i];
         loading = true;
       }
     }
@@ -88,12 +51,12 @@ export const PageOrderDetailsPopup = () => {
   let a: { [key: string]: number } = {};
   let imageArr: Array<IIngridientsOrder> = [];
   let generalPriceList = 0;
-  data.ingredients.forEach((element: string) => {
+  data1.ingredients.forEach((element: string) => {
     a[element] = (a[element] || 0) + 1;
   });
 
   ingredients.forEach((item) => {
-    if (data.ingredients.includes(item._id)) {
+    if (data1.ingredients.includes(item._id)) {
       let obj: IIngridientsOrder = {
         _id: "",
         type: "",
@@ -126,11 +89,10 @@ export const PageOrderDetailsPopup = () => {
   });
 
   const orderDetailsPopup = {
-    ...data,
+    ...data1,
     generalPriceList,
     ingredientsData: imageArr,
   };
-  console.log(orderDetailsPopup.ingredientsData);
   return (
     <>
       <OrderDetailsPopup feedOrderData={orderDetailsPopup} />

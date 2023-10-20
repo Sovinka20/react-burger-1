@@ -9,7 +9,7 @@ type TOrderDetailsPopupProps = {
   feedOrderData: {
     number: number;
     name: string;
-    status: string;
+    status?: string;
     createdAt: string;
     generalPriceList: number;
     ingredientsData: IIngridientsOrder[];

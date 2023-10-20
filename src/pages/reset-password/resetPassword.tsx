@@ -3,9 +3,9 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { resetPassword } from "../../data/api";
+import { useAppDispatch } from "../../services/store";
 import { changeResetPassword } from "../../services/store/authReducer/actions";
 import styles from "./reset-password.module.css";
 
@@ -14,7 +14,7 @@ const ResetPassword = () => {
     password: "",
     token: "",
   });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
@@ -22,7 +22,6 @@ const ResetPassword = () => {
     e.preventDefault();
     resetPassword(value)
       .then((result) => {
-        console.log(result);
         dispatch(changeResetPassword(false));
       })
       .catch((err) => {

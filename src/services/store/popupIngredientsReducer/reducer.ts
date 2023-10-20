@@ -1,14 +1,9 @@
-import { IIngridients } from "../../../data/typesScripts";
-
-export const OPEN_INGREDIENTS_POPUP = "OPEN_INGREDIENTS_POPUP";
-export const CLOSE_INGREDIENTS_POPUP = "CLOSE_INGREDIENTS_POPUP";
-export const TOGGLE_INGREDIENTS_POPUP = "TOGGLE_INGREDIENTS_POPUP";
-export const IS_OPEN_CLOSE_INGREDIENTS_POPUP =
-  "IS_OPEN_CLOSE_INGREDIENTS_POPUP";
-
-type TStateIngredientDetailsReducer = {
-  ingredient: IIngridients[];
-};
+import {
+  CLOSE_INGREDIENTS_POPUP,
+  IS_OPEN_CLOSE_INGREDIENTS_POPUP,
+  OPEN_INGREDIENTS_POPUP,
+  TOGGLE_INGREDIENTS_POPUP,
+} from "./actions";
 
 const initialState = {
   isOpenCloseIngredient: false,

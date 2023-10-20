@@ -1,11 +1,11 @@
-import { useDispatch } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../services/store";
 import { logoutUser } from "../../services/store/asyncActions";
 import styles from "./profile.module.css";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const activeClass = `text text_type_main-medium text_color_inactive ${styles.link} ${styles.activeLink}`;
   const unActiveClass = `text text_type_main-medium text_color_inactive ${styles.link}`;
   const logout = () => {

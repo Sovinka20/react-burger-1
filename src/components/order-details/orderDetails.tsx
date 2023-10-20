@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
 import popupIcon from "../../images/popup-acces-icon.svg";
+import { useAppSelector } from "../../services/store";
 import { getOrderNumbers } from "../../services/store/orderDetailsReducer/selectors";
 import styles from "./order-details.module.css";
 
 const OrderDetails = () => {
-  const orderNumber = useSelector(getOrderNumbers);
+  const orderNumber = useAppSelector(getOrderNumbers);
   return (
     <div className={styles.container}>
       {orderNumber !== 0 ? (

@@ -1,12 +1,4 @@
 import React from "react";
-//import { DndProvider } from "react-dnd";
-//import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch, useSelector } from "react-redux";
-//import BurgerConstructor from "../burger-constructor/burgerConstructor";
-//import BurgerIngredients from "../burger-ingredients/burgerIngredients";
-//import AppHeader from "../header/appHeader";
-//import styles from "./app.module.css";
-
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL, fetchWithRefresh, GET_HEADERS } from "../../data/api";
 import { Feed } from "../../pages/feed/feed";
@@ -19,18 +11,18 @@ import { Orders } from "../../pages/orders/orders";
 import Profile from "../../pages/profile/profile";
 import Register from "../../pages/register/register";
 import ResetPassword from "../../pages/reset-password/resetPassword";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { fetchIngredients } from "../../services/store/asyncActions";
-import { isUserChecked } from "../../services/store/authReducer/actions";
-import { USER_LOGIN_AUTHORIZATION } from "../../services/store/authReducer/reducer";
+import {
+  isUserChecked,
+  USER_LOGIN_AUTHORIZATION,
+} from "../../services/store/authReducer/actions";
 import {
   getIngredientsError,
   getIngridients,
   getIsLoading,
 } from "../../services/store/burgerIngredientsReducer/selectors";
 import { ADD_FEED_ORDER_DATA } from "../../services/store/popupFeedOrderReducer/reducer";
-import { getWsAllIngridients } from "../../services/store/wsOrdersAll/selectors";
-//import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
-//import { clearIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import IngredientDetails from "../ingredient-details/ingredientDetails";
 import Layout from "../layout/layout";
 import Modal from "../modal/modal";
@@ -42,16 +34,14 @@ import styles from "./app.module.css";
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const error = useSelector(getIngredientsError);
-  const isLoading = useSelector(getIsLoading);
-  const ingredientsData = useSelector(getIngridients);
+  const error = useAppSelector(getIngredientsError);
+  const isLoading = useAppSelector(getIsLoading);
+  const ingredientsData = useAppSelector(getIngridients);
 
-  const errorOrder = useSelector(getIngredientsError);
-  const isLoadingOrder = useSelector(getIsLoading);
+  const errorOrder = useAppSelector(getIngredientsError);
+  const isLoadingOrder = useAppSelector(getIsLoading);
 
-  // const feedOrderData = useSelector(getFeedOrderData);
-
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     if (localStorage.getItem("accessToken")) {
@@ -68,6 +58,7 @@ function App() {
       dispatch(isUserChecked(false));
     }
     dispatch(fetchIngredients() as unknown as any);
+
     if (isLoadingOrder)
       dispatch({
         type: ADD_FEED_ORDER_DATA,
@@ -77,8 +68,7 @@ function App() {
 
   const background = location.state && location.state.background;
   const feedOrderData = location.state && location.state.order;
-  console.log(feedOrderData);
-  const getIngredients = useSelector(getWsAllIngridients);
+
   if (isLoading) {
     return <h1>Загрузка...</h1>;
   }

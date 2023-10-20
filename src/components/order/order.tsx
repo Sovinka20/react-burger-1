@@ -2,31 +2,30 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { IIngredientDetails, IIngridientsOrder } from "../../data/typesScripts";
+import {
+  IIngredientDetails,
+  IIngridientsOrder,
+  TOrder,
+} from "../../data/typesScripts";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { getIngridients } from "../../services/store/burgerIngredientsReducer/selectors";
 import { addFeedOrder } from "../../services/store/popupFeedOrderReducer/actions";
 import styles from "./order.module.css";
 
 type TOrderProps = {
-  data: {
-    createdAt: string;
-    ingredients: Array<string>;
-    name: string;
-    number: number;
-    status: string;
-    updatedAt: string;
-    _id: string;
-  };
+  key: number;
+  data: TOrder;
   path: string;
 };
 
+//TOrder
+
 const Order: React.FC<TOrderProps> = ({ data, path }) => {
   const location = useLocation();
-  const ingredients: IIngridientsOrder[] = useSelector(getIngridients);
-  const dispatch = useDispatch();
+  const ingredients: IIngridientsOrder[] = useAppSelector(getIngridients);
+  const dispatch = useAppDispatch();
   let a: { [key: string]: number } = {};
   let imageArr: Array<IIngridientsOrder> = [];
   let generalPriceList = 0;

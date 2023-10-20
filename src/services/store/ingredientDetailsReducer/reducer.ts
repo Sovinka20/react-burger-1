@@ -1,8 +1,5 @@
 import { IIngridients } from "../../../data/typesScripts";
-
-export const GET_INGREDIENT = "GET_INGREDIENT";
-export const SET_INGREDIENT = "SET_INGREDIENT";
-export const CLEAR_INGREDIENT = "CLEAR_INGREDIENT";
+import { CLEAR_INGREDIENT, GET_INGREDIENT, SET_INGREDIENT } from "./actions";
 
 type TStateIngredientDetailsReducer = {
   ingredient: IIngridients[];

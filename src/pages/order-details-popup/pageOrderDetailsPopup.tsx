@@ -1,73 +1,42 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { OrderDetailsPopup } from "../../components/order-details-popup/orderDetailsPopup";
-import { IIngridientsOrder } from "../../data/typesScripts";
-import { useAppDispatch } from "../../services/store";
+import { IIngridientsOrder, TOrder } from "../../data/typesScripts";
+import { useAppDispatch, useAppSelector } from "../../services/store";
 import { getIngridients } from "../../services/store/burgerIngredientsReducer/selectors";
 import {
   WEBSOCKET_CLOSE,
   WEBSOCKET_OPEN,
 } from "../../services/store/wsOrdersAll/actionsFeed";
-import { getWsAllIngridients } from "../../services/store/wsOrdersAll/selectors";
 
 export const PageFeedDetailsPopup = () => {
   const location = useLocation();
 
   const idFeed = location.pathname.substring(location.pathname.length - 24);
-  // const dispatch = useDispatch();
-
-  // React.useEffect(() => {
-  //   dispatch(webSocketMiddleware("wss://norma.nomoreparties.space/orders/all"));
-  //   return () => {
-  //     dispatch({ type: WEBSOCKET_CLOSE });
-  //   };
-  // }, [dispatch]);
 
   const dispatch = useAppDispatch();
-  // const { data } = useAppSelector((store) => store.userOrders);
+  const { data } = useAppSelector((store) => store.wsOrdersAllReducer);
   useEffect(() => {
     dispatch({ type: WEBSOCKET_OPEN });
     return () => {
       dispatch({ type: WEBSOCKET_CLOSE });
     };
   }, [dispatch]);
-
-  const ingredients: IIngridientsOrder[] = useSelector(getIngridients);
-  const getFeeds: {
-    createdAt: string;
-    ingredients: Array<string>;
-    name: string;
-    number: number;
-    status: string;
-    updatedAt: string;
-    _id: string;
-  }[] = useSelector(getWsAllIngridients);
-
+  const ingredients: IIngridientsOrder[] = useAppSelector(getIngridients);
+  const getFeeds = data.orders;
   let loading = false;
-  let data: {
-    createdAt: string;
-    ingredients: Array<string>;
-    name: string;
-    number: number;
-    status: string;
-    updatedAt: string;
-    _id: string;
-  } = {
-    createdAt: "",
+  let data1: TOrder = {
     ingredients: [],
-    name: "",
-    number: 0,
-    status: "",
-    updatedAt: "",
     _id: "",
+    name: "",
+    createdAt: "",
+    updatedAt: "",
+    number: 0,
   };
   if (!loading) {
-    console.log(data);
     for (let i = 0; i < getFeeds.length; i++) {
       if (getFeeds[i]._id === idFeed) {
-        data = getFeeds[i];
-        console.log(getFeeds[i]);
+        data1 = getFeeds[i];
         loading = true;
       }
     }
@@ -79,12 +48,12 @@ export const PageFeedDetailsPopup = () => {
   let a: { [key: string]: number } = {};
   let imageArr: Array<IIngridientsOrder> = [];
   let generalPriceList = 0;
-  data.ingredients.forEach((element: string) => {
+  data1.ingredients.forEach((element: string) => {
     a[element] = (a[element] || 0) + 1;
   });
 
   ingredients.forEach((item) => {
-    if (data.ingredients.includes(item._id)) {
+    if (data1.ingredients.includes(item._id)) {
       let obj: IIngridientsOrder = {
         _id: "",
         type: "",
@@ -117,11 +86,10 @@ export const PageFeedDetailsPopup = () => {
   });
 
   const orderDetailsPopup = {
-    ...data,
+    ...data1,
     generalPriceList,
     ingredientsData: imageArr,
   };
-  console.log(orderDetailsPopup.ingredientsData);
   return (
     <>
       <OrderDetailsPopup feedOrderData={orderDetailsPopup} />

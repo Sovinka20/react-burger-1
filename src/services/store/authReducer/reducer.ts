@@ -1,9 +1,10 @@
-export const USER_LOGIN_AUTHORIZATION = "USER_LOGIN_AUTHORIZATION";
-export const LOGOUT_USER = "LOGOUT_USER";
-export const CHANGE_USER_DATA = "CHANGE_USER_DATA";
-export const IS_USER_CHECKED = "IS_USER_CHECKED";
-export const IS_USER_AUTHENTIFICATED = "IS_USER_AUTHENTIFICATED";
-export const CHANGE_RESET_PASSWORD = "CHANGE_RESET_PASSWORD";
+import {
+  CHANGE_RESET_PASSWORD,
+  CHANGE_USER_DATA,
+  IS_USER_CHECKED,
+  LOGOUT_USER,
+  USER_LOGIN_AUTHORIZATION,
+} from "./actions";
 
 export type TStateAuthReducer = {
   success: boolean;
@@ -21,7 +22,7 @@ const initialState: TStateAuthReducer = {
 
 export const AuthReducer = (
   state = initialState,
-  action: { type: string; payload: any }
+  action: { type: string; payload: boolean | any }
 ) => {
   switch (action.type) {
     case USER_LOGIN_AUTHORIZATION:

@@ -4,7 +4,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { useDrag } from "react-dnd";
-import { useDispatch } from "react-redux";
 import {
   draggingOff,
   draggingOn,
@@ -13,6 +12,7 @@ import {
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { IIngridients } from "../../data/typesScripts";
+import { useAppDispatch } from "../../services/store";
 import { setIngredient } from "../../services/store/ingredientDetailsReducer/actions";
 import styles from "./burger-ingredient.module.css";
 
@@ -25,7 +25,8 @@ const BurgerIngredient: React.FC<TBurgerIngredientProps> = ({
   item,
   count,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
   const location = useLocation();
 
   const ingredientId = item["_id"];

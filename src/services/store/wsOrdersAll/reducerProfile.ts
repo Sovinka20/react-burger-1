@@ -52,7 +52,8 @@ const wsOrdersReducer = (
         ...state,
         data: {
           ...state.data,
-          orders: action.payload.orders.reverse(),
+          orders: action.payload.orders,
+          //.reverse(),
           success: action.payload.success,
           total: action.payload.total,
           totalToday: action.payload.totalToday,

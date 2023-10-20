@@ -1,10 +1,10 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 
 import { IIngridients } from "../../data/typesScripts";
+import { useAppSelector } from "../../services/store";
 import {
   getBurgerConsructorBun,
   getBurgerConstructorList,
@@ -15,11 +15,11 @@ import BurgerIngredient from "../burger-ingredient/burgerIngredient";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("bun");
-  const ingredients: IIngridients[] = useSelector(getIngridients);
-  const BurgerConstructorList: IIngridients[] = useSelector(
+  const ingredients: IIngridients[] = useAppSelector(getIngridients);
+  const BurgerConstructorList: IIngridients[] = useAppSelector(
     getBurgerConstructorList
   );
-  const BurgerConstructorBun: IIngridients = useSelector(
+  const BurgerConstructorBun: IIngridients = useAppSelector(
     getBurgerConsructorBun
   );
 
@@ -93,7 +93,6 @@ const BurgerIngredients = () => {
     let res = {};
     const items = BurgerConstructorList.filter((el) => el.type === "main");
     return items.reduce((acc: { [index: string]: number }, e: IIngridients) => {
-      console.log(acc, e);
       //(acc: { [index: string]: number }, e: { [index: string]: string }) => {
       acc[e._id] = (acc[e._id] || 0) + 1;
       return acc;

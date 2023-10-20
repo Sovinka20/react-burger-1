@@ -3,15 +3,15 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPassword } from "../../data/api";
+import { useAppDispatch } from "../../services/store";
 import { changeResetPassword } from "../../services/store/authReducer/actions";
 import styles from "./forgot-password.module.css";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState({
     email: "",
   });
