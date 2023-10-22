@@ -4,9 +4,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { forgotPassword } from "../../data/api";
 import { useAppDispatch } from "../../services/store";
-import { changeResetPassword } from "../../services/store/authReducer/actions";
+import { forgotPassword } from "../../services/store/asyncActions/userForgot";
 import styles from "./forgot-password.module.css";
 
 const ForgotPassword = () => {
@@ -20,14 +19,14 @@ const ForgotPassword = () => {
   };
   const handlerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    forgotPassword(value)
-      .then((result) => {
-        navigate("/reset-password");
-        dispatch(changeResetPassword(true));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    forgotPassword(value);
+    // .then((result) => {
+    //   navigate("/reset-password");
+    //   dispatch(changeResetPassword(true));
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   };
 
   return (

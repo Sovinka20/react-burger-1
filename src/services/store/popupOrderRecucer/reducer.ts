@@ -3,15 +3,20 @@ import {
   IS_OPEN_CLOSE_ORDER_POPUP,
   OPEN_ORDER_POPUP,
   TOGGLE_ORDER_POPUP,
+  TPopupReducerActions,
 } from "./actions";
 
-const initialState = {
+export type TOrderReducer = {
+  isOpenCloseOrder: boolean;
+};
+
+const initialState: TOrderReducer = {
   isOpenCloseOrder: false,
 };
 
 export const popupOrderReducer = (
   state = initialState,
-  action: { type: string }
+  action: TPopupReducerActions
 ) => {
   switch (action.type) {
     case OPEN_ORDER_POPUP:

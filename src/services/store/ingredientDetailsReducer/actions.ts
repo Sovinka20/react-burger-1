@@ -6,11 +6,10 @@ export const CLEAR_INGREDIENT = "CLEAR_INGREDIENT";
 
 export interface IGetIngredient {
   readonly type: typeof GET_INGREDIENT;
-  payload: { type: string; peyload: IIngridients };
 }
 export interface ISetIngredient {
   readonly type: typeof SET_INGREDIENT;
-  payload: { type: string; peyload: IIngridients };
+  payload: IIngridients;
 }
 export interface IClearIngredient {
   readonly type: typeof CLEAR_INGREDIENT;
@@ -19,8 +18,8 @@ export interface IClearIngredient {
 export type TIngredient = IGetIngredient | ISetIngredient | IClearIngredient;
 
 export const getIngredient = () => ({ type: GET_INGREDIENT });
-export const setIngredient = (peyload: IIngridients) => ({
+export const setIngredient = (payload: IIngridients) => ({
   type: SET_INGREDIENT,
-  peyload,
+  payload,
 });
 export const clearIngredient = () => ({ type: CLEAR_INGREDIENT });

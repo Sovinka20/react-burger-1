@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../services/store";
-import { authorizationUser } from "../../services/store/asyncActions";
+import { authorizationUser } from "../../services/store/asyncActions/userAuth";
 import styles from "./login.module.css";
 
 const Login = () => {
@@ -20,7 +20,7 @@ const Login = () => {
   };
   const handlerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(authorizationUser(value) as unknown as any);
+    dispatch(authorizationUser(value));
   };
   return (
     <>

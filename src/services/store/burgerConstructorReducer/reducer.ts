@@ -7,16 +7,16 @@ import {
   DRAG_OFF,
   DRAG_ON,
   RESET_INGREDIENTS,
+  TBurgerConstructorActions,
 } from "./actions";
 
-export type TStateAuthReducer = {
-  success: boolean;
-  user: boolean;
-  isAuthChecked: boolean;
-  resetPassword: boolean;
+export type TBurgerConstructorReducer = {
+  bun: null | IIngridients;
+  ingredients: IIngridients[];
+  isDrag: boolean;
 };
 
-const initialState = {
+const initialState: TBurgerConstructorReducer = {
   bun: null,
   ingredients: [],
   isDrag: false,
@@ -24,20 +24,20 @@ const initialState = {
 
 export const BurgerConstructorReducer = (
   state = initialState,
-  action: { type: string; peyload: IIngridients[] }
+  action: TBurgerConstructorActions
 ) => {
   switch (action.type) {
     case ADD_INGREDIENT:
-      return { ...state, ingredients: [...state.ingredients, action.peyload] };
+      return { ...state, ingredients: [...state.ingredients, action.payload] };
 
     case CHANGE_INGEDIENT:
-      return { ...state, ingredients: [...action.peyload] };
+      return { ...state, ingredients: [...action.payload] };
 
     case ADD_BUN_INGREDIENT_BUN:
-      return { ...state, bun: action.peyload };
+      return { ...state, bun: action.payload };
 
     case DELETE_INGREDIENT:
-      return { ...state, ingredients: [...action.peyload] };
+      return { ...state, ingredients: [...action.payload] };
     case RESET_INGREDIENTS:
       return { ...state, ingredients: [], bun: null };
     case DRAG_ON:

@@ -5,54 +5,32 @@ export const WS_URL_ORDERS_ALL = "wss://norma.nomoreparties.space/orders/all";
 export const WS_URL_ORDERS_USER_HISTORY =
   "wss://norma.nomoreparties.space/orders";
 
-/*
-class Api {
-  constructor(urlApi) {
-    this.urlApi = urlApi;
-  }
-
-  validationJson(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(res.status);
-  }
-
-  getData() {
-    return fetch(`${this.urlApi}`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }).then((res) => this.validationJson(res));
-  }
-}
-*/
-type TPATCH_HEADERS = {
-  method: string;
-  headers: {
-    "Content-Type": string;
-    authorization: string;
-  };
-  body: string;
-};
-
-type TGET_HEADERS = {
-  method: string;
-  headers: {
-    "Content-Type": string;
-    authorization: string;
-  };
-};
-//export const api = new Api(BASE_URL);
-
 export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export const getIngredientsData = () => {
-  return fetch(`${BASE_URL}/ingredients`).then(checkResponse);
-};
+// type TUserData = {
+//   name?: string;
+//   email?: string;
+//   password?: string;
+// };
+
+//export const api = new Api(BASE_URL);
+
+//   return {
+//     fetchGet,
+//     fetchPost,
+//     refreshToken,
+//     fetchSecurePost,
+//     fetchSecurePatch,
+//     fetchSecureGet,
+//     logout,
+//   };
+// };
+
+// export const getIngredientsData = () => {
+//   return fetch(`${BASE_URL}/ingredients`).then(checkResponse);
+// };
 
 export const GET_HEADERS = {
   method: "GET",
@@ -69,78 +47,4 @@ export const PATCH_HEADERS = {
     authorization: `${localStorage.getItem("accessToken")}`,
   },
   // body: JSON.stringify(value),
-};
-/**
- * Восстановление пароля
- */
-
-export const forgotPassword = (emailData: { email: string }) => {
-  return fetch(`${BASE_URL}/password-reset`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(emailData),
-  }).then(checkResponse);
-};
-/**
- * Сброс пароля
- */
-export const resetPassword = (resetPsswordData: {
-  password: string;
-  token: string;
-}) => {
-  return fetch(`${BASE_URL}/password-reset/reset`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(resetPsswordData),
-  }).then(checkResponse);
-};
-
-/**
- * Обновить accessToken
- */
-export const requestRefreshToken = () => {
-  return fetch(`${BASE_URL}/auth/token`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
-    }),
-  }).then(checkResponse);
-};
-/**
- * Получить/изменить данные о пользователе.
- */
-export const fetchWithRefresh = async (
-  url: string,
-  options: TPATCH_HEADERS | TGET_HEADERS
-) => {
-  try {
-    const res = await fetch(url, options);
-    return await checkResponse(res);
-  } catch (err) {
-    if (err instanceof Error && err.message === "jwt expired") {
-      const refreshData = await requestRefreshToken();
-
-      if (!refreshData.success) {
-        return Promise.reject(refreshData);
-      }
-      localStorage.setItem("refreshToken", refreshData.refreshToken);
-      localStorage.setItem("accessToken", refreshData.accessToken);
-      options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(url, options);
-      return await checkResponse(res);
-    } else {
-      return Promise.reject(err);
-    }
-  }
-};
-
-export const fetchOrderApi = (number: number) => {
-  return fetch(`${BASE_URL}/orders/${number}`).then(checkResponse);
 };

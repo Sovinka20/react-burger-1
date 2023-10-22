@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../services/store";
-import { logoutUser } from "../../services/store/asyncActions";
+import { logoutUser } from "../../services/store/asyncActions/userLogout";
 import styles from "./profile.module.css";
 
 const Profile = () => {
@@ -9,7 +9,7 @@ const Profile = () => {
   const activeClass = `text text_type_main-medium text_color_inactive ${styles.link} ${styles.activeLink}`;
   const unActiveClass = `text text_type_main-medium text_color_inactive ${styles.link}`;
   const logout = () => {
-    dispatch(logoutUser() as unknown as any);
+    dispatch(logoutUser());
     navigate("/login");
   };
 

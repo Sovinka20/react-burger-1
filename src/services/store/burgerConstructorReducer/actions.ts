@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { IIngridients } from "../../../data/typesScripts";
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
@@ -19,7 +18,7 @@ export interface IChangeIngredints {
 }
 export interface IAddIngredientsBun {
   readonly type: typeof ADD_BUN_INGREDIENT_BUN;
-  payload: IIngridients[];
+  payload: IIngridients;
 }
 export interface IDeleteIngredint {
   readonly type: typeof DELETE_INGREDIENT;
@@ -44,25 +43,24 @@ export type TBurgerConstructorActions =
   | IDragOn
   | IDragOff;
 
-export const addIngredientConstuctor = (peyload: IIngridients) => ({
-  type: ADD_INGREDIENT,
-  peyload: { ...peyload, key: uuidv4() },
-});
-export const addBunIngredientConstuctor = (peyload: IIngridients) => ({
-  type: ADD_BUN_INGREDIENT_BUN,
-  peyload,
-});
+// export const addIngredientConstuctor = (payload: IIngridients) => ({
+//   type: ADD_INGREDIENT,
+//   payload: { ...payload, key: uuidv4() },
+// });
+// export const addBunIngredientConstuctor = (payload: IIngridients) => ({
+//   type: ADD_BUN_INGREDIENT_BUN,
+//   payload,
+// });
 export const draggingOn = () => ({ type: DRAG_ON });
 export const draggingOff = () => ({ type: DRAG_OFF });
-export const changeIngredient = (peyload: IIngridients[]) => ({
+export const changeIngredient = (payload: IIngridients[]) => ({
   type: CHANGE_INGEDIENT,
-  peyload,
-});
-export const deleteIngredient = (peyload: IIngridients[]) => ({
-  type: DELETE_INGREDIENT,
-  peyload,
-});
-export const resetIngredients = (payload: string) => ({
-  type: RESET_INGREDIENTS,
   payload,
+});
+export const deleteIngredient = (payload: IIngridients[]) => ({
+  type: DELETE_INGREDIENT,
+  payload,
+});
+export const resetIngredients = () => ({
+  type: RESET_INGREDIENTS,
 });

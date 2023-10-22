@@ -25,10 +25,11 @@ export const webSocketMiddleware = (
   const token: string =
     tokenLocalStorage !== ""
       ? tokenLocalStorage.substring(tokenLocalStorage.length - 171)
-      : //.split("Bearer ")[1]
-        tokenLocalStorage;
+      : tokenLocalStorage;
+
   return ((store: MiddlewareAPI<AppDispatch, TStore>) => {
     let socket: WebSocket | null = null;
+
     return (next) => (action: TWSAction) => {
       const { dispatch } = store;
       const { wsInit, disconnect, onError, onMessage } = actions;
@@ -51,7 +52,7 @@ export const webSocketMiddleware = (
             socket = null;
           };
         }
-      } else if (action.type === disconnect && socket != null) {
+      } else if (action.type === disconnect && socket !== null) {
         socket.close();
       }
 

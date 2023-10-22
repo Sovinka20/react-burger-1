@@ -3,41 +3,24 @@ import {
   GET_INGRIDIENTS_ERRORE,
   GET_INGRIDIENTS_REQUEST,
   GET_INGRIDIENTS_SUCCESS,
+  TBurgerIngredientsActions,
 } from "./actions";
 
 type TStateBurgerIngredientsReducer = {
   ingredients: IIngridients[];
   isLoading: boolean;
-  error: boolean;
+  error: string;
 };
 
 const initialState: TStateBurgerIngredientsReducer = {
   ingredients: [],
   isLoading: false,
-  error: false,
+  error: "",
 };
 
 export const BurgerIngredientsReducer = (
   state = initialState,
-  action: {
-    type: string;
-    payload: {
-      data: {
-        orders: [
-          createdAt: string,
-          ingredients: Array<string>,
-          name: string,
-          number: number,
-          status: string,
-          updatedAt: string,
-          _id: string
-        ];
-        success: boolean;
-        total: number;
-        totalToday: number;
-      };
-    };
-  }
+  action: TBurgerIngredientsActions
 ) => {
   switch (action.type) {
     case GET_INGRIDIENTS_REQUEST:

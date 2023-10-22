@@ -1,0 +1,41 @@
+import { BASE_URL, checkResponse } from "../../../data/api";
+import {
+  IS_USER_CHECKED,
+  USER_LOGIN_AUTHORIZATION,
+} from "../authReducer/actions";
+import { AppThunk } from "../reducers";
+
+/**
+ * 
+  Авторизация
+ */
+type TUserAuthData = {
+  email: string;
+  password: string;
+};
+
+export const authorizationUser: AppThunk =
+  (loginUserData: TUserAuthData) => (dispatch) => {
+    return fetch(`${BASE_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginUserData),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
+        dispatch({
+          type: USER_LOGIN_AUTHORIZATION,
+          payload: res.user,
+        });
+        dispatch({ type: IS_USER_CHECKED, payload: true });
+        window.location.reload();
+      })
+      .catch((err) => {
+        dispatch({ type: IS_USER_CHECKED, payload: false });
+        console.log(err);
+      });
+  };

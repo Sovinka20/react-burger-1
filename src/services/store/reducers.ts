@@ -10,9 +10,11 @@ import { OrderDetailsReducer } from "./orderDetailsReducer/reducer";
 import { popupFeedOrderReducer } from "./popupFeedOrderReducer/reducer";
 import { popupIngredientsReducer } from "./popupIngredientsReducer/reducer";
 import { popupOrderReducer } from "./popupOrderRecucer/reducer";
+import { forgetPasswordReducer } from "./userForgot/reducer";
+import { refreshTokenReducer } from "./userRefreshToken/reducerRT";
+import { restorePasswordReducer } from "./userResetPass/reducer";
 import { wsOrdersAllReducer } from "./wsOrdersAll/reducerFeed";
 import { wsOrdersReducer } from "./wsOrdersAll/reducerProfile";
-
 export const rootReducer = combineReducers({
   popupIngredientsReducer,
   popupOrderReducer,
@@ -24,6 +26,9 @@ export const rootReducer = combineReducers({
   wsOrdersAllReducer,
   wsOrdersReducer,
   popupFeedOrderReducer,
+  refreshTokenReducer,
+  restorePasswordReducer,
+  forgetPasswordReducer,
 });
 
 export type AppThunk<TReturn = void> = ActionCreator<

@@ -11,19 +11,15 @@ export const IS_OPEN_CLOSE_INGREDIENTS_POPUP =
 
 export interface IOpenIngredientsPopup {
   readonly type: typeof OPEN_INGREDIENTS_POPUP;
-  payload: { type: string };
 }
 export interface ICloseIngredientsPopup {
   readonly type: typeof CLOSE_INGREDIENTS_POPUP;
-  payload: { type: string };
 }
 export interface IToggleIngredientsPopup {
   readonly type: typeof TOGGLE_INGREDIENTS_POPUP;
-  payload: { type: string };
 }
 export interface IIsOpenCloseIngredientsPopup {
   readonly type: typeof IS_OPEN_CLOSE_INGREDIENTS_POPUP;
-  payload: { type: string };
 }
 
 export type TPopupIngredientsActions =

@@ -1,25 +1,65 @@
-import { RESET_ORDER_DATA, SET_ORDER_DATA } from "./actions";
+import { TOrderResponse } from "../../../data/typesScripts";
+import { RESET_ORDER_DATA, SET_ORDER_DATA, TOrderDataActions } from "./actions";
 
-const initialState = {
-  order: 0,
-  name: null,
+type IOrderDetailsReducer = {
+  orderDetails: TOrderResponse;
+};
+
+const initialState: IOrderDetailsReducer = {
+  orderDetails: {
+    success: false,
+    name: "",
+    order: {
+      ingredients: [],
+      _id: "",
+      owner: {
+        name: "",
+        email: "",
+        createdAt: "",
+        updatedAt: "",
+      },
+      status: "",
+      name: "",
+      createdAt: "",
+      updatedAt: "",
+      number: 0,
+      price: 0,
+    },
+  },
 };
 
 export const OrderDetailsReducer = (
   state = initialState,
-  action: { type: string; payload: { order: { number: number }; name: string } }
+  action: TOrderDataActions
 ) => {
   switch (action.type) {
     case SET_ORDER_DATA:
       return {
         ...state,
-        order: action.payload.order.number,
-        name: action.payload.name,
+        orderDetails: action.payload,
       };
     case RESET_ORDER_DATA:
       return {
-        order: 0,
-        name: null,
+        orderDetails: {
+          success: false,
+          name: "",
+          order: {
+            ingredients: [],
+            _id: "",
+            owner: {
+              name: "",
+              email: "",
+              createdAt: "",
+              updatedAt: "",
+            },
+            status: "",
+            name: "",
+            createdAt: "",
+            updatedAt: "",
+            number: 0,
+            price: 0,
+          },
+        },
       };
     default:
       return state;

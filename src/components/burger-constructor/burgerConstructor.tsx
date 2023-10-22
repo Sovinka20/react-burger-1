@@ -1,5 +1,6 @@
 import React from "react";
 import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from "uuid";
 import image from "../../images/price.svg";
 
 import styles from "./burger-constructor.module.css";
@@ -10,14 +11,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { useNavigate } from "react-router-dom";
-import { AnyAction } from "redux";
+// import { AnyAction } from "redux";
 import { IIngridients } from "../../data/typesScripts";
 import { useAppDispatch, useAppSelector } from "../../services/store";
-import { fetchOrderPost } from "../../services/store/asyncActions";
+// import { fetchOrderPost } from "../../services/store/asyncActions";
+import { fetchOrderPost } from "../../services/store/asyncActions/order";
 import { userData } from "../../services/store/authReducer/selectors";
 import {
-  addBunIngredientConstuctor,
-  addIngredientConstuctor,
+  // addBunIngredientConstuctor,
+  ADD_BUN_INGREDIENT_BUN,
+  ADD_INGREDIENT,
 } from "../../services/store/burgerConstructorReducer/actions";
 import {
   elementIsDrag,
@@ -64,7 +67,7 @@ const BurgerConstructor = () => {
     } else {
       ingredientsIdList = [...ingredientsIdList];
     }
-    dispatch(fetchOrderPost(ingredientsIdList) as unknown as AnyAction);
+    dispatch(fetchOrderPost(ingredientsIdList));
   };
 
   const handlerModelOpen = () => {
@@ -85,9 +88,12 @@ const BurgerConstructor = () => {
 
   const onDropHandler = (item: IIngridients) => {
     if (item.type === "bun") {
-      return dispatch(addBunIngredientConstuctor(item));
+      return dispatch({ type: ADD_BUN_INGREDIENT_BUN, payload: item });
     }
-    return dispatch(addIngredientConstuctor(item));
+    return dispatch({
+      type: ADD_INGREDIENT,
+      payload: { ...item, key: uuidv4() },
+    });
   };
 
   const [, dropRef] = useDrop({

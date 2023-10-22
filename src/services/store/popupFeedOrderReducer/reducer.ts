@@ -1,17 +1,18 @@
-import { IOrderDetails } from "../../../data/typesScripts";
+import { IIngridientsOrder } from "../../../data/typesScripts";
+import {
+  ADD_FEED_ORDER_DATA,
+  GET_INGRIDIENTS_ERRORE_ORDER,
+  GET_REQUEST_ORDER,
+  TRequestOrderActions,
+} from "./actions";
 
-//export const CLEAR_FEED_ORDER_DATA = "CLEAR_FEED_ORDER_DATA";
-
-export const GET_REQUEST_ORDER = "GET_REQUEST_ORDER";
-export const GET_INGRIDIENTS_ERRORE_ORDER = "GET_INGRIDIENTS_ERRORE_ORDER";
-//export const GET_INGRIDIENTS_SUCCESS = "GET_INGRIDIENTS_SUCCESS";
-export const ADD_FEED_ORDER_DATA = "ADD_FEED_ORDER_DATA";
-
-type TStateIngredientDetailsReducer = {
-  // ingredient: IIngridients[];
+export type TFeedOrderReducer = {
+  feedOrderData: Array<IIngridientsOrder>;
+  isLoading: boolean;
+  error: boolean;
 };
 
-const initialState = {
+const initialState: TFeedOrderReducer = {
   feedOrderData: [],
   isLoading: false,
   error: false,
@@ -19,7 +20,7 @@ const initialState = {
 
 const popupFeedOrderReducer = (
   state = initialState,
-  action: { type: string; payload: IOrderDetails }
+  action: TRequestOrderActions
 ) => {
   switch (action.type) {
     case GET_REQUEST_ORDER:

@@ -5,8 +5,9 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormEvent, useState } from "react";
-import { BASE_URL, fetchWithRefresh, PATCH_HEADERS } from "../../data/api";
+import { BASE_URL, PATCH_HEADERS } from "../../data/api";
 import { useAppDispatch, useAppSelector } from "../../services/store";
+import { fetchWithRefresh } from "../../services/store/asyncActions/userInfo";
 import { CHANGE_USER_DATA } from "../../services/store/authReducer/actions";
 import { userData } from "../../services/store/authReducer/selectors";
 import styles from "./profile-form.module.css";
@@ -32,6 +33,7 @@ export const ProfileForm = () => {
       body: JSON.stringify(value),
     })
       .then((res) => {
+        // console.log(res);
         dispatch({
           type: CHANGE_USER_DATA,
           payload: res.user,

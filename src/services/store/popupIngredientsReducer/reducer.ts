@@ -3,15 +3,20 @@ import {
   IS_OPEN_CLOSE_INGREDIENTS_POPUP,
   OPEN_INGREDIENTS_POPUP,
   TOGGLE_INGREDIENTS_POPUP,
+  TPopupIngredientsActions,
 } from "./actions";
 
-const initialState = {
+export type TIngredientsReducer = {
+  isOpenCloseIngredient: boolean;
+};
+
+const initialState: TIngredientsReducer = {
   isOpenCloseIngredient: false,
 };
 
 export const popupIngredientsReducer = (
   state = initialState,
-  action: { type: string }
+  action: TPopupIngredientsActions
 ) => {
   switch (action.type) {
     case OPEN_INGREDIENTS_POPUP:

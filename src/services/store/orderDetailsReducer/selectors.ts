@@ -1,3 +1,5 @@
+import { TOrderResponse } from "../../../data/typesScripts";
+
 export const getOrderNumbers = (state: {
-  OrderDetailsReducer: { order: number };
-}) => state.OrderDetailsReducer.order;
+  OrderDetailsReducer: { orderDetails: TOrderResponse };
+}) => state.OrderDetailsReducer.orderDetails.order.number;

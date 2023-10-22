@@ -72,7 +72,7 @@ const Order: React.FC<TOrderProps> = ({ data, path }) => {
     ingredientsData: imageArr,
   };
   const handlerModalOpen = (item: IIngredientDetails) => {
-    console.log(item);
+    // console.log(item);
     dispatch(addFeedOrder(item));
   };
   return (

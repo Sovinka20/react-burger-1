@@ -6,6 +6,9 @@ import { TIngredient } from "../services/store/ingredientDetailsReducer/actions"
 import { TOrderDataActions } from "../services/store/orderDetailsReducer/actions";
 import { TPopupIngredientsActions } from "../services/store/popupIngredientsReducer/actions";
 import { TPopupReducerActions } from "../services/store/popupOrderRecucer/actions";
+import { TForgotPassActions } from "../services/store/userForgot/actions";
+import { TRefreshTokenActions } from "../services/store/userRefreshToken/actionsRT";
+import { TRestorePasswordActions } from "../services/store/userResetPass/actions";
 import { TWSOrdersActions } from "../services/store/wsOrdersAll/actionsFeed";
 import { TWSUserHistoryActions } from "../services/store/wsOrdersAll/actionsProfile";
 
@@ -112,6 +115,13 @@ export interface IOrderDetails {
     ];
   }[];
 }
+
+export type TRefreshToken = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+};
+
 export type TStore = ReturnType<typeof store.getState>;
 
 export type THandlerModelClose =
@@ -128,8 +138,54 @@ export type TUser = {
   password?: string;
 };
 
+export type TCurrentOrderResponse = {
+  success: boolean;
+  orders: TCurrentOrder[];
+};
+
+export type TCurrentOrder = {
+  _id: string;
+  ingredients: string[];
+  owner: string;
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  __v: number;
+};
+
+export type TOrderResponse = {
+  success: boolean;
+  name: string;
+  order: {
+    ingredients: TIngredient[];
+    _id: string;
+    owner?: {
+      name: string;
+      email: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+    status: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+    price: number;
+  };
+};
+export type TErrorData = {
+  success: boolean;
+  message: string;
+};
+
 export type TApplicationActions =
+  // | TRefreshToken
   | TUserActions
+  | TRefreshTokenActions
+  | TRestorePasswordActions
+  | TForgotPassActions
   | TOrderDataActions
   | TPopupIngredientsActions
   | TIngredient

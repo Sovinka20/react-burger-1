@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../services/store";
-import { registerUser } from "../../services/store/asyncActions";
+import { registerUser } from "../../services/store/asyncActions/userRegister";
 import styles from "./register.module.css";
 
 const Register = () => {
@@ -22,7 +22,7 @@ const Register = () => {
   };
   const handlerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(registerUser(value) as unknown as any);
+    dispatch(registerUser(value));
   };
   return (
     <form

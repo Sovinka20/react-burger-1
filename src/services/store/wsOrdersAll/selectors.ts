@@ -1,16 +1,8 @@
+import { ISocketOrder } from "../../../data/typesScripts";
+
 export const getWsAllIngridients = (state: {
   wsOrdersAllReducer: {
-    data: [
-      {
-        createdAt: string;
-        ingredients: Array<string>;
-        name: string;
-        number: number;
-        status: string;
-        updatedAt: string;
-        _id: string;
-      }
-    ];
+    data: ISocketOrder;
   };
 }) => state.wsOrdersAllReducer.data;
 export const getWsAllIngridientsTotal = (state: {
@@ -22,18 +14,6 @@ export const getWsAllIngridientsTotalToday = (state: {
 
 export const getWsIngridients = (state: {
   wsOrdersReducer: {
-    data: {
-      data: [
-        {
-          createdAt: string;
-          ingredients: Array<string>;
-          name: string;
-          number: number;
-          status: string;
-          updatedAt: string;
-          _id: string;
-        }
-      ];
-    };
+    data: ISocketOrder;
   };
 }) => state.wsOrdersReducer.data;

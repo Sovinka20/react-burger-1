@@ -1,5 +1,10 @@
 import { IIngridients } from "../../../data/typesScripts";
-import { CLEAR_INGREDIENT, GET_INGREDIENT, SET_INGREDIENT } from "./actions";
+import {
+  CLEAR_INGREDIENT,
+  GET_INGREDIENT,
+  SET_INGREDIENT,
+  TIngredient,
+} from "./actions";
 
 type TStateIngredientDetailsReducer = {
   ingredient: IIngridients[];
@@ -10,13 +15,13 @@ const initialState: TStateIngredientDetailsReducer = {
 
 export const IngredientDetailsReducer = (
   state = initialState,
-  action: { type: string; peyload: IIngridients }
+  action: TIngredient
 ) => {
   switch (action.type) {
     case GET_INGREDIENT:
       return { ...state, ingredient: { ...state.ingredient } };
     case SET_INGREDIENT:
-      return { ...state, ingredient: action.peyload };
+      return { ...state, ingredient: action.payload };
     case CLEAR_INGREDIENT:
       return { ...state, ingredient: [] };
     default:

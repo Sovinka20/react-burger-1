@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { BASE_URL, fetchWithRefresh, GET_HEADERS } from "../../data/api";
+import { BASE_URL, GET_HEADERS } from "../../data/api";
 import { Feed } from "../../pages/feed/feed";
 import ForgotPassword from "../../pages/forgot-password/forgotPassword";
 import Home from "../../pages/home/home";
@@ -12,9 +12,10 @@ import Profile from "../../pages/profile/profile";
 import Register from "../../pages/register/register";
 import ResetPassword from "../../pages/reset-password/resetPassword";
 import { useAppDispatch, useAppSelector } from "../../services/store";
-import { fetchIngredients } from "../../services/store/asyncActions";
+import { fetchIngredients } from "../../services/store/asyncActions/ingredients";
+import { fetchWithRefresh } from "../../services/store/asyncActions/userInfo";
 import {
-  isUserChecked,
+  IS_USER_CHECKED,
   USER_LOGIN_AUTHORIZATION,
 } from "../../services/store/authReducer/actions";
 import {
@@ -22,7 +23,7 @@ import {
   getIngridients,
   getIsLoading,
 } from "../../services/store/burgerIngredientsReducer/selectors";
-import { ADD_FEED_ORDER_DATA } from "../../services/store/popupFeedOrderReducer/reducer";
+import { ADD_FEED_ORDER_DATA } from "../../services/store/popupFeedOrderReducer/actions";
 import IngredientDetails from "../ingredient-details/ingredientDetails";
 import Layout from "../layout/layout";
 import Modal from "../modal/modal";
@@ -45,7 +46,7 @@ function App() {
 
   React.useEffect(() => {
     if (localStorage.getItem("accessToken")) {
-      dispatch(isUserChecked(true));
+      dispatch({ type: IS_USER_CHECKED, payload: true });
       fetchWithRefresh(`${BASE_URL}/auth/user`, GET_HEADERS)
         .then((res) => {
           dispatch({
@@ -53,11 +54,13 @@ function App() {
             payload: res.user,
           });
         })
-        .catch((res) => console.log(res));
+        .catch((res) => {
+          console.log(res);
+        });
     } else {
-      dispatch(isUserChecked(false));
+      dispatch({ type: IS_USER_CHECKED, payload: false });
     }
-    dispatch(fetchIngredients() as unknown as any);
+    dispatch(fetchIngredients());
 
     if (isLoadingOrder)
       dispatch({
@@ -84,6 +87,24 @@ function App() {
     <div className={styles.root}>
       <Routes location={background || location}>
         <Route path="/" element={<Layout />}>
+          <Route
+            path="/ingredients/:ingredientId"
+            element={
+              // <Modal handlerModelClose={() => handlerModelClose("/")}>
+              <IngredientDetails ingredientsData={ingredientsData} />
+              // </Modal>
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={<PageFeedDetailsPopup />}
+            // <OrderDetailsPopup feedOrderData={feedOrderData} />}
+          />
+          <Route
+            path="profile/orders/:id"
+            element={<PageOrderDetailsPopup />}
+          />
+
           <Route index element={<ProtectedRouteElement element={<Home />} />} />
           <Route
             path="login"
@@ -116,20 +137,6 @@ function App() {
             element={<ProtectedRouteElement element={<Feed />} />}
           />
         </Route>
-        <Route
-          path="/ingredients/:ingredientId"
-          element={
-            <Modal handlerModelClose={() => handlerModelClose("/")}>
-              <IngredientDetails ingredientsData={ingredientsData} />
-            </Modal>
-          }
-        />
-        <Route
-          path="/feed/:id"
-          element={<PageFeedDetailsPopup />}
-          // <OrderDetailsPopup feedOrderData={feedOrderData} />}
-        />
-        <Route path="profile/orders/:id" element={<PageOrderDetailsPopup />} />
       </Routes>
 
       {background && (
