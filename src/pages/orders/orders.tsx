@@ -10,13 +10,13 @@ import styles from "./orders.module.css";
 
 const Orders = () => {
   const dispatch = useAppDispatch();
-  const { data } = useAppSelector((store) => store.wsOrdersAllReducer);
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_SUCCESS });
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
+  const { data } = useAppSelector((store) => store.wsOrdersAllReducer);
 
   return (
     <div className={`custom-scroll ${styles.wrapper}`}>

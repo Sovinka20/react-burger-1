@@ -2,6 +2,7 @@ import {
   CHANGE_RESET_PASSWORD,
   CHANGE_USER_DATA,
   IS_USER_CHECKED,
+  LOGOUT_USER,
   TUserActions,
   USER_LOGIN_AUTHORIZATION,
 } from "./actions";
@@ -42,6 +43,15 @@ export const AuthReducer = (state = initialState, action: TUserActions) => {
     //   };
     case IS_USER_CHECKED:
       return { ...state, isAuthChecked: action.payload };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        user: null,
+        oldUserData: null,
+        isAuthChecked: false,
+        resetPassword: false,
+      };
+
     case CHANGE_RESET_PASSWORD:
       return { ...state, resetPassword: action.payload };
     default:

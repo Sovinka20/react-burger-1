@@ -36,7 +36,7 @@ export const GET_HEADERS = {
   method: "GET",
   headers: {
     "Content-Type": "application/json;charset=utf-8",
-    authorization: `${localStorage.getItem("accessToken")}`,
+    authorization: `${window.localStorage.getItem("accessToken")}`,
   },
 };
 
@@ -44,7 +44,7 @@ export const PATCH_HEADERS = {
   method: "PATCH",
   headers: {
     "Content-Type": "application/json;charset=utf-8",
-    authorization: `${localStorage.getItem("accessToken")}`,
+    authorization: `${window.localStorage.getItem("accessToken")}`,
   },
   // body: JSON.stringify(value),
 };

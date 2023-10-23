@@ -45,7 +45,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (window.localStorage.getItem("accessToken")) {
       dispatch({ type: IS_USER_CHECKED, payload: true });
       fetchWithRefresh(`${BASE_URL}/auth/user`, GET_HEADERS)
         .then((res) => {
@@ -89,20 +89,14 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route
             path="/ingredients/:ingredientId"
-            element={
-              // <Modal handlerModelClose={() => handlerModelClose("/")}>
-              <IngredientDetails ingredientsData={ingredientsData} />
-              // </Modal>
-            }
+            element={<IngredientDetails ingredientsData={ingredientsData} />}
           />
-          <Route
-            path="/feed/:id"
-            element={<PageFeedDetailsPopup />}
-            // <OrderDetailsPopup feedOrderData={feedOrderData} />}
-          />
+          <Route path="/feed/:id" element={<PageFeedDetailsPopup />} />
           <Route
             path="profile/orders/:id"
-            element={<PageOrderDetailsPopup />}
+            element={
+              <ProtectedRouteElement element={<PageOrderDetailsPopup />} />
+            }
           />
 
           <Route index element={<ProtectedRouteElement element={<Home />} />} />

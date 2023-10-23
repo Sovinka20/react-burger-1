@@ -11,14 +11,16 @@ export const logoutUser: AppThunk = () => (dispatch) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
+    body: JSON.stringify({
+      token: window.localStorage.getItem("refreshToken"),
+    }),
   })
     .then(checkResponse)
     .then((res) => {
-      localStorage.clear();
       dispatch({
         type: LOGOUT_USER,
       });
+      window.localStorage.clear();
       window.location.reload();
     })
     .catch((err) => console.log(err));

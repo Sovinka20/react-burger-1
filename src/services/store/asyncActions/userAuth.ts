@@ -23,16 +23,15 @@ export const authorizationUser: AppThunk =
       },
       body: JSON.stringify(loginUserData),
     })
-      .then(checkResponse)
+      .then((res) => checkResponse(res))
       .then((res) => {
-        localStorage.setItem("accessToken", res.accessToken);
-        localStorage.setItem("refreshToken", res.refreshToken);
+        window.localStorage.setItem("accessToken", res.accessToken);
+        window.localStorage.setItem("refreshToken", res.refreshToken);
         dispatch({
           type: USER_LOGIN_AUTHORIZATION,
           payload: res.user,
         });
         dispatch({ type: IS_USER_CHECKED, payload: true });
-        window.location.reload();
       })
       .catch((err) => {
         dispatch({ type: IS_USER_CHECKED, payload: false });

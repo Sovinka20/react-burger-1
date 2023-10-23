@@ -20,6 +20,7 @@ const ProtectedRouteElement = ({
   const user = useAppSelector(userData);
   const isResetPass = useAppSelector(isResetPassword);
   const location = useLocation();
+
   if (!user && location.pathname === "/reset-password" && !isResetPass) {
     return <Navigate to="/" state={{ from: location }} />;
   }
@@ -36,7 +37,11 @@ const ProtectedRouteElement = ({
 
   if (
     (!user && location.pathname === PROFILE) ||
-    (!user && location.pathname === PROFILE_ORDERS)
+    (!user && location.pathname === PROFILE_ORDERS) ||
+    (!user && location.pathname.includes(PROFILE_ORDERS)) ||
+    (!user &&
+      location.pathname.includes(PROFILE_ORDERS) &&
+      location.pathname !== PROFILE_ORDERS)
   ) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
