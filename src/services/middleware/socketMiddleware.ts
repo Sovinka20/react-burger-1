@@ -1,4 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
+import { WS_URL_ORDERS_USER_HISTORY } from "../../data/api";
 import { TStore } from "../../data/typesScripts";
 import { store } from "../store";
 
@@ -36,7 +37,8 @@ export const webSocketMiddleware = (
       const { wsInit, disconnect, onError, onMessage } = actions;
 
       if (action.type === wsInit && socket === null) {
-        if (token === "") window.location.reload();
+        if (token === "" && url === WS_URL_ORDERS_USER_HISTORY)
+          window.location.reload();
 
         socket = withToken
           ? (socket = new WebSocket(`${url}?token=${token}`))

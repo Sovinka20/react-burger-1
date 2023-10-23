@@ -38,10 +38,11 @@ const ProtectedRouteElement = ({
   if (
     (!user && location.pathname === PROFILE) ||
     (!user && location.pathname === PROFILE_ORDERS) ||
-    (!user && location.pathname.includes(PROFILE_ORDERS)) ||
-    (!user &&
-      location.pathname.includes(PROFILE_ORDERS) &&
-      location.pathname !== PROFILE_ORDERS)
+    (!user && location.pathname.includes(PROFILE_ORDERS))
+    // ||
+    // (!user &&
+    //   location.pathname.includes(PROFILE_ORDERS) &&
+    //   location.pathname !== PROFILE_ORDERS)
   ) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
