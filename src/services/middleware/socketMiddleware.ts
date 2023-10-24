@@ -1,5 +1,5 @@
 import { Middleware, MiddlewareAPI } from "redux";
-import { WS_URL_ORDERS_USER_HISTORY } from "../../data/api";
+import { getCookie } from "../../data/cookie";
 import { TStore } from "../../data/typesScripts";
 import { store } from "../store";
 
@@ -22,13 +22,13 @@ export const webSocketMiddleware = (
   actions: WSActions,
   withToken: boolean
 ): Middleware => {
-  const tokenLocalStorage: string =
-    window.localStorage.getItem("accessToken") || "";
-  const token: string =
-    tokenLocalStorage !== ""
-      ? tokenLocalStorage.substring(tokenLocalStorage.length - 171)
-      : tokenLocalStorage;
-  console.log(token);
+  // const tokenLocalStorage: string | undefined =
+  //   window.localStorage.getItem("accessToken") || "";
+  // const token: string =
+  //   tokenLocalStorage !== ""
+  //     ? tokenLocalStorage.substring(tokenLocalStorage.length - 171)
+  //     : tokenLocalStorage;
+  // console.log(token, tokenLocalStorage, localStorage.getItem("accessToken"));
   return ((store: MiddlewareAPI<AppDispatch, TStore>) => {
     let socket: WebSocket | null = null;
 
@@ -37,11 +37,13 @@ export const webSocketMiddleware = (
       const { wsInit, disconnect, onError, onMessage } = actions;
 
       if (action.type === wsInit && socket === null) {
-        if (token === "" && url === WS_URL_ORDERS_USER_HISTORY)
-          window.location.reload();
+        // if (token === "" && url === WS_URL_ORDERS_USER_HISTORY)
+        //   window.location.reload();
 
         socket = withToken
-          ? (socket = new WebSocket(`${url}?token=${token}`))
+          ? (socket = new WebSocket(
+              `${url}?token=${getCookie("accessToken")?.split("Bearer ")[1]}`
+            ))
           : new WebSocket(url);
 
         if (socket) {

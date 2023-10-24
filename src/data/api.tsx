@@ -1,3 +1,5 @@
+import { getCookie } from "./cookie";
+
 export const BASE_URL = "https://norma.nomoreparties.space/api";
 export const WS_ORDERS_URL = "wss://norma.nomoreparties.space/orders/all";
 export const WS_USER_ORDERS_URL = "wss://norma.nomoreparties.space/orders";
@@ -36,7 +38,7 @@ export const GET_HEADERS = {
   method: "GET",
   headers: {
     "Content-Type": "application/json;charset=utf-8",
-    authorization: `${window.localStorage.getItem("accessToken")}`,
+    authorization: `${getCookie("accessToken")}`,
   },
 };
 
@@ -44,7 +46,7 @@ export const PATCH_HEADERS = {
   method: "PATCH",
   headers: {
     "Content-Type": "application/json;charset=utf-8",
-    authorization: `${window.localStorage.getItem("accessToken")}`,
+    authorization: `${getCookie("accessToken")}`,
   },
   // body: JSON.stringify(value),
 };

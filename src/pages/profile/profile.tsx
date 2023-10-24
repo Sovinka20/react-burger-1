@@ -10,7 +10,6 @@ const Profile = () => {
   const unActiveClass = `text text_type_main-medium text_color_inactive ${styles.link}`;
   const logout = () => {
     dispatch(logoutUser());
-
     navigate("/login");
   };
 

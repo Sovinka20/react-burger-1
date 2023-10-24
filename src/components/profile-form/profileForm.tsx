@@ -33,7 +33,6 @@ export const ProfileForm = () => {
       body: JSON.stringify(value),
     })
       .then((res) => {
-        // console.log(res);
         dispatch({
           type: CHANGE_USER_DATA,
           payload: res.user,

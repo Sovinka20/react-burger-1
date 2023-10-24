@@ -1,5 +1,6 @@
-export const oldUserData = (store: { AuthReducer: { oldUserData: boolean } }) =>
-  store.AuthReducer.oldUserData;
+export const oldUserData = (store: {
+  AuthReducer: { oldUserData: { email: string; name: string } };
+}) => store.AuthReducer.oldUserData;
 //export const isUserAuthentificated = (store) => store.AuthReducer.isUserAuthentificated;
 export const isAuthChecked = (store: {
   AuthReducer: { isAuthChecked: boolean };

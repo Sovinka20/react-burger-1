@@ -1,4 +1,5 @@
 import { BASE_URL, checkResponse } from "../../../data/api";
+import { getCookie } from "../../../data/cookie";
 import { TRefreshToken } from "../../../data/typesScripts";
 import { AppThunk } from "../reducers";
 import { REFRESH_TOKEN_SUCCESS } from "../userRefreshToken/actionsRT";
@@ -13,7 +14,8 @@ export const requestRefreshToken: AppThunk = (dispatch) => {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
+      token: `${getCookie("refreshToken")}`,
+      // localStorage.getItem("refreshToken"),
     }),
   })
     .then(checkResponse)

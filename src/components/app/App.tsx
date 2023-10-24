@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { BASE_URL, GET_HEADERS } from "../../data/api";
+import { getCookie } from "../../data/cookie";
 import { Feed } from "../../pages/feed/feed";
 import ForgotPassword from "../../pages/forgot-password/forgotPassword";
 import Home from "../../pages/home/home";
@@ -45,7 +46,8 @@ function App() {
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    if (window.localStorage.getItem("accessToken")) {
+    if (getCookie("accessToken")) {
+      // localStorage.getItem("accessToken")) {
       dispatch({ type: IS_USER_CHECKED, payload: true });
       fetchWithRefresh(`${BASE_URL}/auth/user`, GET_HEADERS)
         .then((res) => {

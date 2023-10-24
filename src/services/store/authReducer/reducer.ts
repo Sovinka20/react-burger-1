@@ -29,7 +29,10 @@ export const AuthReducer = (state = initialState, action: TUserActions) => {
       return {
         ...state,
         user: { ...action.payload },
-        oldUserData: { ...action.payload },
+        oldUserData:
+          state.oldUserData !== null
+            ? state.oldUserData
+            : { ...action.payload },
         success: true,
       };
     case CHANGE_USER_DATA:
@@ -47,7 +50,7 @@ export const AuthReducer = (state = initialState, action: TUserActions) => {
       return {
         ...state,
         user: null,
-        oldUserData: null,
+        oldUserData: state.user,
         isAuthChecked: false,
         resetPassword: false,
       };

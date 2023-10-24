@@ -1,4 +1,5 @@
 import { BASE_URL, checkResponse } from "../../../data/api";
+import { deleteCookie, getCookie } from "../../../data/cookie";
 import { LOGOUT_USER } from "../authReducer/actions";
 import { AppThunk } from "../reducers";
 
@@ -12,7 +13,8 @@ export const logoutUser: AppThunk = () => (dispatch) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      token: window.localStorage.getItem("refreshToken"),
+      token: `${getCookie("refreshToken")}`,
+      // window.localStorage.getItem("refreshToken"),
     }),
   })
     .then(checkResponse)
@@ -20,8 +22,9 @@ export const logoutUser: AppThunk = () => (dispatch) => {
       dispatch({
         type: LOGOUT_USER,
       });
-      window.localStorage.clear();
-      window.location.reload();
+      // window.localStorage.clear();
+      deleteCookie("accessToken");
+      deleteCookie("refreshToken");
     })
     .catch((err) => console.log(err));
 };

@@ -1,3 +1,4 @@
+import { setCookie } from "../../../data/cookie";
 import {
   REFRESH_TOKEN_ERROR,
   REFRESH_TOKEN_START,
@@ -33,8 +34,15 @@ export const refreshTokenReducer = (
         isError: true,
       };
     case REFRESH_TOKEN_SUCCESS:
-      localStorage.setItem("refreshToken", action.payload.refreshToken);
-      localStorage.setItem("accessToken", action.payload.accessToken);
+      // localStorage.setItem("refreshToken", action.payload.refreshToken);
+      // localStorage.setItem("accessToken", action.payload.accessToken);
+      setCookie("refreshToken", action.payload.refreshToken, {
+        expires: 99999 * 999,
+      });
+      setCookie("accessToken", action.payload.accessToken, {
+        expires: 1200,
+      });
+
       return {
         ...state,
         isRequest: false,
