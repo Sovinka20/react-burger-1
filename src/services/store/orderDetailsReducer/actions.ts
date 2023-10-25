@@ -17,12 +17,3 @@ export interface IResetOrderData {
 }
 
 export type TOrderDataActions = IGetOrderData | ISetOrderData | IResetOrderData;
-
-export const setOrderData = (payload: TCurrentOrderResponse) => ({
-  type: SET_ORDER_DATA,
-  payload,
-});
-
-export const resetOrderData = () => ({
-  type: RESET_ORDER_DATA,
-});

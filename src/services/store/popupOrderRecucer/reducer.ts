@@ -10,7 +10,7 @@ export type TOrderReducer = {
   isOpenCloseOrder: boolean;
 };
 
-const initialState: TOrderReducer = {
+export const initialState: TOrderReducer = {
   isOpenCloseOrder: false,
 };
 

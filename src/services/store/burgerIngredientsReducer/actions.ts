@@ -1,4 +1,4 @@
-import { IIngredientDetails, ISocketAnswer } from "../../../data/typesScripts";
+import { ISocketAnswer } from "../../../data/typesScripts";
 
 export const GET_INGRIDIENTS_REQUEST = "GET_INGRIDIENTS_REQUEST";
 export const GET_INGRIDIENTS_ERRORE = "GET_INGRIDIENTS_ERRORE";
@@ -10,7 +10,7 @@ export interface IGetIngredintsReq {
 }
 export interface IGetIngredintsErr {
   readonly type: typeof GET_INGRIDIENTS_ERRORE;
-  payload: string;
+  payload: boolean;
 }
 export interface IGetIngredintsSucc {
   readonly type: typeof GET_INGRIDIENTS_SUCCESS;
@@ -21,8 +21,3 @@ export type TBurgerIngredientsActions =
   | IGetIngredintsReq
   | IGetIngredintsErr
   | IGetIngredintsSucc;
-
-export const getIngredients = (payload: IIngredientDetails[]) => ({
-  type: GET_INGRIDIENTS_SUCCESS,
-  payload,
-});

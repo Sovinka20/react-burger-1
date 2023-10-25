@@ -25,13 +25,6 @@ export const registerUser: AppThunk =
     })
       .then(checkResponse)
       .then((res) => {
-        // localStorage.setItem(
-        //   "accessToken",
-        //   // res.accessToken.replace("Bearer ", "")
-        //   res.accessToken
-        // );
-        // localStorage.setItem("refreshToken", res.refreshToken);
-
         dispatch({
           type: USER_LOGIN_AUTHORIZATION,
           payload: res.user,

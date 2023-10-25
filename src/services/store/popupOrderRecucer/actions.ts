@@ -21,8 +21,3 @@ export type TPopupReducerActions =
   | ICloseOrderPopup
   | IToggleOrderPopup
   | IIsOpenCloseOrderPopup;
-
-export const openOrderPopup = () => ({ type: OPEN_ORDER_POPUP });
-export const closeOrderPopup = () => ({ type: CLOSE_ORDER_POPUP });
-export const toggleOrderPopup = () => ({ type: TOGGLE_ORDER_POPUP });
-export const isOpenCloseOrderPopup = () => ({ type: TOGGLE_ORDER_POPUP });

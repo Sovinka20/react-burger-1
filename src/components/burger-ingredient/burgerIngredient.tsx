@@ -4,16 +4,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { useDrag } from "react-dnd";
-import {
-  draggingOff,
-  draggingOn,
-} from "../../services/store/burgerConstructorReducer/actions";
 
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { IIngridients } from "../../data/typesScripts";
 import { useAppDispatch } from "../../services/store";
-import { setIngredient } from "../../services/store/ingredientDetailsReducer/actions";
+import {
+  DRAG_OFF,
+  DRAG_ON,
+} from "../../services/store/burgerConstructorReducer/actions";
+import { SET_INGREDIENT } from "../../services/store/ingredientDetailsReducer/actions";
 import styles from "./burger-ingredient.module.css";
 
 type TBurgerIngredientProps = {
@@ -32,7 +32,7 @@ const BurgerIngredient: React.FC<TBurgerIngredientProps> = ({
   const ingredientId = item["_id"];
 
   const handlerModelOpen = (item: IIngridients) => {
-    dispatch(setIngredient(item));
+    dispatch({ type: SET_INGREDIENT, payload: item });
   };
 
   const [{ isDrag }, dragRef] = useDrag({
@@ -45,9 +45,9 @@ const BurgerIngredient: React.FC<TBurgerIngredientProps> = ({
 
   React.useEffect(() => {
     if (isDrag === true) {
-      dispatch(draggingOn());
+      dispatch({ type: DRAG_ON });
     } else {
-      dispatch(draggingOff());
+      dispatch({ type: DRAG_OFF });
     }
   }, [isDrag, dispatch]);
 

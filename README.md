@@ -1,46 +1,51 @@
-# Getting Started with Create React App
+# Stellar Burger
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## React приложение в рамках курса Яндекс-практикума React&nbsp;-&nbsp;разработчик
 
-## Available Scripts
+:link: ссылка на демо: https://sovinka20.github.io/react-burger-1/
 
-In the project directory, you can run:
+## Описание проекта:
 
-### `npm start`
+Веб-приложение космической бургерной, где Вы сможете собрать бургер по своему рецепту, оформить его заказ, посмотреть ленту всех существующих заказов, а так же личный кабинет с историей ваших заказов.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Функционал:
 
-### `npm test`
+- Навигация по приложению;
+- Список ингредиентов с детальной информацией в модальном окне;
+- Конструктор заказа с возможностью его оформления;
+- Перетаскивание ингредиентов в конструктор с помощью drag&drop;
+- Лента заказов с детальной информацией о заказе в модальном окне, его статус и статистика заказов;
+- Личный кабинет с регистрацией, авторизацией, аутентификацей и востановлением пароля;
+- Редактирование данных в личном кабинете и просмотр всех своих заказов.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Использованные при разработке технологии:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React
+- Redux
+- WebSockets
+- TypeScript
+- Jest
+- Cypress
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Запуск
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1.  <code>git clone https://github.com/Sovinka20/react-burger-1.git</code>
+2.  <code>npm install</code>
+3.  <code>npm start</code>
 
-### `npm run eject`
+Клонируйте этот репозиторий на свой рабочий стол, перейдите в его корневой каталог и запустите `npm install`, чтобы
+установить его зависимости.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+После установки зависимостей вы можете запустить `npm start`, чтобы запустить приложение. После этого вы сможете
+получить к нему доступ по адресу localhost:3000.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Доступные скрипты
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- <code>npm start</code>: запуск приложения на localhost
+- <code>npm run build</code>: оптимизированная сборка приложения
+- <code>npm run test</code>: запуск модульных тестов для redux
+- <code>npm run cypress:open</code>: запуск E2E тестов

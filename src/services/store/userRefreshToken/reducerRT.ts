@@ -11,7 +11,7 @@ export type TRefreshTokenReducer = {
   isError: boolean;
 };
 
-const initialState: TRefreshTokenReducer = {
+export const initialState: TRefreshTokenReducer = {
   isRequest: false,
   isError: false,
 };
@@ -34,8 +34,6 @@ export const refreshTokenReducer = (
         isError: true,
       };
     case REFRESH_TOKEN_SUCCESS:
-      // localStorage.setItem("refreshToken", action.payload.refreshToken);
-      // localStorage.setItem("accessToken", action.payload.accessToken);
       setCookie("refreshToken", action.payload.refreshToken, {
         expires: 99999 * 999,
       });

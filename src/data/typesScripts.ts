@@ -181,7 +181,6 @@ export type TErrorData = {
 };
 
 export type TApplicationActions =
-  // | TRefreshToken
   | TUserActions
   | TRefreshTokenActions
   | TRestorePasswordActions

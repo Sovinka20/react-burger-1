@@ -26,8 +26,6 @@ export const authorizationUser: AppThunk =
     })
       .then((res) => checkResponse(res))
       .then((res) => {
-        // window.localStorage.setItem("accessToken", res.accessToken);
-        // window.localStorage.setItem("refreshToken", res.refreshToken);
         setCookie("refreshToken", res.refreshToken, {
           expires: 99999 * 999,
         });

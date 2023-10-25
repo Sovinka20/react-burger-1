@@ -15,9 +15,9 @@ const Orders = () => {
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { data } = useAppSelector((store) => store.wsOrdersAllReducer);
-  console.log(useAppSelector((store) => store));
   return (
     <div className={`custom-scroll ${styles.wrapper}`}>
       <main className={styles.feedMain}>

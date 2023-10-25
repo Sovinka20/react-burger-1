@@ -11,29 +11,6 @@ export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-// type TUserData = {
-//   name?: string;
-//   email?: string;
-//   password?: string;
-// };
-
-//export const api = new Api(BASE_URL);
-
-//   return {
-//     fetchGet,
-//     fetchPost,
-//     refreshToken,
-//     fetchSecurePost,
-//     fetchSecurePatch,
-//     fetchSecureGet,
-//     logout,
-//   };
-// };
-
-// export const getIngredientsData = () => {
-//   return fetch(`${BASE_URL}/ingredients`).then(checkResponse);
-// };
-
 export const GET_HEADERS = {
   method: "GET",
   headers: {
@@ -48,5 +25,4 @@ export const PATCH_HEADERS = {
     "Content-Type": "application/json;charset=utf-8",
     authorization: `${getCookie("accessToken")}`,
   },
-  // body: JSON.stringify(value),
 };

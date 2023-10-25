@@ -15,7 +15,6 @@ const ModalOverlay: React.FC<TModalOverlay> = ({
 }) => {
   const handleOverlay: React.MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target === e.currentTarget) {
-      // вот так оверлей проверяется универсально
       handlerModelClose(e);
     }
   };
@@ -24,7 +23,6 @@ const ModalOverlay: React.FC<TModalOverlay> = ({
     <div
       data-overlay="overlay"
       className={`${styles.overlay}`}
-      //onClick={(e) => handlerModelClose(e)}
       onClick={handleOverlay}
     >
       {children}

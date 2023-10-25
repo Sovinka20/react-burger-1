@@ -12,7 +12,7 @@ type ordersUserReducerState = {
   data: TWSData;
 };
 
-const initialState: ordersUserReducerState = {
+export const initialState: ordersUserReducerState = {
   wsConnected: false,
   data: {
     success: false,
@@ -53,7 +53,6 @@ const wsOrdersReducer = (
         data: {
           ...state.data,
           orders: action.payload.orders,
-          //.reverse(),
           success: action.payload.success,
           total: action.payload.total,
           totalToday: action.payload.totalToday,

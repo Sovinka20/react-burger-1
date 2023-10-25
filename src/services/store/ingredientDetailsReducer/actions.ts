@@ -16,10 +16,3 @@ export interface IClearIngredient {
 }
 
 export type TIngredient = IGetIngredient | ISetIngredient | IClearIngredient;
-
-export const getIngredient = () => ({ type: GET_INGREDIENT });
-export const setIngredient = (payload: IIngridients) => ({
-  type: SET_INGREDIENT,
-  payload,
-});
-export const clearIngredient = () => ({ type: CLEAR_INGREDIENT });

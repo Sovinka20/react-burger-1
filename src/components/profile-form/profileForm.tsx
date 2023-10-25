@@ -69,7 +69,6 @@ export const ProfileForm = () => {
 
       <EmailInput
         placeholder={"Логин"}
-        //icon={"EditIcon"}
         extraClass="mb-6"
         name="email"
         value={value.email}
@@ -81,7 +80,6 @@ export const ProfileForm = () => {
         icon={"EditIcon"}
         extraClass="mb-6"
         value={value.password}
-        // type="password"
         name="password"
         onChange={handlerChange}
       />

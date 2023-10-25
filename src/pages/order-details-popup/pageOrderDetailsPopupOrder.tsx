@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-// import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { OrderDetailsPopup } from "../../components/order-details-popup/orderDetailsPopup";
 import { IIngridientsOrder, TOrder } from "../../data/typesScripts";
@@ -9,7 +8,6 @@ import {
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_SUCCESS,
 } from "../../services/store/wsOrdersAll/actionsProfile";
-// import { websocketConnectProfile } from "../../services/store/wsOrdersAll/actionsProfile";
 
 export const PageOrderDetailsPopup = () => {
   const location = useLocation();

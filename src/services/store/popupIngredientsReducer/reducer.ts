@@ -10,7 +10,7 @@ export type TIngredientsReducer = {
   isOpenCloseIngredient: boolean;
 };
 
-const initialState: TIngredientsReducer = {
+export const initialState: TIngredientsReducer = {
   isOpenCloseIngredient: false,
 };
 

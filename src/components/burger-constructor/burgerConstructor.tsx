@@ -11,14 +11,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { useNavigate } from "react-router-dom";
-// import { AnyAction } from "redux";
 import { IIngridients } from "../../data/typesScripts";
 import { useAppDispatch, useAppSelector } from "../../services/store";
-// import { fetchOrderPost } from "../../services/store/asyncActions";
 import { fetchOrderPost } from "../../services/store/asyncActions/order";
 import { userData } from "../../services/store/authReducer/selectors";
 import {
-  // addBunIngredientConstuctor,
   ADD_BUN_INGREDIENT_BUN,
   ADD_INGREDIENT,
 } from "../../services/store/burgerConstructorReducer/actions";
@@ -27,10 +24,10 @@ import {
   getBurgerConsructorBun,
   getBurgerConstructorList,
 } from "../../services/store/burgerConstructorReducer/selectors";
-import { resetOrderData } from "../../services/store/orderDetailsReducer/actions";
+import { RESET_ORDER_DATA } from "../../services/store/orderDetailsReducer/actions";
 import {
-  closeOrderPopup,
-  openOrderPopup,
+  CLOSE_ORDER_POPUP,
+  OPEN_ORDER_POPUP,
 } from "../../services/store/popupOrderRecucer/actions";
 import { getIsOpenCloseOrderPopup } from "../../services/store/popupOrderRecucer/selectors";
 import BurgerConstructorPlaceholder from "../burger-constructor-placeholder/burgerConstructorPlaceholder";
@@ -75,15 +72,15 @@ const BurgerConstructor = () => {
       navigate("/login");
     } else {
       handelPost();
-      dispatch(resetOrderData());
-      dispatch(openOrderPopup());
+      dispatch({
+        type: RESET_ORDER_DATA,
+      });
+      dispatch({ type: OPEN_ORDER_POPUP });
     }
   };
 
   function handlerModelClose() {
-    //
-    dispatch(closeOrderPopup());
-    //
+    dispatch({ type: CLOSE_ORDER_POPUP });
   }
 
   const onDropHandler = (item: IIngridients) => {
@@ -193,7 +190,6 @@ const BurgerConstructor = () => {
           size="large"
           onClick={handlerModelOpen}
           disabled={
-            // isUserAuth &&
             BurgerConstructorList.length !== 0 && BurgerConsructorBun !== null
               ? false
               : true

@@ -15,7 +15,7 @@ export type TStateAuthReducer = {
   resetPassword: boolean;
 };
 
-const initialState: TStateAuthReducer = {
+export const initialState: TStateAuthReducer = {
   success: false,
   user: null,
   oldUserData: null,
@@ -29,28 +29,18 @@ export const AuthReducer = (state = initialState, action: TUserActions) => {
       return {
         ...state,
         user: { ...action.payload },
-        oldUserData:
-          state.oldUserData !== null
-            ? state.oldUserData
-            : { ...action.payload },
+        oldUserData: { ...action.payload },
         success: true,
       };
     case CHANGE_USER_DATA:
       return { ...state, user: { ...action.payload } };
-    // case LOGOUT_USER:
-    //   return {
-    //     ...state,
-    //     user: null,
-    //     oldUserData: false,
-    //     success: false,
-    //   };
     case IS_USER_CHECKED:
       return { ...state, isAuthChecked: action.payload };
     case LOGOUT_USER:
       return {
         ...state,
         user: null,
-        oldUserData: state.user,
+        oldUserData: null,
         isAuthChecked: false,
         resetPassword: false,
       };

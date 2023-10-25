@@ -9,13 +9,27 @@ import {
 type TStateBurgerIngredientsReducer = {
   ingredients: IIngridients[];
   isLoading: boolean;
-  error: string;
+  error: boolean;
 };
 
-const initialState: TStateBurgerIngredientsReducer = {
-  ingredients: [],
+export const initialState: TStateBurgerIngredientsReducer = {
+  ingredients: [
+    {
+      _id: "",
+      type: "",
+      image_large: "",
+      image_mobail: "",
+      image: "",
+      name: "",
+      calories: 0,
+      proteins: 0,
+      fat: 0,
+      carbohydrates: 0,
+      price: 0,
+    },
+  ],
   isLoading: false,
-  error: "",
+  error: false,
 };
 
 export const BurgerIngredientsReducer = (
