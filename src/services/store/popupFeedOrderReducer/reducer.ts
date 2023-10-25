@@ -42,7 +42,6 @@ const popupFeedOrderReducer = (
     case GET_REQUEST_ORDER:
       return {
         ...state,
-        // feedOrderData: [...state.feedOrderData, action.payload],
         isLoading: false,
       };
 
@@ -52,13 +51,8 @@ const popupFeedOrderReducer = (
         isLoading: false,
         feedOrderData: action.payload,
       };
-    //  case GET_INGRIDIENTS_SUCCESS:
-    //    return { ...state, isLoading: false, ingredients: action.payload };
     case GET_INGRIDIENTS_ERRORE_ORDER:
       return { ...state, isLoading: false, error: action.payload };
-
-    //   case CLEAR_FEED_ORDER_DATA:
-    //     return { ...state, feedOrderData: [] };
     default:
       return state;
   }

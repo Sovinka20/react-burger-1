@@ -93,7 +93,6 @@ const BurgerIngredients = () => {
     let res = {};
     const items = BurgerConstructorList.filter((el) => el.type === "main");
     return items.reduce((acc: { [index: string]: number }, e: IIngridients) => {
-      //(acc: { [index: string]: number }, e: { [index: string]: string }) => {
       acc[e._id] = (acc[e._id] || 0) + 1;
       return acc;
     }, res);
@@ -108,8 +107,6 @@ const BurgerIngredients = () => {
       (el: IIngridients) => el.type === "sauce"
     );
     return items.reduce((acc: { [index: string]: number }, e: IIngridients) => {
-      //      (acc: { [index: string]: number }, e: { [index: string]: string }) => {
-
       acc[e._id] = (acc[e._id] || 0) + 1;
       return acc;
     }, res);

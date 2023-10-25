@@ -4,7 +4,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../services/store";
 import { resetPassword } from "../../services/store/asyncActions/userReset";
 import styles from "./reset-password.module.css";
 
@@ -13,19 +12,12 @@ const ResetPassword = () => {
     password: "",
     token: "",
   });
-  const dispatch = useAppDispatch();
   const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
   const handlerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     resetPassword(value);
-    // .then((result) => {
-    //   dispatch(changeResetPassword(false));
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   };
 
   return (

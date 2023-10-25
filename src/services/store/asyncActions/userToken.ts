@@ -15,7 +15,6 @@ export const requestRefreshToken: AppThunk = (dispatch) => {
     },
     body: JSON.stringify({
       token: `${getCookie("refreshToken")}`,
-      // localStorage.getItem("refreshToken"),
     }),
   })
     .then(checkResponse)

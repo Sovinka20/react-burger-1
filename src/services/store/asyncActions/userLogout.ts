@@ -14,7 +14,6 @@ export const logoutUser: AppThunk = () => (dispatch) => {
     },
     body: JSON.stringify({
       token: `${getCookie("refreshToken")}`,
-      // window.localStorage.getItem("refreshToken"),
     }),
   })
     .then(checkResponse)
@@ -22,7 +21,6 @@ export const logoutUser: AppThunk = () => (dispatch) => {
       dispatch({
         type: LOGOUT_USER,
       });
-      // window.localStorage.clear();
       deleteCookie("accessToken");
       deleteCookie("refreshToken");
     })

@@ -34,13 +34,6 @@ export const AuthReducer = (state = initialState, action: TUserActions) => {
       };
     case CHANGE_USER_DATA:
       return { ...state, user: { ...action.payload } };
-    // case LOGOUT_USER:
-    //   return {
-    //     ...state,
-    //     user: null,
-    //     oldUserData: false,
-    //     success: false,
-    //   };
     case IS_USER_CHECKED:
       return { ...state, isAuthChecked: action.payload };
     case LOGOUT_USER:

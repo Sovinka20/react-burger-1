@@ -12,17 +12,6 @@ import {
 } from "../userForgot/actions";
 import { SUCCESS_RESTORE_PASS } from "../userResetPass/actions";
 
-// export const forgotPassword = async (emailData: { email: string }) => {
-//   const res = await fetch(`${BASE_URL}/password-reset`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(emailData),
-//   });
-//   return checkResponse(res);
-// };
-
 export type TRestorePassword = {
   email: string;
 };
@@ -30,7 +19,6 @@ export type TRestorePassword = {
 export const forgotPassword: AppThunk =
   (emailData: TRestorePassword) => (dispatch) => {
     dispatch({ type: START_FORGOT_PASS });
-    //   dispatch({ type: PRELOADER_START });
     fetch(`${BASE_URL}/password-reset`, {
       method: "POST",
       headers: {
@@ -42,15 +30,11 @@ export const forgotPassword: AppThunk =
         if (response) {
           dispatch({ type: SUCCESS_RESTORE_PASS });
           dispatch({ type: SUCCESS_FORGOT_PASS });
-          // dispatch({ type: PRELOADER_STOP });
         }
       })
       .catch((err) => {
         err.json().then((data: TErrorData) => {
           dispatch({ type: ERROR_FORGOT_PASS });
-          // dispatch({ type: SHOW_REQUEST_ERROR_INFO, payload: data.message });
-          // dispatch({ type: PRELOADER_STOP });
         });
       });
-    // .finally(() => dispatch({ type: PRELOADER_STOP }));
   };

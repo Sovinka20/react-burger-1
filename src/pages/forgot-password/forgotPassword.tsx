@@ -3,14 +3,11 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../services/store";
+import { Link } from "react-router-dom";
 import { forgotPassword } from "../../services/store/asyncActions/userForgot";
 import styles from "./forgot-password.module.css";
 
 const ForgotPassword = () => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [value, setValue] = useState({
     email: "",
   });
@@ -20,13 +17,6 @@ const ForgotPassword = () => {
   const handlerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     forgotPassword(value);
-    // .then((result) => {
-    //   navigate("/reset-password");
-    //   dispatch(changeResetPassword(true));
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   };
 
   return (

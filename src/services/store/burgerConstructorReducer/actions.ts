@@ -42,25 +42,3 @@ export type TBurgerConstructorActions =
   | IResetIngredint
   | IDragOn
   | IDragOff;
-
-// export const addIngredientConstuctor = (payload: IIngridients) => ({
-//   type: ADD_INGREDIENT,
-//   payload: { ...payload, key: uuidv4() },
-// });
-// export const addBunIngredientConstuctor = (payload: IIngridients) => ({
-//   type: ADD_BUN_INGREDIENT_BUN,
-//   payload,
-// });
-export const draggingOn = () => ({ type: DRAG_ON });
-export const draggingOff = () => ({ type: DRAG_OFF });
-export const changeIngredient = (payload: IIngridients[]) => ({
-  type: CHANGE_INGEDIENT,
-  payload,
-});
-export const deleteIngredient = (payload: IIngridients[]) => ({
-  type: DELETE_INGREDIENT,
-  payload,
-});
-export const resetIngredients = () => ({
-  type: RESET_INGREDIENTS,
-});

@@ -36,8 +36,3 @@ export type TUserActions =
   | IIsUserChecked
   | IIsUserAuth
   | IChangeResetPass;
-
-export const changeResetPassword = (payload: boolean) => ({
-  type: CHANGE_RESET_PASSWORD,
-  payload,
-});

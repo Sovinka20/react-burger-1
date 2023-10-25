@@ -22,6 +22,7 @@ const Modal: React.FC<TModalProps> = ({ children, handlerModelClose }) => {
     return () => {
       document.removeEventListener("keydown", closePopup);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

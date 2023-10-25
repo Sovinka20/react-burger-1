@@ -47,7 +47,6 @@ function App() {
 
   React.useEffect(() => {
     if (getCookie("accessToken")) {
-      // localStorage.getItem("accessToken")) {
       dispatch({ type: IS_USER_CHECKED, payload: true });
       fetchWithRefresh(`${BASE_URL}/auth/user`, GET_HEADERS)
         .then((res) => {
@@ -69,6 +68,7 @@ function App() {
         type: ADD_FEED_ORDER_DATA,
         payload: feedOrderData,
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const background = location.state && location.state.background;

@@ -11,7 +11,7 @@ import {
 } from "../../data/typesScripts";
 import { useAppDispatch, useAppSelector } from "../../services/store";
 import { getIngridients } from "../../services/store/burgerIngredientsReducer/selectors";
-import { addFeedOrder } from "../../services/store/popupFeedOrderReducer/actions";
+import { ADD_FEED_ORDER_DATA } from "../../services/store/popupFeedOrderReducer/actions";
 import styles from "./order.module.css";
 
 type TOrderProps = {
@@ -19,8 +19,6 @@ type TOrderProps = {
   data: TOrder;
   path: string;
 };
-
-//TOrder
 
 const Order: React.FC<TOrderProps> = ({ data, path }) => {
   const location = useLocation();
@@ -72,7 +70,10 @@ const Order: React.FC<TOrderProps> = ({ data, path }) => {
     ingredientsData: imageArr,
   };
   const handlerModalOpen = (item: IIngredientDetails) => {
-    dispatch(addFeedOrder(item));
+    dispatch({
+      type: ADD_FEED_ORDER_DATA,
+      payload: item,
+    });
   };
   return (
     <Link

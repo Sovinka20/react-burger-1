@@ -7,8 +7,8 @@ import { useDrag, useDrop } from "react-dnd";
 import { IIngridients } from "../../../data/typesScripts";
 import { useAppDispatch, useAppSelector } from "../../../services/store";
 import {
-  changeIngredient,
-  deleteIngredient,
+  CHANGE_INGEDIENT,
+  DELETE_INGREDIENT,
 } from "../../../services/store/burgerConstructorReducer/actions";
 import { getBurgerConstructorList } from "../../../services/store/burgerConstructorReducer/selectors";
 
@@ -32,7 +32,7 @@ const DragCard: React.FC<IDragCard> = ({ styles, item, id, index }) => {
     const newCards = [...cards];
     newCards.splice(dragIndex, 1);
     newCards.splice(hoverIndex, 0, dragCard);
-    dispatch(changeIngredient(newCards));
+    dispatch({ type: CHANGE_INGEDIENT, payload: newCards });
   };
 
   const ref = React.useRef<HTMLLIElement>(null);
@@ -81,7 +81,10 @@ const DragCard: React.FC<IDragCard> = ({ styles, item, id, index }) => {
 
   const handleClose = (item: IIngridients) => {
     let cardsList = cards.filter((ingredient) => ingredient.key !== item.key);
-    dispatch(deleteIngredient(cardsList));
+    dispatch({
+      type: DELETE_INGREDIENT,
+      payload: cardsList,
+    });
   };
 
   return (

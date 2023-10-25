@@ -18,6 +18,7 @@ const Feed = () => {
     return () => {
       dispatch({ type: WEBSOCKET_CLOSE });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getOrderNumbers = (orders: TOrder[]) => {

@@ -7,7 +7,6 @@ import { AppThunk } from "../reducers";
 // Отправка заказа
 export const fetchOrderPost: AppThunk =
   (ingredientsList: Array<string>) => (dispatch) => {
-    // const token: string = localStorage.getItem("accessToken") || "";
     fetch(`${BASE_URL}/orders/`, {
       method: "POST",
       headers: {

@@ -25,7 +25,6 @@ export const fetchIngredients: AppThunk = () => (dispatch) => {
       dispatch({
         type: GET_INGRIDIENTS_ERRORE,
         payload: true,
-        //`Произошла ошибка при получении данных: ${err.status}`,
       });
     });
 };

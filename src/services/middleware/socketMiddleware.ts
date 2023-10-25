@@ -22,13 +22,6 @@ export const webSocketMiddleware = (
   actions: WSActions,
   withToken: boolean
 ): Middleware => {
-  // const tokenLocalStorage: string | undefined =
-  //   window.localStorage.getItem("accessToken") || "";
-  // const token: string =
-  //   tokenLocalStorage !== ""
-  //     ? tokenLocalStorage.substring(tokenLocalStorage.length - 171)
-  //     : tokenLocalStorage;
-  // console.log(token, tokenLocalStorage, localStorage.getItem("accessToken"));
   return ((store: MiddlewareAPI<AppDispatch, TStore>) => {
     let socket: WebSocket | null = null;
 
@@ -37,9 +30,6 @@ export const webSocketMiddleware = (
       const { wsInit, disconnect, onError, onMessage } = actions;
 
       if (action.type === wsInit && socket === null) {
-        // if (token === "" && url === WS_URL_ORDERS_USER_HISTORY)
-        //   window.location.reload();
-
         socket = withToken
           ? (socket = new WebSocket(
               `${url}?token=${getCookie("accessToken")?.split("Bearer ")[1]}`
