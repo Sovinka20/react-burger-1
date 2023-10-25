@@ -12,8 +12,24 @@ export type TFeedOrderReducer = {
   error: boolean;
 };
 
-const initialState: TFeedOrderReducer = {
-  feedOrderData: [],
+export const initialState: TFeedOrderReducer = {
+  feedOrderData: [
+    {
+      _id: "",
+      type: "",
+      image_large: "",
+      image_mobile: "",
+      image_mobail: "",
+      image: "",
+      name: "",
+      calories: 0,
+      proteins: 0,
+      fat: 0,
+      carbohydrates: 0,
+      price: 0,
+      numberOfComponents: 0,
+    },
+  ],
   isLoading: false,
   error: false,
 };

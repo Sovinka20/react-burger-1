@@ -16,7 +16,7 @@ export type TBurgerConstructorReducer = {
   isDrag: boolean;
 };
 
-const initialState: TBurgerConstructorReducer = {
+export const initialState: TBurgerConstructorReducer = {
   bun: null,
   ingredients: [],
   isDrag: false,

@@ -5,7 +5,7 @@ type IOrderDetailsReducer = {
   orderDetails: TOrderResponse;
 };
 
-const initialState: IOrderDetailsReducer = {
+export const initialState: IOrderDetailsReducer = {
   orderDetails: {
     success: false,
     name: "",
@@ -39,28 +39,7 @@ export const OrderDetailsReducer = (
         orderDetails: action.payload,
       };
     case RESET_ORDER_DATA:
-      return {
-        orderDetails: {
-          success: false,
-          name: "",
-          order: {
-            ingredients: [],
-            _id: "",
-            owner: {
-              name: "",
-              email: "",
-              createdAt: "",
-              updatedAt: "",
-            },
-            status: "",
-            name: "",
-            createdAt: "",
-            updatedAt: "",
-            number: 0,
-            price: 0,
-          },
-        },
-      };
+      return initialState;
     default:
       return state;
   }

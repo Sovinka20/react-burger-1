@@ -9,8 +9,22 @@ import {
 type TStateIngredientDetailsReducer = {
   ingredient: IIngridients[];
 };
-const initialState: TStateIngredientDetailsReducer = {
-  ingredient: [],
+export const initialState: TStateIngredientDetailsReducer = {
+  ingredient: [
+    {
+      _id: "",
+      type: "",
+      image_large: "",
+      image_mobail: "",
+      image: "",
+      name: "",
+      calories: 0,
+      proteins: 0,
+      fat: 0,
+      carbohydrates: 0,
+      price: 0,
+    },
+  ],
 };
 
 export const IngredientDetailsReducer = (

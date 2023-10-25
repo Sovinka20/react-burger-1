@@ -12,7 +12,7 @@ type ordersUserReducerState = {
   data: TWSData;
 };
 
-const initialState: ordersUserReducerState = {
+export const initialState: ordersUserReducerState = {
   wsConnected: false,
   data: {
     success: false,

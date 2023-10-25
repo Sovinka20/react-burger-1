@@ -10,7 +10,7 @@ export interface IGetIngredintsReq {
 }
 export interface IGetIngredintsErr {
   readonly type: typeof GET_INGRIDIENTS_ERRORE;
-  payload: string;
+  payload: boolean;
 }
 export interface IGetIngredintsSucc {
   readonly type: typeof GET_INGRIDIENTS_SUCCESS;
